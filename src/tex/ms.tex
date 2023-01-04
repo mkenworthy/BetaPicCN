@@ -132,13 +132,58 @@ We collated all publicly available HARPS observations of $\beta$ Pic obtained be
 
 
 \subsection{UVES observations}
-To supplement the HARPS observations, we use 160 epochs of UVES observations obtained between 01 April, 2017 and April 18, 2018 under programme 599.C-0751. The details for these observations are explained in more detail in \cite{vansluijs2019}, and only briefly summarised here. These observations were all obtained using the same instrument setup. We used the standard 437+760 mode of UVES, which uses the \#2 dichroic to allow simultaneous observations in both the red and blue arm. In this mode, the CD\#2 and CD\#4 crossdispersers are used in the blue and red-arm, respectively, providing a simultaneous wavelength coverage of $\sim$3730 $\AA$  to $\sim$5000 $\AA$ in the blue arm, and $\sim$5650 $\AA$ to $\sim$9560 $\AA$ in the red arm. For the remainder of the paper, we will only focus on the data from the blue arm of UVES, as this covers the strong CN band-head seen in Solar system comets. 
+To supplement the HARPS observations, we use 160 epochs of UVES observations obtained between 01 April, 2017 and April 18, 2018 under programme 599.C-0751.
+%
+The details for these observations are explained in more detail in \cite{vansluijs2019}, and summarised here.
+%
+These observations were all obtained using the same instrument setup.
+%
+We used the standard 437+760 mode of UVES, which uses the \#2 dichroic to allow simultaneous observations in both the red and blue arm.
+%
+In this mode, the CD\#2 and CD\#4 cross-dispersers are used in the blue and red-arm, respectively, providing a simultaneous wavelength coverage of $\sim$3730 $\AA$  to $\sim$5000 $\AA$ in the blue arm, and $\sim$5650 $\AA$ to $\sim$9560 $\AA$ in the red arm.
+%
+For the remainder of the paper, we will only focus on the data from the blue arm of UVES, as this covers the strong CN band-head seen in Solar system comets.
+%
 For the blue arm, a 0.3''-wide slit was used to obtain the highest possible resolving power ($\sim$90,000 before an intervention on the instrument in October 2017, and $\sim$100,000 after the intervention). 
 
 The data were reduced using the ESO UVES pipeline version 5.7.0 through ESO Reflex tool in order to provide as homogeneous a dataset as possible. 
 
 \subsection{Initial data processing}
-The data from both instruments was processed in very similar ways. For both datasets, we used the 2d-unmerged echelle spectra, and we treated each order separately. Initially, we aligned all the spectra in the stellar rest-frame using a linear interpolation. 
+The data from both instruments was processed in similar ways.
+%
+For both datasets, we used the 2d-unmerged echelle spectra, and we treated each order separately.
+%
+All the spectra were transformed into the stellar rest-frame using linear interpolation. 
+
+The number of observations varies from night to night, from a few spectra to over a hundred.
+%
+An average of all the spectra in one night was made for all the nights of observations.
+
+
+The blaze function dominates the flux profile of the spectra.
+%
+One of the nights with a high signal to noise was chosen to act as an initial estimate for the blaze function: this spectrum was binned in the spectral direction to remove both narrow absorption lines and the rotationally broadened stellar chromospheric lines, but preserve the shape of the blaze function.
+%
+A low order second or third order polynomial was fit to each echelle order, and this fit spectrum served as a blaze function estimate. 
+
+For all the spectra in a given night:
+ - Divide the spectrum by the reference spectrum, which hs the fit of the low order polynomial to the best night spectrum.
+ - Combine all these spectrum within a single night all together, to form the final night spectrum (this still has the BLAZE function in it...)
+
+ For all the night spectra:
+
+ We median combine all the nights together.
+
+ Bin the spectrum and clip it, interpolate using a cubic spline.
+
+
+ Divide this interpolated cubic spline into each of the nightly spectra.
+
+
+THis removes the blaze function, but there remain low spatial frequency variations between different nights, due to the changing slit illumination as the star moves across the spit aperture.
+
+We then fit a second order polynomial to each individual night and divide this out, resulting in a flattened spectrum for each night.
+
 
 Subsequently, we applied a correction for variations in the instrumental blaze by selecting a reference spectrum and dividing all the spectra by this reference. The ratio was then binned, removing outliers, and a polynomial was fit to the data. For UVES we used a Nth degree polynomial, while for HARPS we used a 2nd degree polynomial. This polynomial was then divided from the spectrum under consideration. We note that the blaze correction will also remove non-instrumental effects, including variations in atmospheric transmission and seeing.
 
