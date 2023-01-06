@@ -9,3 +9,35 @@ overleaf:
     - src/tex/ms.tex
     - src/tex/bib.bib
 
+dependencies:
+  src/scripts/plot_HARPS_CN_grid.py:
+    - src/data/results_HARPS.txt
+  src/scripts/analyse_HARPS_spectra.py:
+    - src/data/CN/CN_0010K.npy
+    - src/data/CN/CN_0020K.npy
+    - src/data/CN/CN_0050K.npy
+    - src/data/CN/CN_0100K.npy
+    - src/data/CN/CN_0200K.npy
+    - src/data/CN/CN_0300K.npy
+    - src/data/CN/CN_1000K.npy
+    - src/data/CN/CN_2000K.npy
+    - src/data/CN/CN_wavelengths.npy
+    - src/data/2d_nspec.fits
+    - src/data/2d_spec.fits
+    - src/data/2d_wavelength.fits
+    - src/data/2d_baryvel.fits
+
+verbose:
+  true
+
+dag:
+  render: true
+  engine: sfdp
+  graph_attr:
+    ranksep: "1"
+    nodesep: "0.65"
+  group_by_type: true
+  node_attr:
+    shape: "box"
+    penwidth: "2"
+    width: "1"
