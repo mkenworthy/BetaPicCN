@@ -26,8 +26,9 @@ from scipy.optimize import curve_fit
 import scipy.stats as stats
 import time
 import gc
+import matplotlib as mpl
 
-rcParams['figure.figsize'] = 12, 8
+mpl.rcParams['figure.figsize'] = 12, 8
 
 ## this is to convolve an arbitrary spectrum in (wave, spec) with velocity broadening effects.
 ## dv is in km/s (which here we're setting to c/R)
