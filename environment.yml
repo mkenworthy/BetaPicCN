@@ -1,6 +1,8 @@
 dependencies:
-  - numpy=1.19.2
-  - pip=21.0.1
+  - numpy
+  - pip
   - python=3.9
+  - pylab
+  - astropy
   - pip:
-      - matplotlib==3.4.3
+      - matplotlib
