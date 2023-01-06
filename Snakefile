@@ -1,4 +1,4 @@
-rule CN_xcorrelation:
+rule CN_xcor:
     cache:
         True
     input:
