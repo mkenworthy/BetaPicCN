@@ -1,5 +1,11 @@
 version: 0.3.1
 
+# Enable rule caching on Zenodo?
+cache_on_zenodo: true
+
+# Allow cacheable rules to run on GitHub Actions?
+run_cache_rules_on_ci: true
+
 overleaf:
   id: 631205f990aae1c99f65a579
   push:
