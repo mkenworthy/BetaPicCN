@@ -10,7 +10,7 @@ overleaf:
     - src/tex/bib.bib
 
 dependencies:
-  src/scripts/plot_HARPS_spectra.py:
+  src/scripts/plot_HARPS_CN_grid.py:
     - src/data/results_HARPS.txt
   src/scripts/analyse_HARPS_spectra.py:
     - src/data/CN/CN_0010K.npy
