@@ -1,8 +1,5 @@
 rule CN_xcor:
-    cache:
-        True
     input:
-        "src/data/CN/CN_0300K.npy",
         "src/data/CN/CN_0010K.npy",
         "src/data/CN/CN_0020K.npy",
         "src/data/CN/CN_0050K.npy",
