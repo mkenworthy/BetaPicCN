@@ -18,15 +18,15 @@ datasets:
       2d_baryvel.fits: src/data/2d_baryvel.fits
       CN.zip:
         CN:
-          CN_0010K.npy: 
-          CN_0020K.npy: 
-          CN_0050K.npy:
-          CN_0100K.npy: 
-          CN_0200K.npy: 
-          CN_0300K.npy: 
-          CN_1000K.npy: 
-          CN_2000K.npy: 
-          CN_wavelengths.npy: 
+          CN_0010K.npy: src/data/CN/CN_0010K.npy
+          CN_0020K.npy: src/data/CN/CN_0020K.npy
+          CN_0050K.npy: src/data/CN/CN_0050K.npy
+          CN_0100K.npy: src/data/CN/CN_0100K.npy
+          CN_0200K.npy: src/data/CN/CN_0200K.npy
+          CN_0300K.npy: src/data/CN/CN_0300K.npy
+          CN_1000K.npy: src/data/CN/CN_1000K.npy
+          CN_2000K.npy: src/data/CN/CN_2000K.npy
+          CN_wavelengths.npy: src/data/CN/CN_wavelengths.npy
 
 dependencies:
   src/scripts/plot_HARPS_CN_grid.py:
