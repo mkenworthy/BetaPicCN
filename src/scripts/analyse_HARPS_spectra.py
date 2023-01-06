@@ -13,7 +13,7 @@ import paths
 
 mpl.rc('image', interpolation='nearest', origin='lower', cmap = 'gray')
 
-from pylab import rcParams
+#from pylab import rcParams
 from scipy import interpolate
 from astropy import units as u
 from astropy import constants as const
