@@ -2,7 +2,7 @@ dependencies:
   - numpy
   - pip
   - python=3.9
-  - pylab
   - astropy
+  - scipy
   - pip:
       - matplotlib
