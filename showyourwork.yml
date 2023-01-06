@@ -13,7 +13,6 @@ dependencies:
   src/scripts/plot_HARPS_spectra.py:
     - src/data/results_HARPS.txt
   src/scripts/analyse_HARPS_spectra.py:
-
     - src/data/CN/CN_0300K.npy
     - src/data/CN/CN_0010K.npy
     - src/data/CN/CN_0020K.npy
