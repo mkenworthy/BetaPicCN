@@ -404,7 +404,7 @@ def run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,f,binsize=81,binsize2=400,nsk
     N0=np.hstack([np.arange(1,4)*1e13])
 
     T_gas0=np.asarray([10, 20, 50, 100, 200, 300, 1000, 2000])
-    T_gas0=np.asarray([10, 20,200])
+    T_gas0=np.asarray([10, 20,50,100])
     ntot = np.size(N0)*np.size(T_gas0)
     count = 1
     for T_gas in T_gas0:
