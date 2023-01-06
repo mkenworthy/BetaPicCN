@@ -9,3 +9,7 @@ overleaf:
     - src/tex/ms.tex
     - src/tex/bib.bib
 
+dependencies:
+  src/scripts/plot_HARPS_spectra.py:
+    - src/data/results_HARPS.txt
+    

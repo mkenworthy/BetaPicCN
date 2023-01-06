@@ -9,6 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from astropy.io import fits
 import matplotlib as mpl
+import paths
 
 mpl.rc('image', interpolation='nearest', origin='lower', cmap = 'gray')
 
@@ -45,8 +46,8 @@ def get_mdl(fn='CN/CN_0300K.npy',N=1e15,FWHM_kernel=3e5/1.1e5):
     ## set sampling for convolution to 0.25 km/s
     res_interp=12e5
     
-    c = np.load(fn)
-    w = np.load('CN/CN_wavelengths.npy') #np.arange(3850, 3885, 0.0001)
+    c = np.load(paths.data/fn)
+    w = np.load(paths.data/'CN/CN_wavelengths.npy') #np.arange(3850, 3885, 0.0001)
     tau = N * c
     prof = np.exp(-tau)
     
@@ -75,10 +76,10 @@ def get_mdl(fn='CN/CN_0300K.npy',N=1e15,FWHM_kernel=3e5/1.1e5):
 
 ##Read in data
 def read_data(order=[0,1,2,3,4,5,6,7]):
-    nspec = fits.getdata('2d_nspec.fits')
-    spec = fits.getdata('2d_spec.fits')
-    wlen = fits.getdata('2d_wavelength.fits')
-    bary = fits.getdata('2d_baryvel.fits')
+    nspec = fits.getdata(paths.data/'2d_nspec.fits')
+    spec = fits.getdata(paths.data/'2d_spec.fits')
+    wlen = fits.getdata(paths.data/'2d_wavelength.fits')
+    bary = fits.getdata(paths.data/'2d_baryvel.fits')
     return nspec,spec[:,order,:],wlen[order,:],bary
 
 
@@ -399,10 +400,10 @@ def fold_comet(v_ccf,ccf,sim_ccf,T_gas,N,binsize,idx_comets,v_comets):
 def run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,f,binsize=81,binsize2=400,nskip=25,v_cutoff=50,v_comet=0.,idx_comet=0.):
     ## Define a range of column densities to use (mainly injection)
     N0=np.hstack([np.arange(1,10)*1e11,np.arange(1,10)*1e12,np.arange(1,6)*1e13])
-    #N0=np.hstack([np.arange(1,4)*1e13])
+    N0=np.hstack([np.arange(1,4)*1e13])
 
     T_gas0=np.asarray([10, 20, 50, 100, 200, 300, 1000, 2000])
-    #T_gas0=np.asarray([10, 20,200,1000])
+    T_gas0=np.asarray([10, 20,200])
     ntot = np.size(N0)*np.size(T_gas0)
     count = 1
     for T_gas in T_gas0:
@@ -454,7 +455,7 @@ v_comet=3e5*(FEB_wave-lam0)/lam0
 data_for_ccf=np.vstack((cor[:,0:6,:],np.mean(cor[:,0:6,:],axis=0)[np.newaxis,:,:]))
 wlens=wlen[0:6,:]
 
-f = open("results.txt", "w")
+f = open(paths.data/"results_HARPS.txt", "w")
 run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,f,binsize=binsize,binsize2=binsize2,nskip=nskip,v_cutoff=50,v_comet=v_comet,idx_comet=FEB_idx)
 f.close()
 
