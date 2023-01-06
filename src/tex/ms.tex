@@ -128,7 +128,7 @@ Given the ubiquitous signature of CN emission in Solar system comets, we have em
 For the study in this paper, we use all the available data from the High Accuracy Radial Velocity Planet Searcher (HARPS) and the ESO 3.6m telescope in Chile. In addition, we complement this with observations with the Ultra-violet Visible Echelle Spectrograph (UVES) at the Very Large Telescope in Chile. 
 
 \subsection{HARPS observations}
-We collated all publicly available HARPS observations of $\beta$ Pic obtained between October 2003 and May 2018. Although these observations cover a large baseline, the cadence between visits varies between 1 day and $\sim$2.2 years. Similarly, the number of observations per epoch spans a wide range, between 1 and 356 exposures, while the exposure times vary between 12 and 900 seconds. 
+We collated all publicly available HARPS observations of $\beta$ Pic obtained between October 2003 and March 2020. Although these observations cover a large baseline, the cadence between visits varies between 1 day and $\sim$2.2 years. Similarly, the number of observations per epoch spans a wide range, between 1 and 356 exposures, while the exposure times vary between 12 and 900 seconds. For this analysis we used the E2DS files downloaded directly from the ESO archive.
 
 
 \subsection{UVES observations}
@@ -198,10 +198,23 @@ The relative velocities of the exocomets were determined by ......., and the spe
 
 [Do we want to do a simple CCF to see if we can combine the individual lines?]
 
-
 \subsection{CN}
 
+\begin{figure}
+    \begin{centering}
+        \includegraphics{figures/HARPS_CN_grid.pdf}
+        \caption{Confidence intervals for the signal to noise of CN spectra using HARPS spectra of Beta Pictoris.}
+        \label{fig:HARPS_CN_grid}
+        \script{plot_HARPS_CN_grid.py}
+    \end{centering}
+\end{figure}
+
+
+
 \subsection{Other Species? CO$^+$, C$_2$?}
+
+
+
 
 \section{Discussion}
 
