@@ -19,7 +19,7 @@ datasets:
       CN.zip:
         CN_0010K.npy: 
         CN_0020K.npy: 
-        CN_0050K.npy: 
+        CN_0050K.npy: src/data/CN/CN_0050K.npy
         CN_0100K.npy: 
         CN_0200K.npy: 
         CN_0300K.npy: 
