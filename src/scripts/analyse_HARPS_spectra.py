@@ -400,7 +400,7 @@ def fold_comet(v_ccf,ccf,sim_ccf,T_gas,N,binsize,idx_comets,v_comets):
 ## run ccf for a range of temperatures
 def run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,f,binsize=81,binsize2=400,nskip=25,v_cutoff=50,v_comet=0.,idx_comet=0.):
     ## Define a range of column densities to use (mainly injection)
-    N0=np.hstack([np.arange(1,10)*1e11,np.arange(1,10)*1e12,np.arange(1,6)*1e13])
+    N0=np.hstack([np.arange(1,10)*1e11,np.arange(1,10)*1e12,np.arange(1,5)*1e13])
     #N0=np.hstack([np.arange(1,4)*1e13])
 
     T_gas0=np.asarray([10, 20, 50, 100, 200, 300, 1000, 2000])
