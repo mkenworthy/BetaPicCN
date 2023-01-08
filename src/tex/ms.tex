@@ -17,9 +17,18 @@
 \usepackage{amsmath}
 \bibpunct{(}{)}{;}{a}{}{,} % to follow the A&A style
 
+\newcommand{\kms}{km s$^{-1}$}
+\newcommand{\bpb}{Beta Pictoris b}
+\newcommand{\bp}{Beta Pictoris}
+
 \usepackage{color}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,allcolors=[rgb]{0,0,0.8}}
+
+\usepackage[nolist,nohyperlinks]{acronym}
+\newacro{harps}[HARPS]{High Accuracy Radial Velocity Planet Searcher}
+\newacro{uves}[UVES]{Ultra-violet Visible Echelle Spectrograph}
+\newacro{feb}[FEBs]{Falling Evaporating Bodies}
 
 %
 \usepackage{graphicx}
@@ -32,6 +41,11 @@
 %
 \usepackage{showyourwork}
 
+% text highlighting
+\usepackage{soul}
+\sethlcolor{yellow}
+
+\usepackage[version=4]{mhchem}
 % the three lines suppress the hyperref 'link empty' warnings
 % explanation at: https://tex.stackexchange.com/questions/345764/journal-class-shows-package-hyperref-warning-suppressing-link-with-empty-targe
 \makeatletter
@@ -41,7 +55,7 @@
 \begin{document} 
 
 
-   \title{Upper Limits on CN from Falling Evaporating Bodies\\seen towards Beta Pictoris}
+   \title{Upper Limits on CN from Falling Evaporating Bodies\\seen towards \bp{}}
 
    \author{M.A. Kenworthy
           \inst{1}
@@ -54,23 +68,19 @@
           \and 
           F. Kiefer\inst{5}
           \and
-          A. Fitzsimmons \inst{6}
+          A. Fitzsimmons \inst{1}
           }
 
-   \institute{Institute for Astronomy (IfA), University of Vienna,
-              T\"urkenschanzstrasse 17, A-1180 Vienna\\
-              \email{wuchterl@amok.ast.univie.ac.at}
+   \institute{Leiden Observatory, Leiden University, P.O. Box 9513, 2300 RA Leiden, The Netherlands\\
+              \email{kenworthy@strw.leidenuniv.nl}
          \and
-             DCU, ...\\
+             Astrophysics Research Centre, School of Mathematics and Physics, Queen’s University Belfast, BT7 1NN Belfast, UK
         \and
-             ESO (European Southern Observatory) - Alonso de Cordova 3107, Vitacura, Santiago, Chile\\
+             Institute for Astronomy, University of Edinburgh, Royal Observatory, Edinburgh EH9 3HJ, UK
         \and
-        Department of Astronomy, AlbaNova University Center, Stockholm University, 106 91 Stockholm, Sweden, \email{alexis@astro.su.se}\\
+        Institutionen f\"{o}r astronomi, Stockholms universitet, AlbaNova universitetscentrum, 106 91, Stockholm, Sweden
         \and
-        Paris
-        \and
-            Astrophysics Research Centre, School of Mathematics and Physics, Queen's University Belfast, BT7 1NN, UK
-             }
+        LESIA, Observatoire de Paris, Université PSL, CNRS, 5 Place Jules Janssen, 92190 Meudon, France}
 
    \date{Received XXXX; Accepted XXXX}
 
@@ -80,15 +90,15 @@
   \abstract
   % context heading (optional)
   % {} leave it empty if necessary  
-   {Beta Pic has FEBs which are seen as variable transient absorption features towards Beta Pictoris.}
+   {Beta Pic has \ac{feb} which are seen as variable transient absorption features towards \bp{}.}
   % aims heading (mandatory)
-   {To detect cyanogen (CN) in the FEB spectrum, confirming that they are similar to comets in the Solar System.}
+   {To detect cyanogen (\ce{CN}) in the \ac{feb} spectrum, confirming that they are similar to comets in the Solar System.}
   % methods heading (mandatory)
-   {We combine the HARPS spectra from the past 20 years to make a high signal to noise ratio spectrum and look for the CN band head. We also combine UVES data to confirm our non-detections/detections.}
+   {We combine the \ac{harps} spectra from the past 20 years to make a high signal to noise ratio spectrum and look for the \ce{CN} band head. We also combine \ac{uves} data to confirm our non-detections/detections.}
   % results heading (mandatory)
-   {No CN is seen to a level of XXX ppt, indicating that there is less CN in these FEBs than Solar system comets.}
+   {No \ce{CN} is seen to a level of XXX ppt, indicating that there is less \ce{CN} in these \ac{feb} than Solar system comets.}
   % conclusions heading (optional), leave it empty if necessary 
-   {FEBs are not Solar System comets in composition.}
+   {\ac{feb} are not Solar System comets in composition.}
 
    \keywords{comets --- transits, spectroscopy}
 
@@ -98,57 +108,110 @@
 
 \section{Introduction}
 
-Comets and exocomets are Cool!
+%Short Beta pic description, previous detection of species in optical (CaII, NaI, FeI).
 
-Short Beta pic description, previous detection of species in optical (CaII, NaI, FeI). HELLO WORLD!
+To the contrary of what is observed in the case of \ac{feb}, most molecular and atomic signatures detected in the coma of Solar system comets are emission lines/bands instead of absorptions.
 
-To the contrary of what is observed in the case of FEBs, most molecular and atomic signatures detected in the coma of Solar system comets are emission lines/bands instead of absorptions.
+Spectroscopic observations of Solar system comets when they are very close to the Sun are rare due to observational difficulties.
+%
+%The only comet spectroscopically observed closer than 0.2~au from the Sun is C/1965~S1 Ikeya-Seki.
+%
+%For this comet, it was noticed that the main emission bands/lines detected in its optical spectrum dramatically changed while the comet approached the Sun.
+%
+%At distances greater than 0.4~au, \ce{CH}, \ce{CN}, \ce{C2}, and \ce{C3} emission bands dominated the spectrum, but at 0.15 au from the Sun, the only molecular emission detected was \ce{CN}, while numerous atomic lines were visible \citep[\ce{[\ion{O}{i}], \ion{Na}{i}, \ion{K}{i}, \ion{Ca}{ii}, \ion{Cr}{i}, \ion{Mn}{i}, \ion{Fe}{i}, \ion{Ni}{i}, \ion{Cu}{i}, \ion{V}{i}; ][]{Dufay65,Thackeray1966,Preston1967,Slaughter1969}.
 
-%Spectroscopy of Solar system comets when they are very close to the Sun is rare due to observational difficulties. The only comet spectroscopically observed closer than 0.2~au from the Sun is C/1965~S1 Ikeya-Seki. For this comets, it was noticed that the main emission bands/lines detected in its optical spectrum dramatically changed while the comets approached the Sun. At distances greater than 0.4~au, CH, CN, C$_2$, and C$_3$ emission bands dominated the spectrum. However, at 0.15 au from the Sun, the only molecular emission detected was CN, while numerous atomic lines were visible ([OI], NaI, KI, CaII, CrI, MnI, FeI, NiI, CuI, VI) (\citealp{Dufay65}; \citealp{Thackeray1966}; \citealp{Preston1967}; \citealp{Slaughter1969}).
+%While the above neutral/ionic signatures in FEBs are well established, it is important to note that detection of these species in Solar system comets is rare.
+%
+\ion{Ca}{ii} and \ion{Fe}{i} have only been spectroscopically observed via emission lines in the sun-grazing comet C/1965~S1 Ikeya-Seki.
+%
+For this comet, it was noticed that the main emission bands/lines detected in its optical spectrum dramatically changed while the comets approached the Sun.
+%
+At distances greater than 0.4~au, \ce{CH}, \ce{CN}, \ce{C2}, and \ce{C3} emission bands dominated the spectrum.
+%
+However, at 0.15~au from the Sun, the only molecular emission detected was \ce{CN}, while numerous atomic lines were visible \citep[\ion{[O]}{i}, \ion{Na}{i}, \ion{K}{i}, \ion{Ca}{ii}, \ion{Cr}{i}, \ion{Mn}{i}, \ion{Fe}{i}, \ion{Ni}{i}, \ion{Cu}{i}, \ion{V}{i}; ][]{Dufay65,Thackeray1966,Preston1967,Slaughter1969}.
+%
+Additionally, a tail of \ion{Fe}{i} atoms was proposed to explain a linear feature imaged in the tail of sungrazing comet C/2016~P1 McNaught 2006P1 \citep{Fulle2007}. 
 
-While the above neutral/ionic signatures in FEBs are well established, it is important to note that detection of these species in Solar system comets is rare. Ca~II and Fe~I have only been spectroscopically observed via emission lines in the sun-grazing comet C/1965~S1 Ikeya-Seki. For this comet, it was noticed that the main emission bands/lines detected in its optical spectrum dramatically changed while the comets approached the Sun. At distances greater than 0.4~au, CH, CN, C$_2$, and C$_3$ emission bands dominated the spectrum. However, at 0.15 au from the Sun, the only molecular emission detected was CN, while numerous atomic lines were visible ([OI], NaI, KI, CaII, CrI, MnI, FeI, NiI, CuI, VI) (\citealp{Dufay65}; \citealp{Thackeray1966}; \citealp{Preston1967}; \citealp{Slaughter1969}).
-Additionally, a tail of FE~I atoms was proposed to explain a linear feature imaged in the tail of sungrazing comet C/2016~P1 McNaught 2006P1 \citep{Fulle2007}. 
+On the other hand, \ion{Na}{i} D-line emission has been observed in many comets within $r \sim 1$ au of the Sun, where either the emission was much brighter than the foreground sky emission, or the comet was observed at high spectral resolution enabling separation from the telluric lines [REFs].
+%
+The high efficiency of the \ion{Na}{i} D transition makes it easily detectable, even for relatively low column density.
+%
+A notable discovery was a spectacular tail of \ion{Na}{i} associated with comet C/1995 O1 Hale-Bopp at $r\sim 1$ au, formed by radiation pressure on the neutral atoms before ionisation \citep{Cremonese1997}. 
 
-On the other hand, Na~I D-line emission has been observed in many comets within $r \sim 1$ au of the Sun, where either the emission was much brighter than the foreground sky emission, or the comet was observed at high spectral resolution enabling separation from the telluric lines [REFs]. The high efficiency of the NaI D transition makes it easily detectable, even for relatively low column density. A notable discovery was a spectacular tail of Na~I associated with comet C/1995 O1 Hale-Bopp at $r\sim 1$ au, formed by radiation pressure on the neutral atoms before ionisation \citep{Cremonese1997}. 
-
-These characteristics imply that Ca~II and Fe~I are predominantly locked up within cometary dust gains, and only observed when a comet is close enough to the Sun to allow their sublimation. This occurs at $r\leq 0.03-0.06$ au for a dust grain with Bond albedo $\sim0.01$ and a sublimation temperature of $T\simeq 1600$K, depending on the thermal model assumed. On the other hand, the origin of the NaI tail observed in numerous comets at larger distances from the Sun is still not very well understood [Cremonese+2002]. Release from dust grains as well as molecular processes have been suggested as possible sources of NaI in the coma and tail of comets annd explain its presence at large solar distances \citep{Cremonese1997}.
+These characteristics imply that \ion{Ca}{ii} and \ion{Fe}{i} are predominantly locked up within cometary dust gains, and only observed when a comet is close enough to the Sun to allow their sublimation.
+%
+This occurs at $r\leq 0.03-0.06$ au for a dust grain with Bond albedo $\sim0.01$ and a sublimation temperature of $T\simeq 1600$K, depending on the thermal model assumed.
+%
+On the other hand, the origin of the \ion{Na}{i} tail observed in numerous comets at larger distances from the Sun is still not very well understood \citep{Cremonese02}.
+%
+Release from dust grains as well as molecular processes have been suggested as possible sources of \ion{Na}{i} in the coma and tail of comets annd explain its presence at large solar distances \citep{Cremonese1997}.
 %Na appears to be weakly bound to the dust grains and released at larger solar distances.
 
-For the majority of Solar system comets, their optical spectra are dominated by the reflected sunlight from dust grains in their comae, plus molecular and atomic emission lines [{\it e.g.} \citep{hyland2019}]. Most of the neutral and ionic molecular emission results from resonance fluorescence with solar photons. Some species, such as H$_2$O$^+$ and  CO$^+$ result from ionization of parent molecules (i.e. molecules released directly by the sublimation of nuclear ices), all other molecules observed are second generation species, often created via photodissociation of parent molecules or released by organic-rich grains in the coma. Another process also observed in optical spectrum of comets is prompt atomic emission  ([OI], [CI], and [NI]). Those forbidden transitions are the result of atoms produced in an excited state by the photodissociation of parent molecules in the coma. 
-%Only the Na~I emission is currently thought to be generated by release mainly from dust grains ejected by the comet. 
+For the majority of Solar system comets, their optical spectra are dominated by the reflected sunlight from dust grains in their comae, plus molecular and atomic emission lines \citep[e.g. ][]{hyland2019}.
+%
+Most of the neutral and ionic molecular emission results from resonance fluorescence with solar photons. Some species, such as \ce{H2O+} and \ce{CO+} result from ionization of parent molecules (i.e. molecules released directly by the sublimation of nuclear ices), all other molecules observed are second generation species, often created via photodissociation of parent molecules or released by organic-rich grains in the coma.
+%
+Another process also observed in optical spectrum of comets is prompt atomic emission  ([\ion{O}{i}], [\ion{C}{i}], and [\ion{N}{i}]).
+%
+Those forbidden transitions are the result of atoms produced in an excited state by the photodissociation of parent molecules in the coma. 
 
+Of all cometary gas emission, the highest signal to noise normally occurs with the \ce{CN} (0-0) band at $\lambda\simeq 3880$\AA.
+%
+It is usually the first emission detected in the optical spectrum of a comet as it approaches the Sun, and as been detected in the coma of comets observed at relatively large distances from the Sun \citep[e.g. ][]{Fitzsimmons1996}.
+%
+The relative abundance in the coma of most comets of \ce{CN/OH}$\simeq500$ \citep{AHearn1995}, together with its high fluorescence scattering efficiency factor of $\sim$ 2.6 photons/sec/molecule at 1~au from the Sun and $\dot{r}\simeq 0$ \citep{Schleicher2010}, gives rise to a clear signature of a cometary gas comae.
+%
+Historically, the \ce{CN} was believed to be created from photodissociation of \ce{HCN}, which is present in abundances of the order of 1\% relative to water in cometary ices.
+%
+High-spatial resolution sub-mm mapping of \ce{HCN} distributions supports a nuclear source in some comets \citep{Cordiner2014}.
+%
+However, it is now known that in many comets a substantial fraction of \ce{CN} is released from sub-micron dust grains in the inner coma of comets \citep[e.g. ][]{Fray2005}. 
 
-Of all cometary gas emission, the highest signal to noise normally occurs with the CN (0-0) band at $\lambda\simeq 3880$\AA. It is usually the first emission detected in the optical spectrum of a comet as it approaches the Sun, and as been detected in the coma of comets observed at relatively large distances from the Sun {\it e.g.}  \cite{Fitzsimmons1996}. The relative abundance in the coma of most comets of CN/OH$\simeq500$ \citep{AHearn1995}, together with its high fluorescence scattering efficiency factor of $\sim$ 2.6 photons/sec/molecule at 1 au from the Sun and $\dot{r}\simeq 0$ \citep{Schleicher2010}, gives rise to a clear signature of a cometary gas comae. Historically, the CN was believed to be created from photodissociation of HCN, which is present in abundances of the order of 1\% relative to water in cometary ices.  High-spatial resolution sub-mm mapping of HCN distributions supports a nuclear source in some comets \citep{Cordiner2014}. However, it is now known that in many comets a substantial fraction of CN is released from sub-micron dust grains in the inner coma of comets {\it e.g.} \cite{Fray2005}. 
+The \ce{C2} (0-0) band at $\lambda\simeq 5160$\AA \ may be of comparable flux, but has a lower contrast with the underlying dust grain continuum due to its wider bandwidth.
+%
+The \ce{OH} (0-0) band at $\lambda\simeq 3080$ \AA \ generally has higher flux, but unless observed from space the high terrestrial atmospheric absorption severely diminishes the observed flux.
+%
+Strong \ce{CO+} emission bands have also been observed in a number of comets (the strongest ones are the (3-0) and (2-0) $\mathrm{A^2\Pi-X^2\Sigma}$) \hl{REFS}).
+%
+However this is normally significantly weaker than the observed \ce{CN} emission, with only \hl{number of comets} comets.
 
-The C$_2$ (0-0) band at $\lambda\simeq 5160$\AA \ may be of comparable flux, but has a lower contrast with the underlying dust grain continuum due to its wider bandwidth. The OH (0-0) band at $\lambda\simeq 3080$ \AA \ generally has higher flux, but unless observed from space the high terrestrial atmospheric absorption severely diminishes the observed flux. Strong CO$^+$ emission bands have also been observed in a number of comets (the strongest ones are the (3-0) and (2-0) $\mathrm{A^2\Pi-X^2\Sigma}$) [REFS]). However this is normally significantly weaker than the observed CN emission, with only ??? comets 
-
-Given the ubiquitous signature of CN emission in Solar system comets, we have embarked on an archival search for this species in the FEBs around Beta Pic. Detection of this species would provide a solid link between cometary bodies in our Solar system and the Beta Pic system.
+Given the ubiquitous signature of \ce{CN} emission in Solar system comets, we have embarked on an archival search for this species in the \ac{feb} around Beta Pic.
+%
+Detection of this species would provide a solid link between cometary bodies in our Solar system and the \bp{} system.
 
 \section{Data description and analysis}
-For the study in this paper, we use all the available data from the High Accuracy Radial Velocity Planet Searcher (HARPS) and the ESO 3.6m telescope in Chile. In addition, we complement this with observations with the Ultra-violet Visible Echelle Spectrograph (UVES) at the Very Large Telescope in Chile. 
+
+For the study in this paper, we use all the available data from the \ac{harps} and the ESO 3.6m telescope in Chile.
+%
+In addition, we complement this with observations with the \ac{uves} at the Very Large Telescope in Chile. 
 
 \subsection{HARPS observations}
-We collated all publicly available HARPS observations of $\beta$ Pic obtained between October 2003 and March 2020. Although these observations cover a large baseline, the cadence between visits varies between 1 day and $\sim$2.2 years. Similarly, the number of observations per epoch spans a wide range, between 1 and 356 exposures, while the exposure times vary between 12 and 900 seconds. For this analysis we used the E2DS files downloaded directly from the ESO archive.
 
+We collated all publicly available HARPS observations of \bp{} obtained between October 2003 and March 2020.
+%
+Although these observations cover a large baseline, the cadence between visits varies between 1 day and $\sim$2.2 years.
+%
+Similarly, the number of observations per epoch spans a wide range, between 1 and 356 exposures, while the exposure times vary between 12 and 900 seconds.
+%
+For this analysis we used the E2DS files downloaded directly from the ESO archive.
 
-
-asdf
 \subsection{UVES observations}
-To supplement the HARPS observations, we use 160 epochs of UVES observations obtained between 01 April, 2017 and April 18, 2018 under programme 599.C-0751.
+
+To supplement the HARPS observations, we use 160 epochs of \ac{uves} observations obtained between 01 April, 2017 and April 18, 2018 under programme 599.C-0751.
 %
 The details for these observations are explained in more detail in \cite{vansluijs2019}, and summarised here.
 %
 These observations were all obtained using the same instrument setup.
 %
-We used the standard 437+760 mode of UVES, which uses the \#2 dichroic to allow simultaneous observations in both the red and blue arm.
+We used the standard 437+760 mode of \ac{uves}, which uses the \#2 dichroic to allow simultaneous observations in both the red and blue arm.
 %
 In this mode, the CD\#2 and CD\#4 cross-dispersers are used in the blue and red-arm, respectively, providing a simultaneous wavelength coverage of $\sim$3730 $\AA$  to $\sim$5000 $\AA$ in the blue arm, and $\sim$5650 $\AA$ to $\sim$9560 $\AA$ in the red arm.
 %
-For the remainder of the paper, we will only focus on the data from the blue arm of UVES, as this covers the strong CN band-head seen in Solar system comets.
+For the remainder of the paper, we will only focus on the data from the blue arm of \ac{uves}, as this covers the strong \ce{CN} band-head seen in Solar system comets.
 %
 For the blue arm, a 0.3''-wide slit was used to obtain the highest possible resolving power ($\sim$90,000 before an intervention on the instrument in October 2017, and $\sim$100,000 after the intervention). 
 
-The data were reduced using the ESO UVES pipeline version 5.7.0 through ESO Reflex tool in order to provide as homogeneous a dataset as possible. 
+The data were reduced using the ESO \ac{uves} pipeline version 5.7.0 through ESO Reflex tool in order to provide as homogeneous a dataset as possible. 
 
 \subsection{Initial data processing}
 The data from both instruments was processed in similar ways.
@@ -160,7 +223,6 @@ All the spectra were transformed into the stellar rest-frame using linear interp
 The number of observations varies from night to night, from a few spectra to over a hundred.
 %
 An average of all the spectra in one night was made for all the nights of observations.
-
 
 The blaze function dominates the flux profile of the spectra.
 %
@@ -187,25 +249,41 @@ THis removes the blaze function, but there remain low spatial frequency variatio
 We then fit a second order polynomial to each individual night and divide this out, resulting in a flattened spectrum for each night.
 
 
-Subsequently, we applied a correction for variations in the instrumental blaze by selecting a reference spectrum and dividing all the spectra by this reference. The ratio was then binned, removing outliers, and a polynomial was fit to the data. For UVES we used a Nth degree polynomial, while for HARPS we used a 2nd degree polynomial. This polynomial was then divided from the spectrum under consideration. We note that the blaze correction will also remove non-instrumental effects, including variations in atmospheric transmission and seeing.
+Subsequently, we applied a correction for variations in the instrumental blaze by selecting a reference spectrum and dividing all the spectra by this reference. The ratio was then binned, removing outliers, and a polynomial was fit to the data.
+%
+For \ac{uves} we used a Nth degree polynomial, while for \ac{harps} we used a 2nd degree polynomial.
+%
+This polynomial was then divided from the spectrum under consideration. We note that the blaze correction will also remove non-instrumental effects, including variations in atmospheric transmission and seeing.
 
-The blaze-corrected spectra taken within a night were averaged together [Should we use a weighted average?]. We note that for HARPS, the 2d-unmerged spectra still contain the overal instrumental blaze-profile, which is (partially) corrected for by using a dedicated blaze-frame obtained from the archive, which removes most, but not all, of this profile. 
+The blaze-corrected spectra taken within a night were averaged together [Should we use a weighted average?].
+%
+We note that for \ac{harps}, the 2d-unmerged spectra still contain the overal instrumental blaze-profile, which is (partially) corrected for by using a dedicated blaze-frame obtained from the archive, which removes most, but not all, of this profile. 
 
 \section{Searches for cometary species}
-After the initial data analysis, we proceed to with our search for lines from CN. Although we are interested in lines from the exocomets, we first coadd the data from all the individual epochs, in the stellar rest-frame, to obtain a deep search for circumstellar CN absorption. These coadded spectra for HARPS and UVES are shown in Fig.~\ref{fig:coadd_restframe}. No obvious feature jumps out, and we can rule out circumstellar CN down to NNNN.
 
-Since the exocomets have a clear radial velocity with respect to $\beta$ Pic, and since each exocomet will have its own distinct velocity, we selected the NN epochs with the strongest exocometary features, a seen in the Ca II H \& K lines, as well as the MM epochs with the weakest cometary features. The selection was done by .......
+After the initial data analysis, we proceed to with our search for lines from \ce{CN}.
+%
+Although we are interested in lines from the exocomets, we first coadd the data from all the individual epochs, in the stellar rest-frame, to obtain a deep search for circumstellar \ce{CN} absorption.
+%
+These coadded spectra for \ac{harps} and \ac{uves} are shown in \hl{Figure}.
+%
+No obvious feature jumps out, and we can rule out circumstellar \ce{CN} down to \hl{NNNN}.
+
+Since the exocomets have a clear radial velocity with respect to \bp{}, and since each exocomet will have its own distinct velocity, we selected the NN epochs with the strongest exocometary features, a seen in the \ion{Ca}{ii} H \& K lines, as well as the MM epochs with the weakest cometary features.
+%
+The selection was done by
+
 The spectra with only weak exocometary features were co-averaged in the stellar restframe in order to create a stellar master spectrum. This master-spectrum was divided out of all the remaining spectra in order to create relative spectra. 
-The relative velocities of the exocomets were determined by ......., and the spectra were shifted to the rest-frames of these comments, before being combined. The combined exocomet aligned spectra for both the CA H\&K lines and CN band are shown in Fig.~\ref{fig:coadd_exocomets}. As can be seen no signal is visibly present. [Do we need to add a correction to account for any radiation pressure, if so, is there a way to estimate that?]
+The relative velocities of the exocomets were determined by ......., and the spectra were shifted to the rest-frames of these comments, before being combined. The combined exocomet aligned spectra for both the CA H\&K lines and \ce{CN} band are shown in Fig.~\ref{fig:coadd_exocomets}. As can be seen no signal is visibly present. [Do we need to add a correction to account for any radiation pressure, if so, is there a way to estimate that?]
 
 [Do we want to do a simple CCF to see if we can combine the individual lines?]
 
-\subsection{CN}
+\subsection{\ce{CN}}
 
 \begin{figure}
     \begin{centering}
         \includegraphics[width=\columnwidth]{figures/HARPS_CN_grid.pdf}
-        \caption{Confidence intervals for the signal to noise of CN spectra using HARPS spectra of Beta Pictoris.}
+        \caption{Confidence intervals for the signal to noise of \ce{CN} spectra using \ac{harps} spectra of \bp{}.}
         \label{fig:HARPS_CN_grid}
         \script{plot_HARPS_CN_grid.py}
     \end{centering}
