@@ -3,8 +3,6 @@ import numpy as np
 import paths
 
 
-
-
 wlen=np.load(paths.data/'CN/CN_wavelengths.npy')
 
 t1=np.load(paths.data/'CN/CN_0100K.npy')
@@ -21,5 +19,5 @@ ax.set_ylabel('Transmission',fontsize=16)
 
 ax.plot(wlen/10,t1)
 ax.plot(wlen/10,t2)
-plt.show()
-plt.savefig(paths.figures/'two_CN_temps.pdf', bbox_inches='tight')
+#plt.show()
+plt.savefig(paths.figures / 'two_CN_temps.pdf', bbox_inches='tight')
