@@ -51,7 +51,7 @@ dependencies:
     - src/data/2d_spec.fits
     - src/data/2d_wavelength.fits
     - src/data/2d_baryvel.fits
-  src/scripts/plot_HARPS_CN_grid.py:
+  src/scripts/plot_two_CN_temps.py:
     - src/data/CN/CN_0100K.npy
     - src/data/CN/CN_1000K.npy
     - src/data/CN/CN_wavelengths.npy
