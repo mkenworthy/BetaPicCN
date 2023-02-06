@@ -203,25 +203,27 @@ Detection of this species would provide a solid link between cometary bodies in 
 
 \section{Data description and analysis}
 
-For the study in this paper, we use all the available data from the \ac{harps} and the ESO 3.6m telescope in Chile.
+For the study in this paper, we use all the publicly available data from the \ac{harps} and the ESO 3.6m telescope in Chile.
 %
-In addition, we complement this with observations with the \ac{uves} at the Very Large Telescope in Chile. 
+In addition, we complement this with observations with the \ac{UVES} at the Very Large Telescope in Chile. 
 
 \subsection{HARPS observations}
 
-We collated all publicly available HARPS observations of \bp{} obtained between October 2003 and March 2020.
+We collated all publicly available HARPS observations of \bp{} obtained between October 2003 and \textcolor{red}{March 2020}.
 %
 Although these observations cover a large baseline, the cadence between visits varies between 1 day and $\sim$2.2 years.
 %
-Similarly, the number of observations per epoch spans a wide range, between 1 and 356 exposures, while the exposure times vary between 12 and 900 seconds.
+Similarly, the number of observations per epoch spans a wide range, between \textcolor{red}{1 and 356} exposures, while the exposure times vary between \textcolor{red}{12 and 900} seconds. This results in a SNR range per exposure between \textcolor{red}{NNNN and MMMM}, and a nightly SNR between \textcolor{red}{NNNN and MMMM}.
 %
-For this analysis we used the E2DS files downloaded directly from the ESO archive.
+To avoid potential edge effects from order merging,  we used the E2DS files downloaded directly from the ESO archive for our analysis.
+
+\textcolor{red}{Q: Do we want to put an observing log in the appendix?}
 
 \subsection{UVES observations}
 
 To supplement the HARPS observations, we use 160 epochs of \ac{uves} observations obtained between 01 April, 2017 and April 18, 2018 under programme 599.C-0751.
 %
-The details for these observations are explained in more detail in \cite{vansluijs2019}, and summarised here.
+The details for these observations are given in \cite{vansluijs2019}, and summarised here.
 %
 These observations were all obtained using the same instrument setup.
 %
@@ -229,33 +231,34 @@ We used the standard 437+760 mode of \ac{uves}, which uses the \#2 dichroic to a
 %
 In this mode, the CD\#2 and CD\#4 cross-dispersers are used in the blue and red-arm, respectively, providing a simultaneous wavelength coverage of $\sim$3730 $\AA$  to $\sim$5000 $\AA$ in the blue arm, and $\sim$5650 $\AA$ to $\sim$9560 $\AA$ in the red arm.
 %
-For the remainder of the paper, we will only focus on the data from the blue arm of \ac{uves}, as this covers the strong \ce{CN} band-head seen in Solar system comets.
+For the remainder of the paper, we will only focus on the data from the blue arm of \ac{uves}, as this covers the strong \ce{CN} (0-0) band-head seen in Solar system comets.
 %
 For the blue arm, a 0.3''-wide slit was used to obtain the highest possible resolving power ($\sim$90,000 before an intervention on the instrument in October 2017, and $\sim$100,000 after the intervention). 
 
-The data were reduced using the ESO \ac{uves} pipeline version 5.7.0 through ESO Reflex tool in order to provide as homogeneous a dataset as possible. 
+The data were reduced using the ESO \ac{UVES} pipeline version \textcolor{red}{6.1.6} through ESO Reflex tool in order to provide as homogeneous a dataset as possible. The flat-field was applied on a pixel-by-pixel basis.\textcolor{red}{The pipeline was set to output the intermediate products and the blaze-corrected spectra before merging were used for our analysis, as the order-merging could introduce systematics in the overlap region. Optimal extraction was performed, using an empirical profile}
 
 \subsection{Initial data processing}
-The data from both instruments was processed in similar ways.
+Starting from the 2d spectra, the data from both instruments was processed in similar ways.
 %
-For both datasets, we used the 2d-unmerged echelle spectra, and we treated each order separately.
+Each order was treated separately, with the main focus on orders \textcolor{red}{NN, MM and OO} for HARPS and \textcolor{red}{NN, MM, OO} for UVES as those orders contain the main CN bandhead as well as the Ca II H \& K lines, which are used to identify the exocomets.
 %
-All the spectra were transformed into the stellar rest-frame using linear interpolation. 
+All the spectra were transformed into the stellar rest-frame and onto a common wavelength grid using linear interpolation. 
 
-The number of observations varies from night to night, from a few spectra to over a hundred.
+The number of observations varies from night to night, from a \textcolor{red}{single} spectrum to over \textcolor{red}{three hundred} spectra.
 %
-An average of all the spectra in one night was made for all the nights of observations.
+An average of all the spectra in one night was made for each of the nights of observations, after correcting for variations in the effective blaze profile (e.g., due to instrumental changes, differential slit losses, atmospheric absorption etc.), as outlined below. Note that after this correction, the HARPS data still have the overall instrumental blaze-profile, while the 2d-spectra from UVES were already corrected for this.
 
-The blaze function dominates the flux profile of the spectra.
+\subsubsection{Effective Blaze function correction}
+
+One of the nights with a high signal to noise was chosen to act as an initial estimate for the blaze function (the night of \textcolor{red}{DATE} for HARPS and \textcolor{red}{DATE} for UVES). The individual spectra in this night were averaged together to further boost the signal-to-noise ratio. Subsequently, each individual spectrum was divided by this reference spectrum to highlight the changes in the effective profile. This ratio spectrum was subsequently binned using a bin-width of \textcolor{red}{101} pixels using a robust algorithm to remove outliers within each bin. This binned ratio was than fit using a \textcolor{red}{second} order polynomial. The original spectrum was finally divided by this polynomial to correct for the changes.
+
+
+%his spectrum was binned in the spectral direction to remove both narrow absorption lines and the rotationally broadened stellar chromospheric lines, but preserve the shape of the blaze function.
 %
-One of the nights with a high signal to noise was chosen to act as an initial estimate for the blaze function: this spectrum was binned in the spectral direction to remove both narrow absorption lines and the rotationally broadened stellar chromospheric lines, but preserve the shape of the blaze function.
-%
-A low order second or third order polynomial was fit to each echelle order, and this fit spectrum served as a blaze function estimate. 
 
-For all the spectra in a given night:
- - Divide the spectrum by the reference spectrum, which hs the fit of the low order polynomial to the best night spectrum.
- - Combine all these spectrum within a single night all together, to form the final night spectrum (this still has the BLAZE function in it...)
 
+\subsubsection{Combining the spectra}
+After the blaze-variation corrections, all the spectra within a night are combined in order to further boost the signal-to-noise and improve the detection limits. This could potentially re
  For all the night spectra:
 
  We median combine all the nights together.
