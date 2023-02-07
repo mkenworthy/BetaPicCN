@@ -32,3 +32,14 @@ rule CCF_single:
         "environment.yml"
     script:
         "src/scripts/calc_ccf.py"
+
+rule CCF_mean:
+    cache:
+        False
+    input:
+    output:
+        "src/data/ccf_data1_mean.ecsv"
+    conda:
+        "environment.yml"
+    script:
+        "src/scripts/calc_ccf_mean.py"

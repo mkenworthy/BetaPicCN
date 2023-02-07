@@ -57,7 +57,9 @@ dependencies:
     - src/data/CN/CN_wavelengths.npy
   src/scripts/plot_ccf.py:
     - src/data/ccf_data1.ecsv
-    
+  src/scripts/plot_ccf_mean.py:
+    - src/data/ccf_data1_mean.ecsv
+
 verbose:
   true
 
