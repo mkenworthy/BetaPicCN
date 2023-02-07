@@ -55,7 +55,9 @@ dependencies:
     - src/data/CN/CN_0100K.npy
     - src/data/CN/CN_1000K.npy
     - src/data/CN/CN_wavelengths.npy
-
+  src/scripts/plot_ccf.py:
+    - src/data/ccf_data1.ecsv
+    
 verbose:
   true
 

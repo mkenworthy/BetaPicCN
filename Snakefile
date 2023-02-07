@@ -21,3 +21,14 @@ rule CN_xcor:
         "environment.yml"
     script:
         "src/scripts/analyse_HARPS_spectra.py"
+
+rule CCF_single:
+    cache:
+        False
+    input:
+    output:
+        "src/data/ccf_data1.ecsv"
+    conda:
+        "environment.yml"
+    script:
+        "src/scripts/calc_ccf.py"
