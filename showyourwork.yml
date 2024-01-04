@@ -16,24 +16,23 @@ overleaf:
     - src/tex/bib.bib
 
 datasets:
-  10.5072/zenodo.1144178:
-    contents:
-      2d_nspec.fits: src/data/2d_nspec.fits
-#      2d_spec.fits: src/data/2d_spec.fits
-      2d_wavelength.fits: src/data/2d_wavelength.fits
-      2d_baryvel.fits: src/data/2d_baryvel.fits
-      CN.zip:
-        CN:
-          CN_0010K.npy: src/data/CN/CN_0010K.npy
-          CN_0020K.npy: src/data/CN/CN_0020K.npy
-          CN_0050K.npy: src/data/CN/CN_0050K.npy
-          CN_0100K.npy: src/data/CN/CN_0100K.npy
-          CN_0200K.npy: src/data/CN/CN_0200K.npy
-          CN_0300K.npy: src/data/CN/CN_0300K.npy
-          CN_1000K.npy: src/data/CN/CN_1000K.npy
-          CN_2000K.npy: src/data/CN/CN_2000K.npy
-          CN_wavelengths.npy: src/data/CN/CN_wavelengths.npy
-
+#   10.5072/zenodo.1144178:
+#     contents:
+#       2d_nspec.fits: src/data/2d_nspec.fits
+# #      2d_spec.fits: src/data/2d_spec.fits
+#       2d_wavelength.fits: src/data/2d_wavelength.fits
+#       2d_baryvel.fits: src/data/2d_baryvel.fits
+#       CN.zip:
+#         CN:
+#           CN_0010K.npy: src/data/CN/CN_0010K.npy
+#           CN_0020K.npy: src/data/CN/CN_0020K.npy
+#           CN_0050K.npy: src/data/CN/CN_0050K.npy
+#           CN_0100K.npy: src/data/CN/CN_0100K.npy
+#           CN_0200K.npy: src/data/CN/CN_0200K.npy
+#           CN_0300K.npy: src/data/CN/CN_0300K.npy
+#           CN_1000K.npy: src/data/CN/CN_1000K.npy
+#           CN_2000K.npy: src/data/CN/CN_2000K.npy
+#           CN_wavelengths.npy: src/data/CN/CN_wavelengths.npy
 dependencies:
   src/scripts/plot_HARPS_CN_grid.py:
     - src/data/results_HARPS.txt
