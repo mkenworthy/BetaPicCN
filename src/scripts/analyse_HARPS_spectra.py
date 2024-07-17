@@ -416,7 +416,7 @@ def run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,pixels,f,binsize=81,binsize2=
                plt.figure()
                plt.plot(v_ccf,ccf[-1,3,:])
                plt.plot(v_ccf,sim_ccf[-1,3,:])
-               plt.savefig("plots/orig_ccf_{0:04d}_{1:.2e}_{2:}.png".format(T_gas,N,fappend))
+               plt.savefig(path.figures/"orig_ccf_{0:04d}_{1:.2e}_{2:}.png".format(T_gas,N,fappend))
                plt.close('all')
 
             # align everything up in the comet rest frame
@@ -437,12 +437,12 @@ def run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,pixels,f,binsize=81,binsize2=
                plt.figure()
                plt.plot(v_phase,phase[-1,3,:])
                plt.plot(v_phase,sim_phase[-1,3,:])
-               plt.savefig("plots/phase_{0:04d}_{1:.2e}_{2:.1f}_{3:}.png".format(T_gas,N,broadening,fappend))
+               plt.savefig(path.figures/"phase_{0:04d}_{1:.2e}_{2:.1f}_{3:}.png".format(T_gas,N,broadening,fappend))
                plt.close('all')
                plt.figure()
                plt.plot(v_ccf,ccf[-1,3,:])
                plt.plot(v_ccf,sim_ccf[-1,3,:])
-               plt.savefig("plots/ccf_{0:04d}_{1:.2e}_{2:.1f}_{3:}.png".format(T_gas,N,broadening,fappend))
+               plt.savefig(path.figures/"ccf_{0:04d}_{1:.2e}_{2:.1f}_{3:}.png".format(T_gas,N,broadening,fappend))
                plt.close('all')
                
                fit_cube[i,j,k,:,:]=fit.copy()
@@ -537,7 +537,7 @@ for ord in range(6):
 # CHECK POINT to see that this looks normal. REMOVE in final version    
 data_for_ccf=spec_cor[:,0:6,:]
 hdu=fits.PrimaryHDU(data_for_ccf)
-hdu.writeto('tmp.fits',overwrite=True)
+hdu.writeto(paths.data/'tmp.fits',overwrite=True)
 
 # Do the analysis for the strongest comets selected using find_comets()
 f = open(paths.data/"results_HARPS.txt", "w")
@@ -573,5 +573,5 @@ ax[1,0].legend()
 ax[2,0].legend()
 ax[3,0].legend()
 f.tight_layout()
-f.savefig('plots/ccf_self.png')
+f.savefig(paths.figures/'ccf_self.png')
 
