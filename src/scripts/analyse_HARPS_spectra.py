@@ -11,6 +11,8 @@ from astropy.io import fits
 import matplotlib as mpl
 import paths
 
+mpl.use('macosx')
+mpl.rcParams['figure.figsize'] = 12, 8
 mpl.rc('image', interpolation='nearest', origin='lower', cmap = 'gray')
 
 #from pylab import rcParams
@@ -26,11 +28,8 @@ from scipy.optimize import curve_fit
 import scipy.stats as stats
 import time
 import gc
-import matplotlib as mpl
 
-mpl.rcParams['figure.figsize'] = 12, 8
-
-## this is to convolve an arbitrary spectrum in (wave, spec) with velocity broadening effects.
+## this is to convolve an arbitrary spectrum in (wave, spec) with velocity broadening effects. 
 ## dv is in km/s (which here we're setting to c/R)
 def wavegrid(lmin,lmax,R):
     '''lmin is the minimum wavelength, lmax is the maximum wavelength you want, R is the spectral resolution
@@ -60,8 +59,8 @@ def get_mdl(fn='CN/CN_0300K.npy',N=1e15,FWHM_kernel=3e5/1.1e5):
 
     ## generate a Gaussian kernel with the FWHM at the instrumental resolution & convolve model
     ## *** TBD: Allow other line broadening (e.g. based on Ca lines or even for different resolutions) ***
-    FWHM_kernel=3e5/1.10e5
-    x_kernel=np.arange(-25.,25.001,(3e5/res_interp))
+    print(FWHM_kernel)
+    x_kernel=np.arange(-30.,30.001,(3e5/res_interp))
     kernel=np.exp( - ((x_kernel)**2)/2./(FWHM_kernel/2.35)**2)
     kernel=kernel/np.sum(kernel)
     mdl_conv=np.convolve(mdl,kernel,mode='same')
@@ -70,21 +69,48 @@ def get_mdl(fn='CN/CN_0300K.npy',N=1e15,FWHM_kernel=3e5/1.1e5):
     ## set up interpolation object for the model to use in the CCF code
     imdl_conv=interp1d(w_mdl[idx],mdl_conv[idx],kind='linear',bounds_error=False,fill_value=1.)
 
-    
     return w,prof,imdl_conv
 
 
 
 ##Read in data
 def read_data(order=[0,1,2,3,4,5,6,7]):
+    vsys=20.    #Systemic velocity of beta Pic
     nspec = fits.getdata(paths.data/'2d_nspec.fits')
     spec = fits.getdata(paths.data/'2d_spec.fits')
-    wlen = fits.getdata(paths.data/'2d_wavelength.fits')
+    wlen = fits.getdata(paths.data/'2d_wavelength.fits')/(1.+vsys/3e5)
     bary = fits.getdata(paths.data/'2d_baryvel.fits')
-    return nspec,spec[:,order,:],wlen[order,:],bary
+    obsdate = fits.getdata(paths.data/'2d_obsdate.fits')
+    return nspec,spec[:,order,:],wlen[order,:],bary,obsdate
 
 
-##Find strongest exocomets
+## Estimate residual blaze
+def remove_resid_blaze(pixels,spec,star_spec,ord=3,poly_order=4):
+    # order start and order end (the pixel point where there is flux in the order)
+    # for the first six orders
+    o_start=np.array([ 225,  15,  26,  26,  26,  26])
+    o_end  =np.array([3670,4050,4060,4060,4060,2500])
+    
+    # take the ratio of the spectrum to the mean spectrum...
+    spec_cor=spec[:,ord,:]/star_spec[np.newaxis,ord,:]
+
+    # fit a polynomial to the this ration (should be flat if there was no small residuals)
+    # and then divide it out to make this order relatively flat
+    # TODO add sigma clipping for this
+    for i in range(spec.shape[0]):
+        x=pixels.copy()
+        y=spec_cor[i,:].copy()
+        idx=(y>0)*np.isfinite(y)*(x>o_start[ord])*(x<o_end[ord])
+        l=np.polyfit(x[idx]-x[0],y[idx],poly_order)
+        spec_cor[i,:]=spec_cor[i,:]/np.polyval(l,x-x[0])
+    return spec_cor
+
+
+
+####################################################################################
+###### Only used for finding comets ################################################
+####################################################################################
+
 
 
 ## Estimate blaze
@@ -115,6 +141,7 @@ def simple_blaze(wlen,master_blaze,nskip,nbins,binsize):
     return interp_flux
 
 
+
 ## Higher order blaze variation corrections
 def blaze_var_cor(wlen, cor,nskip,nbins,binsize,n_frm,poly_ord):
     for frm in range(n_frm):
@@ -141,62 +168,6 @@ def blaze_var_cor(wlen, cor,nskip,nbins,binsize,n_frm,poly_ord):
     return cor
 
 
-## Correct overall blaze etc. using a spline interpolation + binning, this is done iteratively
-## for N_iter times to allow any residual blaze-corrections to be performed.
-## This needs to be run for an individual order (given by ord)
-def correct_spec_blaze_and_star_init(wlen,spec,ord=0,binsize=80,nskip=20,binsize2=400, N_iter=5,poly_ord=2,use_bounds=True):
-
-    # Butterworth filter parameters
-    fs=1.
-    v_cutoff=125. # high pass filter (minimum velocity below which signals get through)
-    b_order=5
-    normal_cutoff=(1./v_cutoff)/(0.5*fs) # 1/velocity becasue we're in frequency space, and 0.5 is Nyquist sampling related...
-
-    # setting bounds for certain orders because they don't extend fully across the mid-point of order overlap
-    if use_bounds:
-        if ord==0:
-            lbound=220
-            ubound=3680
-        else:
-            lbound=0
-            ubound=spec.shape[2]
-    else:
-        lbound=0
-        ubound=spec.shape[2]
-
-    cor=spec[:,ord,:].copy()
-
-    # there's one order where fluxes occasionally go negative. Flag and remove.
-    idx=(cor<=0)
-    cor[idx]=1.
-
-    cor2=cor.copy()
-
-    n_frm,n_ord,n_pix=spec[:,:,lbound:ubound].shape
-
-
-    # calculate integer number of bins for the two different bin sizes
-    nbins=(n_pix-2*nskip)//binsize
-    nbins2=(n_pix-2*nskip)//binsize2
-
-    # loop over the number of iterative clips
-    for i in range(N_iter):
-
-        master_blaze=np.median(cor,axis=0)
-        interp_flux=simple_blaze(wlen[ord,lbound:ubound],master_blaze[lbound:ubound],nskip,nbins,binsize)
-        cor[:,lbound:ubound]=cor[:,lbound:ubound]/interp_flux[np.newaxis,:]
-        cor2[:,lbound:ubound]=blaze_var_cor(wlen[ord,lbound:ubound], cor[:,lbound:ubound],nskip, nbins2, binsize2,n_frm,poly_ord)
-        cor=cor2.copy()
-
-
-    # Butterworth filter removes the stellar lines
-    b, a = signal.butter(b_order, normal_cutoff, btype = "highpass", analog = False)
-    if (ord >1) and (ord<5):
-        for i in range(cor.shape[0]):
-            y = signal.filtfilt(b, a, cor[i,:])
-            cor[i,:]=y.copy()
-
-    return cor
 
 ## Find the comets in the Ca II H line
 def find_comets(wlen,spec_m,ord_FEB=7,use_all=True):
@@ -209,13 +180,13 @@ def find_comets(wlen,spec_m,ord_FEB=7,use_all=True):
     spec_Ca_only = np.ma.mean(filtered_data, axis=1)
     spec_FEB_norm = spec_FEB/spec_Ca_only[:,np.newaxis]
     
-    # look between 3968.85 and 3971.0, find the minima (=maximum absorption)
+    # look between 3965.74 and 3968.43 as well as 3968.58 and 3971.0, find the minima (=maximum absorption)
     # range chosen to avoid most of the core. 
     # use_all will look for blueshifted comets too
     if use_all:
-        m_p = (wlen_FEB > 3968.85) * (wlen_FEB < 3971.0)  + (wlen_FEB > 3966.0) * (wlen_FEB < 3968.65)
+        m_p = (wlen_FEB > 3968.58) * (wlen_FEB < 3971.)  + (wlen_FEB > 3965.68) * (wlen_FEB < 3968.43)
     else:
-        m_p = (wlen_FEB > 3968.85) * (wlen_FEB < 3971.0)
+        m_p = (wlen_FEB > 3968.58) * (wlen_FEB < 3971.0)
     wlen_peak = wlen_FEB[m_p]
     spec_peak = 1. - (spec_FEB_norm[m_p])
     
@@ -225,18 +196,22 @@ def find_comets(wlen,spec_m,ord_FEB=7,use_all=True):
 
     # we now have the heights of the peaks in what_max, and the positions of the peaks in wlen_max
     # we make two separate sets to make: FEBs and no FEBs
-    # 0.5 means 50% strength for pickup as an FEB
-    # 0.1 means less than 10% strength for no FEB
-    FEB_sel =   (ampl_FEB_clip > 0.5)
-    star_sel =  (ampl_FEB_clip < 0.1)
-
+    # 0.6 means 60% strength for pickup as an FEB
+    # 0.15 means less than 15% strength for no FEB
+    FEB_sel =   (ampl_FEB_clip > 0.6)
+    star_sel =  (ampl_FEB_clip < 0.15)
+    print("Number of strong comets: {0:}".format(np.sum(FEB_sel)))
+    print("Number of weak comets: {0:}".format(np.sum(star_sel)))
     return FEB_sel,star_sel,wlen_FEB_clip
 
    
 
+####################################################################################
+####################################################################################
+####################################################################################
 
 
-##Set up a simple CCF code. N.B. This is the unweighted CCF (weighting currently commented out...)
+##Set up a simple CCF code. N.B. This is the unweighted CCF
 def c_correlate(l_data,data,imodel,dv=np.linspace(-50,50,101)):
     npix=dv.shape[0]
     ccf=np.zeros((data.shape[0],npix))
@@ -248,16 +223,16 @@ def c_correlate(l_data,data,imodel,dv=np.linspace(-50,50,101)):
     for i,z in enumerate(z0):
         mdl=imodel(l_data*z)
         mdl=mdl-np.mean(mdl)
-        ccf[:,i]=np.sum( data*mdl[np.newaxis,:],axis=1)#/np.sqrt(np.sum(data**2,axis=1)*np.sum(mdl**2))
+        ccf[:,i]=np.sum( data*mdl[np.newaxis,:],axis=1)
         ccf0[:,i]=ccf[:,i].copy()
 
 
     return ccf,ccf0
 
 
+
+
 ## Inject the model into the data 
-##                 *** TBD ***                   
-## Inject at a much earlier stage of the process 
 def inject_mdl(l_data,data,imodel,dv=np.zeros(51)):
     sim_dat=data.copy()
     z0=1.-dv/3e5
@@ -268,8 +243,8 @@ def inject_mdl(l_data,data,imodel,dv=np.zeros(51)):
 
 
 
-def generate_CCFs_orders(wlens,data_for_ccf,spec,broadening=10.,binsize=80,binsize2=400,nskip=20,T_gas=10,N=1e12,v_cutoff=50,v_comet=0.):
-
+def generate_CCFs_orders(wlens,data_for_ccf,spec,pixels,broadening=5.,binsize=80,binsize2=400,nskip=20,T_gas=10,N=1e12,v_cutoff=50,v_comet=0.,idx_star=0):
+    
     ## Set order start and end pixels to exclude bad edges (need to optimize!)
     o_start=np.array([ 225,  15,  26,  26,  26,  26])
     o_end  =np.array([3670,4050,4060,4060,4060,2500])
@@ -279,29 +254,40 @@ def generate_CCFs_orders(wlens,data_for_ccf,spec,broadening=10.,binsize=80,binsi
     m_ccf=np.zeros((data_for_ccf.shape[0],wlens.shape[0],v_ccf.shape[0]))
     m_sim_ccf=np.zeros((data_for_ccf.shape[0],wlens.shape[0],v_ccf.shape[0]))
 
-    
-    for ord in range(wlens.shape[0]):
+    indexing=np.arange(wlens.shape[1])
+    # sim_dat is an array to inject the model into
+    sim_dat=np.zeros((data_for_ccf.shape))
+    print(sim_dat.shape)
+    # star_spec is the specra with NO comets used to divide out the stellar spectrum
+    star_spec=np.mean(spec[idx_star,:,:],0)
+
+    for ord in range(wlens.shape[0]): # loop over the orders
         
         ## get the opacities and convert to line-profile
         w,prof,imdl_conv=get_mdl('CN/CN_{0:04d}K.npy'.format(T_gas),N=N,FWHM_kernel=3e5/1.1e5)
         w_sim,prof_sim,imdl_conv_sim=get_mdl('CN/CN_{0:04d}K.npy'.format(T_gas),N=N,FWHM_kernel=broadening)
 
         ## Calculate CCF for data
-        ccf,ccf0=c_correlate(wlens[ord,o_start[ord]:o_end[ord]],data_for_ccf[:,ord,o_start[ord]:o_end[ord]],imdl_conv,dv=v_ccf)
+        ## Filter out the strongest circumstellar Fe I lines, that could contaminate the signal.
+        idx=(indexing >= o_start[ord])*(indexing<o_end[ord])*(np.abs(wlens[ord,:]-3860.18)>0.07)*(np.abs(wlens[ord,:]-3856.63)>0.07)
+        
+        #ccf,ccf0=c_correlate(wlens[ord,o_start[ord]:o_end[ord]],data_for_ccf[:,ord,o_start[ord]:o_end[ord]],imdl_conv,dv=v_ccf)
+        ccf,ccf0=c_correlate(wlens[ord,idx],data_for_ccf[:,ord,idx],imdl_conv,dv=v_ccf)
         m_ccf[:,ord,:]=ccf.copy()
 
         
         ## Inject model into data 
-        sim_dat=spec.copy() 
-        sim_dat[:,ord,:]=inject_mdl(wlens[ord,:],spec[:,ord,:],imdl_conv_sim,dv=v_comet)# np.zeros(spec.shape[0]))  
-        sim_dat[:,ord,:]=correct_spec_blaze_and_star_init(wlens,sim_dat,ord,binsize=binsize,nskip=nskip,binsize2=binsize2, N_iter=5)
-        sim_dat=np.vstack((sim_dat,np.mean(sim_dat,axis=0)[np.newaxis,:,:]))
+        sim_dat[:,ord,:]=inject_mdl(wlens[ord,:],spec[:,ord,:],imdl_conv_sim,dv=v_comet)
+        sim_dat[:,ord,:]=remove_resid_blaze(pixels,sim_dat,star_spec,ord,poly_order=4)
 
         # cross correlate simulated spectra
-        sim_ccf,sim_ccf0=c_correlate(wlens[ord,o_start[ord]:o_end[ord]],sim_dat[:,ord,o_start[ord]:o_end[ord]],imdl_conv,dv=v_ccf)
+        sim_ccf,sim_ccf0=c_correlate(wlens[ord,idx],sim_dat[:,ord,idx],imdl_conv,dv=v_ccf)
         m_sim_ccf[:,ord,:]=sim_ccf.copy()
 
     return v_ccf,m_ccf,m_sim_ccf
+
+
+
 
 
 
@@ -322,6 +308,8 @@ def estimate_significance(v_ccf,ccf,v_c=0.,dv=5.,T_gas=10.,N=1e12,ord=3,sim=Fals
     idx_both=(np.abs(v_ccf-v_c)<v_outer)
     idx_line=np.abs(v_ccf-v_c)<dv
     if len(ccf.shape)==1:
+        # fit a gaussian to the central peak of the CCF
+        # and take curvfit uncertainty as our estimate of the error on the detection
         l=np.polyfit(v_ccf[idx_outside],ccf[idx_outside],1)
         mdl=np.polyval(l,v_ccf)
         rms=np.std(ccf[idx_outside]/mdl[idx_outside])
@@ -374,8 +362,8 @@ def fold_comet(v_ccf,ccf,sim_ccf,T_gas,N,binsize,idx_comets,v_comets):
     ccf_comets=ccf
     sim_ccf_comets=sim_ccf
 
-    # velocity range over which we try to line up cometa
-    v_phasefold=np.arange(-60,60.1)
+    # velocity range over which we try to line up comets
+    v_phasefold=np.arange(-90,90.1)
     
     # output arrays
     phasefold=np.zeros((ccf.shape[0],ccf.shape[1],v_phasefold.shape[0]))
@@ -391,31 +379,100 @@ def fold_comet(v_ccf,ccf,sim_ccf,T_gas,N,binsize,idx_comets,v_comets):
         if ord == 3: # the CN spectral order
             fit_sim,err_sim=estimate_significance(v_phasefold,sim_phasefold[:,ord,:],v_c=0.,dv=5.,T_gas=T_gas,N=N,sim=True)
             fit,err=estimate_significance(v_phasefold,phasefold[:,ord,:],v_c=0.,dv=5.,T_gas=T_gas,N=N)
-    
+
     return v_phasefold,phasefold,sim_phasefold,fit,err,fit_sim,err_sim
 
 
 
 
 ## run ccf for a range of temperatures
-def run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,f,binsize=81,binsize2=400,nskip=25,v_cutoff=50,v_comet=0.,idx_comet=0.):
+def run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,pixels,f,binsize=81,binsize2=400,nskip=25,v_cutoff=50,v_comet=0.,idx_comet=0,idx_star=0,use_stellar_frame=False):
     ## Define a range of column densities to use (mainly injection)
-    N0=np.hstack([np.arange(1,10)*1e11,np.arange(1,10)*1e12,np.arange(1,5)*1e13])
+    N0=np.hstack([np.arange(1,10)*1e11,np.arange(1,10)*1e12,np.arange(1,10)*1e13,np.arange(1,10)*1e14,np.arange(1,10)*1e15])
+ 
+    # short run version for quick examination
     #N0=np.hstack([np.arange(1,4)*1e13])
+    #N0=np.asarray([1e11,5e11,1e12,5e12,1e13,5e13,1e14,5e14,1e15])
+    if use_stellar_frame:
+        fappend='_stellar'
+    else:
+        fappend=''
+    T_gas0=np.asarray([10, 20, 30, 50, 100, 200, 300, 500, 1000, 2000, 3000])
+    # short run version for quick examination
+    #T_gas0=np.asarray([30,300, 1000,2000])
 
-    T_gas0=np.asarray([10, 20, 50, 100, 200, 300, 1000, 2000])
-    #T_gas0=np.asarray([10, 20,50,100])
-    ntot = np.size(N0)*np.size(T_gas0)
+    # tried different line broadenings for the CN model (km/s)
+    broadening0=np.array([5.,10.,15.])
+
+    # how many total iterations to print progress
+    ntot = np.size(N0)*np.size(T_gas0)*np.size(broadening0)
     count = 1
-    for T_gas in T_gas0:
-        for N in N0:
-            print(f'Running model {count} of {ntot} models for N0={N} and T_gas={T_gas}...')
-            count = count + 1
-            v_ccf,ccf,sim_ccf=generate_CCFs_orders(wlens,data_for_ccf,spec,binsize=binsize,binsize2=binsize2,nskip=nskip,T_gas=T_gas,N=N,v_cutoff=v_cutoff,v_comet=v_comet)
-            
-            v_phase,phase,sim_phase,fit,err,fit_sim,err_sim=fold_comet(v_ccf,ccf[:-1],sim_ccf[:-1],T_gas,N,binsize,idx_comet,v_comet)
+    for k,broadening in enumerate(broadening0): # line broadening...
+       for i,T_gas in enumerate(T_gas0): # CN gas temperature...
+           for j,N in enumerate(N0): # column density...
+               print('Running model {0} of {1} models for N0={2:.2e}, T_gas={3:4d}K and v_broad={4:.1f}km/s...'.format(count,ntot,N,T_gas,broadening))
+               v_ccf,ccf,sim_ccf=generate_CCFs_orders(wlens,data_for_ccf,spec,pixels,broadening=broadening,binsize=binsize,binsize2=binsize2,nskip=nskip,T_gas=T_gas,N=N,v_cutoff=v_cutoff,v_comet=v_comet,idx_star=idx_star)
+       
+               plt.figure()
+               plt.plot(v_ccf,ccf[-1,3,:])
+               plt.plot(v_ccf,sim_ccf[-1,3,:])
+               plt.savefig("plots/orig_ccf_{0:04d}_{1:.2e}_{2:}.png".format(T_gas,N,fappend))
+               plt.close('all')
 
-            f.write("{0:.0f}  {1:.1e} {2:d}  {3:.2f}  {4:.2f}\n".format(T_gas, N, binsize, fit[-1,0]/err[-1,0],fit_sim[-1,0]/err_sim[-1,0]) )
+            # align everything up in the comet rest frame
+               v_phase,phase,sim_phase,fit,err,fit_sim,err_sim=fold_comet(v_ccf,ccf[:-1],sim_ccf[:-1],T_gas,N,binsize,idx_comet,v_comet)
+       
+               f.write("{0:.0f}  {1:.1e} {2:.1f}  {3:.2f}  {4:.2f}\n".format(T_gas, N, broadening, fit[-1,0]/err[-1,0],fit_sim[-1,0]/err_sim[-1,0]) )
+       
+               if count==1:
+                   fit_cube=np.zeros((T_gas0.shape[0],N0.shape[0],broadening0.shape[0],fit.shape[0],fit.shape[1]))
+                   fit_err_cube=np.zeros((T_gas0.shape[0],N0.shape[0],broadening0.shape[0],fit.shape[0],fit.shape[1]))
+                   sim_fit_cube=np.zeros((T_gas0.shape[0],N0.shape[0],broadening0.shape[0],fit.shape[0],fit.shape[1]))
+                   sim_fit_err_cube=np.zeros((T_gas0.shape[0],N0.shape[0],broadening0.shape[0],fit.shape[0],fit.shape[1]))
+                   ccf_cube=np.zeros((T_gas0.shape[0],N0.shape[0],broadening0.shape[0],ccf.shape[0],ccf.shape[2]))
+                   sim_ccf_cube=np.zeros((T_gas0.shape[0],N0.shape[0],broadening0.shape[0],ccf.shape[0],ccf.shape[2]))
+                   phase_cube=np.zeros((T_gas0.shape[0],N0.shape[0],broadening0.shape[0],phase.shape[0],phase.shape[2]))
+                   sim_phase_cube=np.zeros((T_gas0.shape[0],N0.shape[0],broadening0.shape[0],phase.shape[0],phase.shape[2]))
+       
+               plt.figure()
+               plt.plot(v_phase,phase[-1,3,:])
+               plt.plot(v_phase,sim_phase[-1,3,:])
+               plt.savefig("plots/phase_{0:04d}_{1:.2e}_{2:.1f}_{3:}.png".format(T_gas,N,broadening,fappend))
+               plt.close('all')
+               plt.figure()
+               plt.plot(v_ccf,ccf[-1,3,:])
+               plt.plot(v_ccf,sim_ccf[-1,3,:])
+               plt.savefig("plots/ccf_{0:04d}_{1:.2e}_{2:.1f}_{3:}.png".format(T_gas,N,broadening,fappend))
+               plt.close('all')
+               
+               fit_cube[i,j,k,:,:]=fit.copy()
+               fit_err_cube[i,j,k,:,:]=err.copy()
+               sim_fit_cube[i,j,k,:,:]=fit_sim.copy()
+               sim_fit_err_cube[i,j,k,:,:]=err_sim.copy()
+               ccf_cube[i,j,k,:,:]=ccf[:,3,:].copy()
+               sim_ccf_cube[i,j,k,:,:]=sim_ccf[:,3,:].copy()
+               phase_cube[i,j,k,:,:]=phase[:,3,:].copy()
+               sim_phase_cube[i,j,k,:,:]=sim_phase[:,3,:].copy()
+               count = count + 1
+
+    hdu=fits.PrimaryHDU(fit_cube)
+    hdu.writeto(paths.data/"fit_cube{0:}.fits".format(fappend),overwrite=True)
+    hdu=fits.PrimaryHDU(fit_err_cube)
+    hdu.writeto(paths.data/"fit_err_cube{0:}.fits".format(fappend),overwrite=True)
+    hdu=fits.PrimaryHDU(sim_fit_cube)
+    hdu.writeto(paths.data/"sim_fit_cube{0:}.fits".format(fappend),overwrite=True)
+    hdu=fits.PrimaryHDU(sim_fit_err_cube)
+    hdu.writeto(paths.data/"sim_fit_err_cube{0:}.fits".format(fappend),overwrite=True)
+    hdu=fits.PrimaryHDU(ccf_cube)
+    hdu.writeto(paths.data/"ccf_cube{0:}.fits".format(fappend),overwrite=True)
+    hdu=fits.PrimaryHDU(sim_ccf_cube)
+    hdu.writeto(paths.data/"sim_ccf_cube{0:}.fits".format(fappend),overwrite=True)
+    hdu=fits.PrimaryHDU(v_ccf)
+    hdu.writeto(paths.data/"v_ccf.fits".format(fappend),overwrite=True)
+    hdu=fits.PrimaryHDU(phase_cube)
+    hdu.writeto(paths.data/"phase_cube{0:}.fits".format(fappend),overwrite=True)
+    hdu=fits.PrimaryHDU(sim_phase_cube)
+    hdu.writeto(paths.data/"sim_phase_cube{0:}.fits".format(fappend),overwrite=True)
 
 '''
 MAIN CODE FOR RUNNING FITS
@@ -436,27 +493,85 @@ nskip=25 # how many pixels to skip at the start of an echelle order to avoid edg
 binsize2=400 # in pixels...
 
 # read it all in
-nspec,spec,wlen,bary=read_data()
+nspec,spec,wlen,bary,obsdate=read_data()
 
-# cor is corrected for blaze funtion and stellar lines
+## Find the strongest comet in the Ca II H line for each of the spectra, before doing so, remove the overall line-shape by taking the envelope for each point
+ord_FEB=7
 cor=spec.copy()
-for ord in range(spec.shape[1]): # over all the orders...
-    cor[:,ord,:]=correct_spec_blaze_and_star_init(wlen,spec,ord,binsize=binsize,nskip=20,binsize2=binsize2, N_iter=5)
-
-## Find the strongest comet in the Ca II H line for each of the spectra
-FEB_idx,star_idx,FEB_wave=find_comets(wlen,cor,ord_FEB=7,use_all=True)
+for i in range(spec.shape[2]):
+    for ord in range(8):
+       flux=spec[:,ord,i].copy()
+       flux.sort()
+       cor[:,ord,i]=spec[:,ord,i]/np.mean(flux[-10:])
+    
+# we split the spectra into 'comets' and 'no comets'
+FEB_idx,star_idx,FEB_wave=find_comets(wlen,cor,ord_FEB=ord_FEB,use_all=True)
 
 # rest wavelength for CaII H line in the stellar rest frame
-lam0=3968.469*(1.+20./3e5)
+lam0=3968.469
 
 # converting the FEB features into a relative velocity for the comet
 v_comet=3e5*(FEB_wave-lam0)/lam0
 
-# stack both the mean spectrum and individual spectra for orders 0 to 6 (cut down on time and memory)
+# stack both the mean spectrum and individual spectra for orders 0 to 6 
+# (cut down on time and memory)
 data_for_ccf=np.vstack((cor[:,0:6,:],np.mean(cor[:,0:6,:],axis=0)[np.newaxis,:,:]))
 wlens=wlen[0:6,:]
 
+
+##HARPS Fiber change in June 2015 (JD~2457180) Current script avoids the affected region,
+# but might be possible to improve this by selecting low activity pre- and post-fiberchange. 
+idx_pre=obsdate<57200.
+idx_post=obsdate>=57200.
+
+# residual blaze corrections
+pixels=np.arange(wlens.shape[1])
+star_spec_pre=np.median(spec[star_idx*idx_pre,:,:],axis=0)
+star_spec_post=np.median(spec[star_idx*idx_post,:,:],axis=0)
+spec_cor=spec.copy()
+# pre and post fiber change, because the blaze function shifted a bit(?) implied due to a seen RBV jump/line shape profile
+for ord in range(6):
+    spec_cor[idx_pre,ord,:]=remove_resid_blaze(pixels,spec[idx_pre,:,:],star_spec_pre,ord,poly_order=4)
+    spec_cor[idx_post,ord,:]=remove_resid_blaze(pixels,spec[idx_post,:,:],star_spec_post,ord,poly_order=4)
+
+# CHECK POINT to see that this looks normal. REMOVE in final version    
+data_for_ccf=spec_cor[:,0:6,:]
+hdu=fits.PrimaryHDU(data_for_ccf)
+hdu.writeto('tmp.fits',overwrite=True)
+
+# Do the analysis for the strongest comets selected using find_comets()
 f = open(paths.data/"results_HARPS.txt", "w")
-run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,f,binsize=binsize,binsize2=binsize2,nskip=nskip,v_cutoff=50,v_comet=v_comet,idx_comet=FEB_idx)
+run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,pixels,f,binsize=binsize,binsize2=binsize2,nskip=nskip,v_cutoff=50,v_comet=v_comet,idx_comet=FEB_idx,idx_star=star_idx)
 f.close()
+
+
+
+
+
+
+
+
+# DIAGNOSTIC PLOT    
+###Perform autocorrelation of the model to show the strength and pattern in the different orders
+order_start=np.array([ 225,  15,  26,  26,  26,  26])
+order_end  =np.array([3670,4050,4060,4060,4060,2500])
+
+dv=np.linspace(-300,300,601)
+col=['r','g','b','c','y','m','k','orange']
+T_gas0=np.asarray([10, 20, 50, 100, 200, 300, 1000, 2000])
+f,ax=plt.subplots(4,3,figsize=(32,20))
+for i,T in enumerate(T_gas0):
+    w,prof,imdl=get_mdl('CN/CN_{0:04d}K.npy'.format(T),N=1e13)
+    for j in range(1,5):
+        p2=imdl(wlen[j,order_start[j]:order_end[j]])
+        ccf,ccf0=c_correlate(wlen[j,order_start[j]:order_end[j]],np.vstack((p2,p2)),imdl,dv=dv)
+        ax[j-1,0].plot(dv,ccf[0,:],col[i],label='T={0:}K,O={1:}'.format(T,j))
+        ax[j-1,1].plot(dv,ccf[0,:]/np.max(ccf[0,:]),col[i],label='T={0:}K,O={1:}'.format(T,j))
+        ax[j-1,2].plot(wlen[j,order_start[j]:order_end[j]],p2/np.max(p2),col[i])
+ax[0,0].legend()
+ax[1,0].legend()
+ax[2,0].legend()
+ax[3,0].legend()
+f.tight_layout()
+f.savefig('plots/ccf_self.png')
 
