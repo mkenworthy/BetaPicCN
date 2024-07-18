@@ -51,8 +51,8 @@ dependencies:
     - src/data/2d_wavelength.fits
     - src/data/2d_baryvel.fits
   src/scripts/plot_two_CN_temps.py:
-    - src/data/CN/CN_0100K.npy
-    - src/data/CN/CN_1000K.npy
+    - src/data/CN/CN_0030K.npy
+    - src/data/CN/CN_2000K.npy
     - src/data/CN/CN_wavelengths.npy
   src/scripts/plot_ccf.py:
     - src/data/ccf_data1.ecsv

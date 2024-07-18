@@ -271,7 +271,7 @@ For the spectra within a given night:
 
 \end{itemize}
 
-This removes the blaze function, but there remain low spatial frequency variations between different nights, due to the changing slit illumination as the star moves across the spit aperture.
+This removes the blaze function, but there remain low spatial frequency variations between different nights, due to the changing slit illumination as the star moves across the slit aperture.
 
 We then fit a second order polynomial to each individual night and divide this out, resulting in a flattened spectrum for each night.
 
@@ -290,7 +290,7 @@ We note that for \ac{harps}, the 2d-unmerged spectra still contain the overal in
 
 After the initial data analysis, we proceed to with our search for lines from \ce{CN}.
 %
-Although we are interested in lines from the exocomets, we first coadd the data from all the individual epochs, in the stellar rest-frame, to obtain a deep search for circumstellar \ce{CN} absorption.
+Although we are interested in lines from the exocomets, we first co-add the data from all the individual epochs, in the stellar rest-frame, to obtain a deep search for circumstellar \ce{CN} absorption.
 %
 These coadded spectra for \ac{harps} and \ac{uves} are shown in \hl{Figure}.
 %
@@ -298,10 +298,13 @@ No obvious feature jumps out, and we can rule out circumstellar \ce{CN} down to 
 
 Since the exocomets have a clear radial velocity with respect to \bp{}, and since each exocomet will have its own distinct velocity, we selected the NN epochs with the strongest exocometary features, a seen in the \ion{Ca}{ii} H \& K lines, as well as the MM epochs with the weakest cometary features.
 %
-The selection was done by
-
-The spectra with only weak exocometary features were co-averaged in the stellar restframe in order to create a stellar master spectrum. This master-spectrum was divided out of all the remaining spectra in order to create relative spectra. 
-The relative velocities of the exocomets were determined by ......., and the spectra were shifted to the rest-frames of these comments, before being combined. The combined exocomet aligned spectra for both the CA H\&K lines and \ce{CN} band are shown in Fig.~\ref{fig:coadd_exocomets}. As can be seen no signal is visibly present. [Do we need to add a correction to account for any radiation pressure, if so, is there a way to estimate that?]
+The spectra with only weak exocometary features were co-averaged in the stellar rest frame in order to create a stellar master spectrum. This master-spectrum was divided out of all the remaining spectra in order to create relative spectra. 
+%
+The relative velocities of the exocomets were determined by ......., and the spectra were shifted to the rest-frames of these comments, before being combined.
+%
+The combined exocomet aligned spectra for both the \ce{Ca} H\&K lines and \ce{CN} band are shown in Fig.~\ref{fig:coadd_exocomets}. As can be seen no signal is visibly present.
+%
+[Do we need to add a correction to account for any radiation pressure, if so, is there a way to estimate that?]
 
 [Do we want to do a simple CCF to see if we can combine the individual lines?]
 
@@ -310,7 +313,7 @@ We have theoretical spectra of CN shown in Figure~\ref{fig:CN_theory}.
 \begin{figure}
     \begin{centering}
         \includegraphics[width=\columnwidth]{figures/two_CN_temps.pdf}
-        \caption{Theoretical cross section spectra of CN for 100K and 1000K.}
+        \caption{Model spectrum for CN.}
         \label{fig:CN_theory}
         \script{plot_two_CN_temps.py}
     \end{centering}
@@ -360,15 +363,13 @@ We have theoretical spectra of CN shown in Figure~\ref{fig:CN_theory}.
 
 \begin{acknowledgements}
 
-      The authors thank the Lorentz Centre at Leiden University for organising the workshop ``Exocomets: Understanding the Composition of Planetary Building Blocks'' which led to the study in this paper. 
+The authors thank the Lorentz Centre at Leiden University for organising the workshop ``Exocomets: Understanding the Composition of Planetary Building Blocks'' which led to the study in this paper. 
 %
-      Part of this work was supported by the German
-      \emph{Deut\-sche For\-schungs\-ge\-mein\-schaft, DFG\/} project
-      number Ts~17/2--1.
-      %
+Part of this work was supported by the German \emph{Deut\-sche For\-schungs\-ge\-mein\-schaft, DFG\/} project number Ts~17/2--1.
+%
 We made use of the {\tt Python} programming language \citep{rossum1995} and the open-source {\tt Python} packages {\tt numpy} \citep{walt2011}, {\tt matplotlib} \citep{hunter2007}, {\tt astropy} \citep{astropy2013}.
 %      
-An online repository with materials used in this work is available at \url{https://github.com/sebastian-zieba/betaPic_comet}
+An online repository with materials used in this work is available at \url{https://github.com/mkenworthy/}
 \end{acknowledgements}
 
 
