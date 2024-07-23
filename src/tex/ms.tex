@@ -1,16 +1,3 @@
-%                                                                 aa.dem
-% AA vers. 8.2, LaTeX class for Astronomy & Astrophysics
-% demonstration file
-%                                                       (c) EDP Sciences
-%-----------------------------------------------------------------------
-%
-%\documentclass[referee]{aa} % for a referee version
-%\documentclass[onecolumn]{aa} % for a paper on 1 column  
-%\documentclass[longauth]{aa} % for the long lists of affiliations 
-%\documentclass[rnote]{aa} % for the research notes
-%\documentclass[letter]{aa} % for the letters 
-%\documentclass[bibyear]{aa} % if the references are not structured 
-% according to the author-year natbib style
 \documentclass{aa}  
 \usepackage{rotating}
 \usepackage{natbib}
@@ -205,7 +192,7 @@ Detection of this species would provide a solid link between cometary bodies in 
 
 For the study in this paper, we use all the publicly available data from the \ac{harps} and the ESO 3.6m telescope in Chile.
 %
-In addition, we complement this with observations with the \ac{UVES} at the Very Large Telescope in Chile. 
+In addition, we complement this with observations with the \ac{uves} at the Very Large Telescope in Chile. 
 
 \subsection{HARPS observations}
 
@@ -218,7 +205,7 @@ Similarly, the number of observations per epoch spans a wide range, between \tex
 To avoid potential edge effects from order merging,  we used the E2DS files downloaded directly from the ESO archive for our analysis.
 
 \textcolor{red}{Q: Do we want to put an observing log in the appendix?}
-
+\textcolor{red}{Q: Do we want to attempt to use the S1D, as they may have less issues with wiggles if the blaze profile was removed.}
 \subsection{UVES observations}
 
 To supplement the HARPS observations, we use 160 epochs of \ac{uves} observations obtained between 01 April, 2017 and April 18, 2018 under programme 599.C-0751.
@@ -229,18 +216,18 @@ These observations were all obtained using the same instrument setup.
 %
 We used the standard 437+760 mode of \ac{uves}, which uses the \#2 dichroic to allow simultaneous observations in both the red and blue arm.
 %
-In this mode, the CD\#2 and CD\#4 cross-dispersers are used in the blue and red-arm, respectively, providing a simultaneous wavelength coverage of $\sim$3730 $\AA$  to $\sim$5000 $\AA$ in the blue arm, and $\sim$5650 $\AA$ to $\sim$9560 $\AA$ in the red arm.
+In this mode, the CD\#2 and CD\#4 cross-dispersers are used in the blue and red-arm, respectively, providing a simultaneous wavelength coverage of $\sim 3730$ \AA{} to $\sim 5000$ \AA{} in the blue arm, and $\sim 5650$ \AA{} to $\sim 9560$ \AA{} in the red arm.
 %
 For the remainder of the paper, we will only focus on the data from the blue arm of \ac{uves}, as this covers the strong \ce{CN} (0-0) band-head seen in Solar system comets.
 %
 For the blue arm, a 0.3''-wide slit was used to obtain the highest possible resolving power ($\sim$90,000 before an intervention on the instrument in October 2017, and $\sim$100,000 after the intervention). 
 
-The data were reduced using the ESO \ac{UVES} pipeline version \textcolor{red}{6.1.6} through ESO Reflex tool in order to provide as homogeneous a dataset as possible. The flat-field was applied on a pixel-by-pixel basis.\textcolor{red}{The pipeline was set to output the intermediate products and the blaze-corrected spectra before merging were used for our analysis, as the order-merging could introduce systematics in the overlap region. Optimal extraction was performed, using an empirical profile}
+The data were reduced using the ESO \ac{uves} pipeline version \textcolor{red}{6.1.6} through ESO Reflex tool in order to provide as homogeneous a dataset as possible. The flat-field was applied on a pixel-by-pixel basis.\textcolor{red}{The pipeline was set to output the intermediate products and the blaze-corrected spectra before merging were used for our analysis, as the order-merging could introduce systematics in the overlap region. Optimal extraction was performed, using an empirical profile}
 
 \subsection{Initial data processing}
 Starting from the 2d spectra, the data from both instruments was processed in similar ways.
 %
-Each order was treated separately, with the main focus on orders \textcolor{red}{NN, MM and OO} for HARPS and \textcolor{red}{NN, MM, OO} for UVES as those orders contain the main CN bandhead as well as the Ca II H \& K lines, which are used to identify the exocomets.
+Each order was treated separately, with the main focus on orders \textcolor{red}{NN, MM and OO} for HARPS and \textcolor{red}{NN, MM, OO} for UVES as those orders contain the main CN bandhead as well as the \ion{Ca}{ii} H \& K lines, which are used to identify the exocomets.
 %
 All the spectra were transformed into the stellar rest-frame and onto a common wavelength grid using linear interpolation. 
 
@@ -258,18 +245,20 @@ One of the nights with a high signal to noise was chosen to act as an initial es
 
 
 \subsubsection{Combining the spectra}
-After the blaze-variation corrections, all the spectra within a night are combined in order to further boost the signal-to-noise and improve the detection limits. This could potentially re
- For all the night spectra:
+After the blaze-variation corrections, all the spectra within a night are combined in order to further boost the signal-to-noise and improve the detection limits.
 
- We median combine all the nights together.
+For the spectra within a given night:
 
- Bin the spectrum and clip it, interpolate using a cubic spline.
+\begin{itemize}
+\item We median combine all the nights together.
 
+\item Bin the spectrum and clip it, interpolate using a cubic spline.
 
- Divide this interpolated cubic spline into each of the nightly spectra.
+\item Divide this interpolated cubic spline into each of the nightly spectra.
 
+\end{itemize}
 
-THis removes the blaze function, but there remain low spatial frequency variations between different nights, due to the changing slit illumination as the star moves across the spit aperture.
+This removes the blaze function, but there remain low spatial frequency variations between different nights, due to the changing slit illumination as the star moves across the slit aperture.
 
 We then fit a second order polynomial to each individual night and divide this out, resulting in a flattened spectrum for each night.
 
@@ -288,7 +277,7 @@ We note that for \ac{harps}, the 2d-unmerged spectra still contain the overal in
 
 After the initial data analysis, we proceed to with our search for lines from \ce{CN}.
 %
-Although we are interested in lines from the exocomets, we first coadd the data from all the individual epochs, in the stellar rest-frame, to obtain a deep search for circumstellar \ce{CN} absorption.
+Although we are interested in lines from the exocomets, we first co-add the data from all the individual epochs, in the stellar rest-frame, to obtain a deep search for circumstellar \ce{CN} absorption.
 %
 These coadded spectra for \ac{harps} and \ac{uves} are shown in \hl{Figure}.
 %
@@ -296,19 +285,22 @@ No obvious feature jumps out, and we can rule out circumstellar \ce{CN} down to 
 
 Since the exocomets have a clear radial velocity with respect to \bp{}, and since each exocomet will have its own distinct velocity, we selected the NN epochs with the strongest exocometary features, a seen in the \ion{Ca}{ii} H \& K lines, as well as the MM epochs with the weakest cometary features.
 %
-The selection was done by
-
-The spectra with only weak exocometary features were co-averaged in the stellar restframe in order to create a stellar master spectrum. This master-spectrum was divided out of all the remaining spectra in order to create relative spectra. 
-The relative velocities of the exocomets were determined by ......., and the spectra were shifted to the rest-frames of these comments, before being combined. The combined exocomet aligned spectra for both the CA H\&K lines and \ce{CN} band are shown in Fig.~\ref{fig:coadd_exocomets}. As can be seen no signal is visibly present. [Do we need to add a correction to account for any radiation pressure, if so, is there a way to estimate that?]
+The spectra with only weak exocometary features were co-averaged in the stellar rest frame in order to create a stellar master spectrum. This master-spectrum was divided out of all the remaining spectra in order to create relative spectra. 
+%
+The relative velocities of the exocomets were determined by ......., and the spectra were shifted to the rest-frames of these comments, before being combined.
+%
+The combined exocomet aligned spectra for both the \ce{Ca} H\&K lines and \ce{CN} band are shown in Fig.~\ref{fig:coadd_exocomets}. As can be seen no signal is visibly present.
+%
+[Do we need to add a correction to account for any radiation pressure, if so, is there a way to estimate that?]
 
 [Do we want to do a simple CCF to see if we can combine the individual lines?]
 
-We have theoretical specrtra of CN shown in Figure~\ref{fig:CN_theory}.
+We have theoretical spectra of CN shown in Figure~\ref{fig:CN_theory}.
 
 \begin{figure}
     \begin{centering}
         \includegraphics[width=\columnwidth]{figures/two_CN_temps.pdf}
-        \caption{Theoretical cross section spectra of CN for 100K and 1000K.}
+        \caption{Model spectrum for CN.}
         \label{fig:CN_theory}
         \script{plot_two_CN_temps.py}
     \end{centering}
@@ -340,21 +332,16 @@ We have theoretical specrtra of CN shown in Figure~\ref{fig:CN_theory}.
 
 \subsection{\ce{CN}}
 
-\begin{figure}
-    \begin{centering}
-        \includegraphics[width=\columnwidth]{figures/HARPS_CN_grid.pdf}
-        \caption{Confidence intervals for the signal to noise of \ce{CN} spectra using \ac{harps} spectra of \bp{}.}
-        \label{fig:HARPS_CN_grid}
-        \script{plot_HARPS_CN_grid.py}
-    \end{centering}
-\end{figure}
+% \begin{figure}
+%     \begin{centering}
+%         \includegraphics[width=\columnwidth]{figures/HARPS_CN_grid.pdf}
+%         \caption{Confidence intervals for the signal to noise of \ce{CN} spectra using \ac{harps} spectra of \bp{}.}
+%         \label{fig:HARPS_CN_grid}
+%         \script{plot_HARPS_CN_grid.py}
+%     \end{centering}
+% \end{figure}
 
-
-
-\subsection{Other Species? CO$^+$, C$_2$?}
-
-
-
+%\subsection{Other Species? CO$^+$, C$_2$?}
 
 \section{Discussion}
 
@@ -363,15 +350,13 @@ We have theoretical specrtra of CN shown in Figure~\ref{fig:CN_theory}.
 
 \begin{acknowledgements}
 
-      The authors thank the Lorentz Centre at Leiden University for organising the workshop ``Exocomets: Understanding the Composition of Planetary Building Blocks'' which led to the study in this paper. 
+The authors thank the Lorentz Centre at Leiden University for organising the workshop ``Exocomets: Understanding the Composition of Planetary Building Blocks'' which led to the study in this paper. 
 %
-      Part of this work was supported by the German
-      \emph{Deut\-sche For\-schungs\-ge\-mein\-schaft, DFG\/} project
-      number Ts~17/2--1.
-      %
+Part of this work was supported by the German \emph{Deut\-sche For\-schungs\-ge\-mein\-schaft, DFG\/} project number Ts~17/2--1.
+%
 We made use of the {\tt Python} programming language \citep{rossum1995} and the open-source {\tt Python} packages {\tt numpy} \citep{walt2011}, {\tt matplotlib} \citep{hunter2007}, {\tt astropy} \citep{astropy2013}.
 %      
-An online repository with materials used in this work is available at \url{https://github.com/sebastian-zieba/betaPic_comet}
+An online repository with materials used in this work is available at \url{https://github.com/mkenworthy/}
 \end{acknowledgements}
 
 
