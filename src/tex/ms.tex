@@ -198,7 +198,7 @@ In addition, we complement this with observations with the \ac{uves} at the Very
 
 We collated all publicly available HARPS observations of \bp{} obtained between October 2003 and \textcolor{red}{March 2020}.
 %
-Although these observations cover a large baseline, the cadence between visits varies between 1 day and $\sim$2.2 years.
+Although these observations cover a large baseline, the time between visits varies between 1 day and $\sim$2.2 years.
 %
 Similarly, the number of observations per epoch spans a wide range, between \textcolor{red}{1 and 356} exposures, while the exposure times vary between \textcolor{red}{12 and 900} seconds. This results in a SNR range per exposure between \textcolor{red}{NNNN and MMMM}, and a nightly SNR between \textcolor{red}{NNNN and MMMM}.
 %
@@ -206,6 +206,9 @@ To avoid potential edge effects from order merging,  we used the E2DS files down
 
 \textcolor{red}{Q: Do we want to put an observing log in the appendix?}
 \textcolor{red}{Q: Do we want to attempt to use the S1D, as they may have less issues with wiggles if the blaze profile was removed.}
+
+
+
 \subsection{UVES observations}
 
 To supplement the HARPS observations, we use 160 epochs of \ac{uves} observations obtained between 01 April, 2017 and April 18, 2018 under programme 599.C-0751.
@@ -222,80 +225,96 @@ For the remainder of the paper, we will only focus on the data from the blue arm
 %
 For the blue arm, a 0.3''-wide slit was used to obtain the highest possible resolving power ($\sim$90,000 before an intervention on the instrument in October 2017, and $\sim$100,000 after the intervention). 
 
-The data were reduced using the ESO \ac{uves} pipeline version \textcolor{red}{6.1.6} through ESO Reflex tool in order to provide as homogeneous a dataset as possible. The flat-field was applied on a pixel-by-pixel basis.\textcolor{red}{The pipeline was set to output the intermediate products and the blaze-corrected spectra before merging were used for our analysis, as the order-merging could introduce systematics in the overlap region. Optimal extraction was performed, using an empirical profile}
+The data were reduced using the ESO \ac{uves} pipeline version \textcolor{red}{6.1.6} through ESO Reflex tool in order to provide as homogeneous a dataset as possible. The flat-field was applied on a pixel-by-pixel basis. \textcolor{red}{The pipeline was set to output the intermediate products and the blaze-corrected spectra before merging were used for our analysis, as the order-merging could introduce systematics in the overlap region. Optimal extraction was performed, using an empirical profile}
 
 \subsection{Initial data processing}
 Starting from the 2d spectra, the data from both instruments was processed in similar ways.
 %
-Each order was treated separately, with the main focus on orders \textcolor{red}{NN, MM and OO} for HARPS and \textcolor{red}{NN, MM, OO} for UVES as those orders contain the main CN bandhead as well as the \ion{Ca}{ii} H \& K lines, which are used to identify the exocomets.
+Each order was treated separately, with the main focus on orders \textcolor{red}{4 and 8} for HARPS and \textcolor{red}{4, and 7} for UVES as those orders contain the main CN bandhead as well as the \ion{Ca}{ii} H line, which are used to identify the exocomets.
 %
-All the spectra were transformed into the stellar rest-frame and onto a common wavelength grid using linear interpolation. 
+All the spectra were transformed into the stellar rest-frame and onto a common wavelength grid using linear interpolation. For UVES, the \ce{Fe} \textcolor{red}{NNNN~$\AA$} line was used to track global wavelength drifts between different exposures which were corrected for at the same time. To measure these, a Gaussian was fit to the line, and the velocity offset from the restframe position determined. 
 
-The number of observations varies from night to night, from a \textcolor{red}{single} spectrum to over \textcolor{red}{three hundred} spectra.
 %
-An average of all the spectra in one night was made for each of the nights of observations, after correcting for variations in the effective blaze profile (e.g., due to instrumental changes, differential slit losses, atmospheric absorption etc.), as outlined below. Note that after this correction, the HARPS data still have the overall instrumental blaze-profile, while the 2d-spectra from UVES were already corrected for this.
+After all the spectra were all transformed into the stellar restframe, an average nightly spectrum was made from all spectra within a night for each of the nights of observations. This was done after correcting for variations in the effective blaze profile (e.g., due to instrumental changes, differential slit/fiber losses, atmospheric absorption etc.), as outlined below. Note that after this correction, the HARPS data still have the overall instrumental blaze-profile, while the 2d-spectra from UVES were already corrected for this.
 
-\subsubsection{Effective Blaze function correction}
+
+\subsubsection{Effective Blaze function correction}\label{sect:blaze}
 
 One of the nights with a high signal to noise was chosen to act as an initial estimate for the blaze function (the night of \textcolor{red}{DATE} for HARPS and \textcolor{red}{DATE} for UVES). The individual spectra in this night were averaged together to further boost the signal-to-noise ratio. Subsequently, each individual spectrum was divided by this reference spectrum to highlight the changes in the effective profile. This ratio spectrum was subsequently binned using a bin-width of \textcolor{red}{101} pixels using a robust algorithm to remove outliers within each bin. This binned ratio was than fit using a \textcolor{red}{second} order polynomial. The original spectrum was finally divided by this polynomial to correct for the changes.
 
+Note that for HARPS, the change of fiber in \textcolor{red}{June 2015 (JD$\sim$2457180)} resulted in an overall change of the blaze profile, and therefore, the spectra before and after this date were separately post-processed as outlined below in the Sect.~/ref{sect:starcor}.
 
-%his spectrum was binned in the spectral direction to remove both narrow absorption lines and the rotationally broadened stellar chromospheric lines, but preserve the shape of the blaze function.
+
+
+\subsubsection{Combining the spectra and flattening them}\label{sect:comb}
+After the blaze-variation corrections, all the spectra within a night are combined in order to further boost the signal-to-noise and improve the detection limits. Each individual spectrum was weighted using the average signal-to-noise ratio provided in the header for orders \textcolor{red}{NN and MM, and OO and PP} for HARPS and UVES respectively.
+
+%For the spectra within a given night:
 %
-
-
-\subsubsection{Combining the spectra}
-After the blaze-variation corrections, all the spectra within a night are combined in order to further boost the signal-to-noise and improve the detection limits.
-
-For the spectra within a given night:
-
-\begin{itemize}
-\item We median combine all the nights together.
-
-\item Bin the spectrum and clip it, interpolate using a cubic spline.
-
-\item Divide this interpolated cubic spline into each of the nightly spectra.
-
-\end{itemize}
-
-This removes the blaze function, but there remain low spatial frequency variations between different nights, due to the changing slit illumination as the star moves across the slit aperture.
-
-We then fit a second order polynomial to each individual night and divide this out, resulting in a flattened spectrum for each night.
-
-
-Subsequently, we applied a correction for variations in the instrumental blaze by selecting a reference spectrum and dividing all the spectra by this reference. The ratio was then binned, removing outliers, and a polynomial was fit to the data.
+%\begin{itemize}
+%\item We median combine all the nights together.%
 %
-For \ac{uves} we used a Nth degree polynomial, while for \ac{harps} we used a 2nd degree polynomial.
+%\item Bin the spectrum and clip it, interpolate using a cubic spline.
 %
-This polynomial was then divided from the spectrum under consideration. We note that the blaze correction will also remove non-instrumental effects, including variations in atmospheric transmission and seeing.
-
-The blaze-corrected spectra taken within a night were averaged together [Should we use a weighted average?].
+%\item Divide this interpolated cubic spline into each of the nightly spectra.
 %
-We note that for \ac{harps}, the 2d-unmerged spectra still contain the overal instrumental blaze-profile, which is (partially) corrected for by using a dedicated blaze-frame obtained from the archive, which removes most, but not all, of this profile. 
+%\end{itemize}
 
-\section{Searches for cometary species}
+\subsubsection{Removing the stellar spectrum}\label{sect:starcor}
+The processing up to this stage removes most of the variations in the effective blaze function, but the overall stellar spectrum and, for HARPS, shape of the blaze profile, are still present and need to be removed. 
+
+For both HARPS and UVES we first perform a second iteration of blaze corrections using a  stellar spectrum constructed by averaging the spectra from periods with a low comet activity (see \textcolor{red}{Sect.~\ref{sect:FEBident}}. For HARPS this is done separately pre- and post-fiber change. The correction is done similar to Sect.~\ref{sect:blaze}, however for both UVES and HARPS a \textcolor{red}{4th order} polynomial was used.
+
+After this post-processing the overall (residual) blaze profile and stellar spectrum still need to be removed. Care must be taken to prevent the removal of (potential) narrow features from the circumstellar disk (as seen in e.g., the \ce{Fe} and \ion{Ca}{II} lines). This is done by combining the nightly spectra without significant cometary activity (see Sect.~\ref{sect:FEBid}) and binning this stacked spectrum in wavelength in bins of 21 pixels. Before binning, the spectrum in each bin was MAD (median absolute deviation) clipped to within $\pm$4.5 MAD of the median of the flux in the bin. The clipped average of the fluxes within each bin was used. Subsequently, the overall spectrum of the star and (residual) blaze was determined by cubic interpolation across the binned points, and divided out of the spectrum for each night. As before, for HARPS this was done separately pre- and post-fiber change.
+
+
+
+
+%Subsequently, we applied a correction for variations in the instrumental blaze by selecting a reference spectrum and dividing all the spectra by this reference. The ratio was then binned, removing outliers, and a polynomial was fit to the data.
+%
+%For \ac{uves} we used a Nth degree polynomial, while for \ac{harps} we used a 2nd degree polynomial.
+%
+%This polynomial was then divided from the spectrum under consideration. We note that the blaze correction will also remove non-instrumental effects, including variations in atmospheric transmission and seeing.
+
+%The blaze-corrected spectra taken within a night were averaged together [Should we use a weighted average?].
+%
+%We note that for \ac{harps}, the 2d-unmerged spectra still contain the overal instrumental blaze-profile, which is (partially) corrected for by using a dedicated blaze-frame obtained from the archive, which removes most, but not all, of this profile. 
+
+\section{Searches for \ce{CN}}\label{sect:CNsearch}
 
 After the initial data analysis, we proceed to with our search for lines from \ce{CN}.
 %
 Although we are interested in lines from the exocomets, we first co-add the data from all the individual epochs, in the stellar rest-frame, to obtain a deep search for circumstellar \ce{CN} absorption.
 %
-These coadded spectra for \ac{harps} and \ac{uves} are shown in \hl{Figure}.
+\textcolor{red}{These coadded spectra for \ac{harps} and \ac{uves} are shown in \hl{Figure}.}
 %
-No obvious feature jumps out, and we can rule out circumstellar \ce{CN} down to \hl{NNNN}.
+No obvious feature from the \ce{CN} band jumps out, and we need to combine the signal from the lines within the \ce{CN} band to improve the detection limits.
 
-Since the exocomets have a clear radial velocity with respect to \bp{}, and since each exocomet will have its own distinct velocity, we selected the NN epochs with the strongest exocometary features, a seen in the \ion{Ca}{ii} H \& K lines, as well as the MM epochs with the weakest cometary features.
-%
-The spectra with only weak exocometary features were co-averaged in the stellar rest frame in order to create a stellar master spectrum. This master-spectrum was divided out of all the remaining spectra in order to create relative spectra. 
-%
-The relative velocities of the exocomets were determined by ......., and the spectra were shifted to the rest-frames of these comments, before being combined.
-%
-The combined exocomet aligned spectra for both the \ce{Ca} H\&K lines and \ce{CN} band are shown in Fig.~\ref{fig:coadd_exocomets}. As can be seen no signal is visibly present.
-%
-[Do we need to add a correction to account for any radiation pressure, if so, is there a way to estimate that?]
+Since the exocomets have a clear radial velocity with respect to \bp{}, and since each exocomet will have its own distinct velocity, we selected the NN epochs with the strongest exocometary features, a seen in the \ion{Ca}{ii} H line. 
 
-[Do we want to do a simple CCF to see if we can combine the individual lines?]
+TODO FIGURE: Just spectrum coadded in stellar rest frame same for comet rest frame in the CN band wavelength range, with the CN band overplotted.
 
-We have theoretical spectra of CN shown in Figure~\ref{fig:CN_theory}.
+\subsection{Identifying exocomets from \ion{Ca}{ii} H line}\label{sect:FEBid}
+The comet features in the \ion{Ca}{ii} H-line ($\lambda=3968. \AA$) were identified after removing the overall stellar line-profile and avoiding the absorption from the circumstellar disk by excluding the central \textcolor{red}{NN} km\,s$^{-1}$. The deepest absorption feature in each observing night was selected, and the location and depth stored. For the comet sample we selected features deeper than \textcolor{red}{60\% and 40\%} for HARPS and UVES, respectively, while spectra with features below 15\% for both HARPS and UVES were flagged as 'low activity'. \textcolor{red}{An example of the \ion{Ca}{ii} H line for a night with a strong comet and for a night with a weak comet are shown in \hl{Figure}. The distribution of feature location and depth is shown in \hl{Figure}}
+
+plotFEbs for the above first two figures!
+
+The spectra for the strong comet sample were coadded, and the combined spectrum for the HARPS data is shown in \hl{Figure}. As with the circumstellar \ce{CN}, there are no obvious lines from CN visible, and we will need to combine multiple lines to improve the signal-to-noise ratio, and see if there is any CN present. 
+%
+%The spectra with only weak exocometary features were co-averaged in the stellar rest frame in order to create a stellar master spectrum. This master-spectrum was divided out of all the remaining spectra in order to create relative spectra. 
+%
+%The relative velocities of the exocomets were determined by ......., and the spectra were shifted to the rest-frames of these comments, before being combined.
+%
+%The combined exocomet aligned spectra for both the \ce{Ca} H\&K lines and \ce{CN} band are shown in Fig.~\ref{fig:coadd_exocomets}. As can be seen no signal is visibly present.
+%
+
+
+
+
+\subsection{Cross-correlation with \ce{CN} models}\label{sect:CCF}
+To combine the signal from the many \ce{CN} lines, we cross-correlate the data for each night with a grid of model of \ce{CN}. Cross-sections for \ce{CN} were obtained from ExoMol \textcolor{red}{REFERENCES HERE} and the cross-sections were calculated using \textcolor{red}{NEED SOME DETAILS...}. We made models for a wide range of temperatures (T$=$\{10, 20, 30, 50, 100, 200, 300, 500, 1000, 2000, 3000\} K) and column densities\footnote{Note that technically, for optically thin lines, this assumes a filling factor $f=1$. Since $f$ is unknown, we actually measure N$f$} (N=\{$10^{11} \ldots 10^{15}$\} cm$^{-2}$. Each of the models was then convolved to include an effective velocity dispersion using a Gaussian for FWHM=\{2.9, 5, 10, 15, 20\} km\,s$^{-1}$. A value of 2.9 km\,s$^{-1}$ corresponds approximately to the instrumental resolution of HARPS. The theoretical spectra of \ce{CN} for several different temperatures are shown in Figure~\ref{fig:CN_theory}.
+
+Even after cross-correlating, the stacked CCFs (see Fig.~\ref{fig:ccf} do not show any clear signals, and we therefore proceed to estimate our detection limits.
 
 \begin{figure}
     \begin{centering}
@@ -305,18 +324,6 @@ We have theoretical spectra of CN shown in Figure~\ref{fig:CN_theory}.
         \script{plot_two_CN_temps.py}
     \end{centering}
 \end{figure}
-
-
-
-\begin{figure}
-    \begin{centering}
-        \includegraphics[width=\columnwidth]{figures/ccf.pdf}
-        \caption{Cross correlation for different number densities of CN.}
-        \label{fig:ccf}
-        \script{plot_ccf.py}
-    \end{centering}
-\end{figure}
-
 
 \begin{figure}
     \begin{centering}
@@ -329,8 +336,14 @@ We have theoretical spectra of CN shown in Figure~\ref{fig:CN_theory}.
 
 
 
+% \begin{figure}
+%     \begin{centering}
+%         \includegraphics[width=\columnwidth]{figures/asdf.png}
+%         \caption{Test picture}
+%         \label{fig:test}
+%     \end{centering}
+% \end{figure}
 
-\subsection{\ce{CN}}
 
 % \begin{figure}
 %     \begin{centering}
@@ -343,7 +356,19 @@ We have theoretical spectra of CN shown in Figure~\ref{fig:CN_theory}.
 
 %\subsection{Other Species? CO$^+$, C$_2$?}
 
+\subsection{Estimating the \ce{CN} column density limits}\label{sect:CNlim}
+To estimate the limits on the \ce{CN} detection, we perform injection and recovery tests. We injected models for different temperatures, column densities and velocity broadening into the nightly stacked spectra (Sect.~\ref{sect:comb}, and then processed them in the same way as the original data (i.e., correct for residual blaze variations, removal of the stellar envelope and cross-correlation). This was done for all spectra with the injected signal in the stellar restframe as well as for the sample of spectra with strong cometary activity in the restframe of the strongest exocometary feature per night.
+
+The individual CCFs show some overall slopes and offsets, and we fit each individual CCF with a combination of a second-order polynomial baseline and a Gaussian with the position fixed to 0 km\,s$^{-1}$ in its restframe. The fit has five free parameters: the amplitude of the peak, the width of the peak, and the offset, slope, and intercept of the baseline. To avoid the aliasing peaks of the \ce{CN} band (see \hl{Figure}), we only fit the central $\pm$35 km\,s$^{-1}$ of the CCF. Fitting is done using the curve\_fit function from SciPy \hl{REFERENCE}.
+We correct each of the individual CCFs for the baseline and then stack the corrected CCFs to obtain our master CCF that we use for determining the upper limit. The noise on each point in the master CCF is determined by taking the standard deviation in time for each pixel and dividing that by the square root of the number of points.
+
+This master CCF is then fitted in the same way as the nightly CCFs, and the uncertainties on the parameters is taken directly from curve\_fit assuming no covariance between the parameters. The final detection significance for the injected models is determined by the amplitude divided by its uncertainty, and shown in \hl{Figure} for the circumstellar gas and in \hl{Figure} for the strongest exocomet features.
+
+
 \section{Discussion}
+
+
+
 
 \section{Conclusions}
 
