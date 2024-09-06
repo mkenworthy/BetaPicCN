@@ -41,7 +41,7 @@ order_end  =4060
 dv=np.linspace(-300,300,601)
 col=['r','g','b','c','y','m','k','orange']
 T_gas0=np.asarray([10, 20, 50, 100, 200, 300, 1000, 2000])
-f,ax=plt.subplots(1,2)
+f,ax=plt.subplots(1,2,sharex=True)
 
 ##: left panel: un-normalised ACF, right panel: normalised ACF
 for i,T in enumerate(T_gas0):
@@ -52,5 +52,6 @@ for i,T in enumerate(T_gas0):
     ax[1].plot(dv,ccf[0,:]/np.max(ccf[0,:]),col[i],label='T={0:}K'.format(T))
 ax[0].legend()
 f.tight_layout()
-f.savefig(paths.figures/'ccf_self.png')
+f.savefig(paths.figures/'ccf_self.png') 
 
+plt.show()

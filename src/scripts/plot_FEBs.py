@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 from astropy.io import fits
 import numpy as np
 import paths
+import matplotlib as mpl
+mpl.use('macosx')
 
 vgrid=fits.getdata(paths.data/'FEB_vgrid.fits')
 orig_spec=fits.getdata(paths.data/'FEB_spec_orig.fits')
