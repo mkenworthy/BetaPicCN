@@ -242,7 +242,7 @@ After all the spectra were all transformed into the stellar restframe, an averag
 
 One of the nights with a high signal to noise was chosen to act as an initial estimate for the blaze function (the night of \textcolor{red}{DATE} for HARPS and \textcolor{red}{DATE} for UVES). The individual spectra in this night were averaged together to further boost the signal-to-noise ratio. Subsequently, each individual spectrum was divided by this reference spectrum to highlight the changes in the effective profile. This ratio spectrum was subsequently binned using a bin-width of \textcolor{red}{101} pixels using a robust algorithm to remove outliers within each bin. This binned ratio was than fit using a \textcolor{red}{second} order polynomial. The original spectrum was finally divided by this polynomial to correct for the changes.
 
-Note that for HARPS, the change of fiber in \textcolor{red}{June 2015 (JD$\sim$2457180)} resulted in an overall change of the blaze profile, and therefore, the spectra before and after this date were separately post-processed as outlined below in the Sect.~/ref{sect:starcor}.
+Note that for HARPS, the change of fiber in June 2015 (JD$\sim$2,457,180) resulted in an overall change of the blaze profile, and therefore, the spectra before and after this date were separately post-processed as outlined below in the Sect.~/ref{sect:starcor}.
 
 
 
@@ -308,6 +308,16 @@ The spectra for the strong comet sample were coadded, and the combined spectrum 
 %The combined exocomet aligned spectra for both the \ce{Ca} H\&K lines and \ce{CN} band are shown in Fig.~\ref{fig:coadd_exocomets}. As can be seen no signal is visibly present.
 %
 
+\begin{figure}
+    \begin{centering}
+        \includegraphics[width=\columnwidth]{figures/CN_ACF.pdf}
+        \caption{CN autocorrelation function for different temperatures.}
+        \label{fig:CN_ACF}
+        \script{plot_CN_ACF.py}
+    \end{centering}
+\end{figure}
+
+
 
 
 
@@ -342,6 +352,7 @@ Even after cross-correlating, the stacked CCFs (see Fig.~\ref{fig:ccf} do not sh
         \script{plot_HARPS_CN_stellar_frame.py}
     \end{centering}
 \end{figure}
+
 
 
 \begin{figure*}
@@ -382,7 +393,9 @@ To estimate the limits on the \ce{CN} detection, we perform injection and recove
 The individual CCFs show some overall slopes and offsets, and we fit each individual CCF with a combination of a second-order polynomial baseline and a Gaussian with the position fixed to 0 km\,s$^{-1}$ in its restframe. The fit has five free parameters: the amplitude of the peak, the width of the peak, and the offset, slope, and intercept of the baseline. To avoid the aliasing peaks of the \ce{CN} band (see \hl{Figure}), we only fit the central $\pm$35 km\,s$^{-1}$ of the CCF. Fitting is done using the curve\_fit function from SciPy \hl{REFERENCE}.
 We correct each of the individual CCFs for the baseline and then stack the corrected CCFs to obtain our master CCF that we use for determining the upper limit. The noise on each point in the master CCF is determined by taking the standard deviation in time for each pixel and dividing that by the square root of the number of points.
 
-This master CCF is then fitted in the same way as the nightly CCFs, and the uncertainties on the parameters is taken directly from curve\_fit assuming no covariance between the parameters. The final detection significance for the injected models is determined by the amplitude divided by its uncertainty, and shown in \hl{Figure} for the circumstellar gas and in \hl{Figure} for the strongest exocomet features.
+This master CCF is then fitted in the same way as the nightly CCFs, and the uncertainties on the parameters is taken directly from curve\_fit assuming no covariance between the parameters. The final detection significance for the injected models is determined by the amplitude divided by its uncertainty, and shown in Figure~\ref{fig:CN_stellar_frame} for the circumstellar gas and in Figure~\ref{fig:CN_exocomet_frame} for the strongest exocomet features.
+
+
 
 
 \section{Discussion}
