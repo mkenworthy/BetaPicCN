@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jul 26 15:54:53 2022
-
-@author: demooij
-"""
-
 import numpy as np
 import matplotlib.pyplot as plt
 from astropy.io import fits
@@ -41,16 +34,31 @@ order_end  =4060
 dv=np.linspace(-300,300,601)
 col=['r','g','b','c','y','m','k','orange']
 T_gas0=np.asarray([10, 20, 50, 100, 200, 300, 1000, 2000])
-f,ax=plt.subplots(1,2)
+T_gas0=np.asarray([10, 50, 100,  300, 1000, 2000])
+f,ax=plt.subplots(2,1,sharex=True)
 
+
+colors = plt.cm.viridis(np.linspace(0,1,np.size(T_gas0)))
 ##: left panel: un-normalised ACF, right panel: normalised ACF
 for i,T in enumerate(T_gas0):
     w,prof,imdl=get_mdl('CN/CN_{0:04d}K.npy'.format(T),N=1e13)
     p2=imdl(wlen[order_start:order_end])
     ccf,ccf0=c_correlate(wlen[order_start:order_end],np.vstack((p2,p2)),imdl,dv=dv)
-    ax[0].plot(dv,ccf[0,:],col[i],label='T={0:}K'.format(T))
-    ax[1].plot(dv,ccf[0,:]/np.max(ccf[0,:]),col[i],label='T={0:}K'.format(T))
-ax[0].legend()
-f.tight_layout()
-f.savefig(paths.figures/'ccf_self.png')
+    ax[0].plot(dv,ccf[0,:],color=colors[i],linewidth=3,label='T={0:}K'.format(T))
+    ax[1].plot(dv,ccf[0,:]/np.max(ccf[0,:]),color=colors[i],linewidth=3,label='T={0:}K'.format(T))
 
+ax[0].tick_params(axis='both',labelsize=14)
+ax[1].tick_params(axis='both',labelsize=14)
+#f.tight_layout()
+
+ax[0].legend()
+
+ax[1].set_xlabel(f'Rest frame velocity [km/s]',fontsize=18)
+ax[1].set_ylabel(f'Peak normalised',fontsize=18)
+ax[0].set_ylabel(f'Strength',fontsize=18)
+
+ax[0].set_xlim(-150,150)
+
+f.savefig(paths.figures/'CN_ACF.pdf') 
+
+#plt.show()
