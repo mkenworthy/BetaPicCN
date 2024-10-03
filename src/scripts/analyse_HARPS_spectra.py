@@ -71,7 +71,7 @@ def get_mdl(fn='CN/CN_0300K.npy',N=1e15,FWHM_kernel=3e5/1.1e5):
 
 ##Read in data
 def read_data(order=[0,1,2,3,4,5,6,7]):
-    vsys=20.    #Systemic velocity of beta Pic
+    vsys=20.    #Systemic velocity of beta Pic estimated from data
     nspec = fits.getdata(paths.data/'2d_nspec.fits')
     spec = fits.getdata(paths.data/'2d_spec.fits')
     wlen = fits.getdata(paths.data/'2d_wavelength.fits')/(1.+vsys/3e5)
@@ -81,7 +81,7 @@ def read_data(order=[0,1,2,3,4,5,6,7]):
 
 
 ## Estimate residual blaze
-def remove_resid_blaze(pixels,spec,star_spec,ord=3,poly_order=4):
+def remove_resid_blaze(pixels,spec,star_spec,ord=3,poly_order=6):
     # order start and order end (the pixel point where there is flux in the order)
     # for the first eight orders
     o_start=np.array([ 225,  15,  15,  15,  15,  15,  15,  15])
@@ -90,7 +90,7 @@ def remove_resid_blaze(pixels,spec,star_spec,ord=3,poly_order=4):
     # take the ratio of the spectrum to the mean spectrum...
     spec_cor=spec[:,ord,:]/star_spec[np.newaxis,ord,:]
     
-    binsize=400
+    binsize=150
     idx=(pixels>o_start[ord])*(pixels<o_end[ord])
     nbins=pixels.shape[0] // binsize
 
@@ -142,8 +142,7 @@ def remove_stellar_envelope(spec,ord):
     for i in range(spec0.shape[1]):
         tmp_array=spec0[:,i].copy()
         tmp_array.sort()
-        spec_star_only0[i]=np.mean(tmp_array[-15:-5])
-        
+        spec_star_only0[i]=np.median(tmp_array)#[-25:-15])
 
         
     #Now fit the overall envelope but leaving narrow features hopefully intact
@@ -173,6 +172,13 @@ def remove_stellar_envelope(spec,ord):
         spec_star_only=np.ones_like(spec_star_only0)
     spec_final_norm = spec0/spec_star_only[np.newaxis,:]
 
+    '''
+    if ord ==3:
+        plt.figure()
+        plt.plot(spec0.transpose()/spec_star_only[:,np.newaxis],'k',alpha=0.03)
+        plt.plot(np.mean(spec0.transpose()/spec_star_only[:,np.newaxis],axis=1),'r')
+        plt.show()
+    '''    
     
     return spec_final_norm
 
@@ -252,7 +258,23 @@ def find_comets(wlen,spec_m,ord_FEB=7,use_all=True):
     
     return FEB_sel,star_sel,wlen_FEB_clip
 
-   
+
+
+
+#Align the spectra in the comet restframe for stacking. Note that for Ca, the line centres are set to NaN.
+def align_spectra(wave,spec0,v_FEB):
+    spec=spec0.copy()
+    FEB_spec=spec.copy()
+    for i in range(spec.shape[0]):
+        z=1.+v_FEB[i]/3e5
+        for o in range(spec.shape[1]):
+            speci=interp1d(wave[o,:],spec[i,o,:],kind='linear',bounds_error=False,fill_value=np.nan)
+            FEB_spec[i,o,:]=speci(wave[o,:]*z)
+            idx=(np.abs( 3e5*(wave[o,:]*z-3933.663)/3933.663) < 10)+(np.abs( 3e5*(wave[o,:]*z-3968.469)/3968.469) < 10)
+            if np.sum(idx)>0:
+                FEB_spec[i,o,idx]=np.nan
+    return FEB_spec
+        
 
 ####################################################################################
 ####################################################################################
@@ -294,9 +316,9 @@ def inject_mdl(l_data,data,imodel,dv=np.zeros(51)):
 def generate_CCFs_orders(wlens,data_for_ccf,spec,pixels,broadening=5.,binsize=80,T_gas=10,N=1e12,v_comet=0.,idx_star=0,idx_pre=0,idx_post=0):
     
     # order start and order end (the pixel point where there is flux in the order)
-    # for the first eight orders
-    o_start=np.array([ 225,  15,  15,  15,  15,  15,  15,  15])
-    o_end  =np.array([3670,4050,4060,4060,4060,4060,4060,4060])
+    # for the first eight orders. 200 is added/subtracted to avoid edge of blaze correction
+    o_start=np.array([ 225,  15,  15,  15,  15,  15,  15,  15])+200
+    o_end  =np.array([3670,4050,4060,4060,4060,4060,4060,4060])-200
 
     
     ## define arrays to store ccfs 
@@ -337,8 +359,11 @@ def generate_CCFs_orders(wlens,data_for_ccf,spec,pixels,broadening=5.,binsize=80
             plt.close('all')
         #gc.collect()
         '''
-        sim_dat[idx_pre ,ord,:]=remove_resid_blaze(pixels,sim_dat[idx_pre ,:,:],star_spec_pre ,ord,poly_order=4)
-        sim_dat[idx_post,ord,:]=remove_resid_blaze(pixels,sim_dat[idx_post,:,:],star_spec_post,ord,poly_order=4)
+        star_spec_pre=np.mean(sim_dat[idx_star*idx_pre,:,:],0)
+        star_spec_post=np.mean(sim_dat[idx_star*idx_post,:,:],0)
+
+        sim_dat[idx_pre ,ord,:]=remove_resid_blaze(pixels,sim_dat[idx_pre ,:,:],star_spec_pre ,ord,poly_order=8)
+        sim_dat[idx_post,ord,:]=remove_resid_blaze(pixels,sim_dat[idx_post,:,:],star_spec_post,ord,poly_order=8)
         sim_dat[idx_pre ,ord,:]=remove_stellar_envelope(sim_dat[idx_pre ,:,:],ord)
         sim_dat[idx_post,ord,:]=remove_stellar_envelope(sim_dat[idx_post,:,:],ord)
     
@@ -346,6 +371,17 @@ def generate_CCFs_orders(wlens,data_for_ccf,spec,pixels,broadening=5.,binsize=80
         sim_ccf,sim_ccf0=c_correlate(wlens[ord,idx],sim_dat[:,ord,idx],imdl_conv,dv=v_ccf)
         m_sim_ccf[:,ord,:]=sim_ccf.copy()
 
+    '''
+    hdu=fits.PrimaryHDU( align_spectra(wlens,sim_dat,v_comet).swapaxes(1,0))
+    hdu.writeto('sim_tmp_{0:04d}_{1:.2e}.fits'.format(T_gas,N),overwrite=True)
+    
+    idx=(np.abs( 3e5*(wlens[7,:]-3933.663)/3933.663) < 10)+(np.abs( 3e5*(wlens[7,:]-3968.469)/3968.469) < 10)
+    for i in range(sim_dat.shape[0]):
+        sim_dat[i,7,idx]=np.nan
+    hdu=fits.PrimaryHDU( sim_dat.swapaxes(1,0))
+    hdu.writeto('sim_tmp0_{0:04d}_{1:.2e}.fits'.format(T_gas,N),overwrite=True)
+    '''
+    
     return v_ccf,m_ccf,m_sim_ccf
 
 
@@ -464,9 +500,9 @@ def fold_comet(v_ccf,ccf,sim_ccf,binsize,idx_comets,v_comets):
 def run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,pixels,f,binsize=81,v_comet=0.,idx_comet=0,idx_star=0,idx_pre=0,idx_post=0,restframe='stellar'):
     ## Define a range of column densities to use (mainly injection)
     N0=np.hstack([np.arange(1,10)*1e11,np.arange(1,10)*1e12,np.arange(1,10)*1e13,np.arange(1,10)*1e14,np.arange(1,10)*1e15])
-    N0=10.**(np.linspace(11,16,30))
+    N0=10.**(np.linspace(11.+np.log10(2),15.+np.log10(2),50))
     print(N0)
-    T_gas0=np.asarray([10, 20, 30, 50, 100, 200, 300, 500, 1000, 2000, 3000])
+    T_gas0=np.asarray([10, 15, 20, 15, 30,40, 50, 75, 100, 150, 200, 250, 300, 400, 500, 750, 1000, 1500, 2000, 2500, 3000])#[10, 20, 30, 50, 100, 200, 300, 500, 1000, 2000, 3000])
     # short run version for quick examination
 
     # tried different line broadenings for the CN model (FWHM in km/s) [from instrumental resolution up to 20km/s
@@ -488,21 +524,21 @@ def run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,pixels,f,binsize=81,v_comet=0
                v_ccf,ccf,sim_ccf=generate_CCFs_orders(wlens,data_for_ccf,spec,pixels,broadening=broadening,binsize=binsize,T_gas=T_gas,N=N,v_comet=v_comet,idx_star=idx_star,idx_pre=idx_pre,idx_post=idx_post)
        
                
-               plt.figure()
-               plt.plot(v_ccf,ccf[-1,3,:])
-               plt.plot(v_ccf,sim_ccf[-1,3,:])
+               #plt.figure()
+               #plt.plot(v_ccf,ccf[-1,3,:])
+               #plt.plot(v_ccf,sim_ccf[-1,3,:])
 
-               plt.savefig("plots/orig_ccf_{0:04d}_{1:.2e}_{2:}.png".format(T_gas,N,restframe))
-               plt.close('all')
+               #plt.savefig("plots/orig_ccf_{0:04d}_{1:.2e}_{2:}.png".format(T_gas,N,restframe))
+               #plt.close('all')
 
-               plt.figure()
+               #plt.figure()
                
                
                # align everything up in the comet rest frame and estimate the significance of any (non)detection.
                v_phase,phase,sim_phase,fit,err,fit_sim,err_sim=fold_comet(v_ccf,ccf,sim_ccf,binsize,idx_comet,v_comet)
                
-               plt.savefig("plots/fit_ccf_{0:04d}_{1:.2e}.png".format(T_gas,N))
-               plt.close('all')
+               #plt.savefig("plots/fit_ccf_{0:04d}_{1:.2e}.png".format(T_gas,N))
+               #plt.close('all')
                
                
                f.write("{0:.0f}  {1:.1e} {2:.1f}  {3:.2f}  {4:.2f}\n".format(T_gas, N, broadening, fit[-1,0]/err[-1,0],fit_sim[-1,0]/err_sim[-1,0]) )
@@ -518,16 +554,16 @@ def run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,pixels,f,binsize=81,v_comet=0
                    sim_phase_cube=np.zeros((T_gas0.shape[0],N0.shape[0],broadening0.shape[0],phase.shape[0],phase.shape[2]))
                time.sleep(0.5)
                
-               plt.figure()
-               plt.plot(v_phase,phase[-1,3,:])
-               plt.plot(v_phase,sim_phase[-1,3,:])
-               plt.savefig("plots/phase_{0:04d}_{1:.2e}_{2:.1f}.png".format(T_gas,N,broadening))
-               plt.close('all')
-               plt.figure()
-               plt.plot(v_ccf,ccf[-1,3,:])
-               plt.plot(v_ccf,sim_ccf[-1,3,:])
-               plt.savefig("plots/ccf_{0:04d}_{1:.2e}_{2:.1f}.png".format(T_gas,N,broadening))
-               plt.close('all')
+               #plt.figure()
+               #plt.plot(v_phase,phase[-1,3,:])
+               #plt.plot(v_phase,sim_phase[-1,3,:])
+               #plt.savefig("plots/phase_{0:04d}_{1:.2e}_{2:.1f}.png".format(T_gas,N,broadening))
+               #plt.close('all')
+               #plt.figure()
+               #plt.plot(v_ccf,ccf[-1,3,:])
+               #plt.plot(v_ccf,sim_ccf[-1,3,:])
+               #plt.savefig("plots/ccf_{0:04d}_{1:.2e}_{2:.1f}.png".format(T_gas,N,broadening))
+               #plt.close('all')
                #gc.collect()
                
                
@@ -550,11 +586,11 @@ def run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,pixels,f,binsize=81,v_comet=0
     hdu=fits.PrimaryHDU(sim_fit_err_cube)
     hdu.writeto(paths.data/"sim_fit_err_cube_{0:}.fits".format(restframe),overwrite=True)
     hdu=fits.PrimaryHDU(ccf_cube)
-    hdu.writeto(paths.data/"ccf_cube.fits_{0:}".format(restframe),overwrite=True)
+    hdu.writeto(paths.data/"ccf_cube_{0:}.fits".format(restframe),overwrite=True)
     hdu=fits.PrimaryHDU(sim_ccf_cube)
     hdu.writeto(paths.data/"sim_ccf_cube_{0:}.fits".format(restframe),overwrite=True)
     hdu=fits.PrimaryHDU(v_phase)
-    hdu.writeto(paths.data/"v_phasefold_{0:}.fits".format(restframe),overwrite=True)
+    hdu.writeto(paths.data/"v_phasefold.fits".format(restframe),overwrite=True)
     hdu=fits.PrimaryHDU(v_ccf)
     hdu.writeto(paths.data/"v_ccf_{0:}.fits".format(restframe),overwrite=True)
     hdu=fits.PrimaryHDU(phase_cube)
@@ -630,7 +666,7 @@ if __name__ == "__main__":
    
    # only continue with orders 0 to 3 
    # (cut down on time and memory)
-   wlens=wlen[0:4,:]
+   wlens=wlen[0:8,:]
    spec_cor=spec[:,0:8,:].copy()
    spec_cor2=spec[:,0:8,:].copy()    
    
@@ -645,24 +681,46 @@ if __name__ == "__main__":
 
    # pre and post fiber change, because the blaze function could have changed, subsequently remove
    for ord in range(8):
-       spec_cor[idx_pre,ord,:]=remove_resid_blaze(pixels,spec[idx_pre,:,:],star_spec_pre,ord,poly_order=4)
-       spec_cor[idx_post,ord,:]=remove_resid_blaze(pixels,spec[idx_post,:,:],star_spec_post,ord,poly_order=4)
+       spec_cor[idx_pre,ord,:]=remove_resid_blaze(pixels,spec[idx_pre,:,:],star_spec_pre,ord,poly_order=8)
+       spec_cor[idx_post,ord,:]=remove_resid_blaze(pixels,spec[idx_post,:,:],star_spec_post,ord,poly_order=8)
        #spec_cor[:,ord,:]=remove_resid_blaze(pixels,spec,star_spec,ord,poly_order=4)
        spec_cor2[idx_pre,ord,:]=remove_stellar_envelope(spec_cor[idx_pre,:,:],ord)
        spec_cor2[idx_post,ord,:]=remove_stellar_envelope(spec_cor[idx_post,:,:],ord)
      
-   data_for_ccf=spec_cor2[:,0:4,:]
-   
+   data_for_ccf=spec_cor2[:,0:8,:]
 
-   # CHECK POINT to see that this looks normal. REMOVE in final version  
-   hdu=fits.PrimaryHDU(data_for_ccf.swapaxes(1,0))
+   '''
+   ##Used to verify interpolation
+   v_comett=v_comet.copy()
+   v_comet[:]=0.
+   v_comet[FEB_idx]=v_comett[FEB_idx].copy()
+   '''
+   
+   #Store spectra in stellar and cometary restframe to be stacked and plotted
+   hdu=fits.PrimaryHDU(wlens)
+   hdu.writeto(paths.data/"wave_corrected_spectra.fits",overwrite=True)
+   hdu=fits.PrimaryHDU(data_for_ccf)
+   hdu.writeto(paths.data/"corrected_spectra_stellar.fits",overwrite=True)
+   FEB_spec=align_spectra(wlens,data_for_ccf,v_comet)
+   hdu=fits.PrimaryHDU(FEB_spec)
+   hdu.writeto(paths.data/"corrected_spectra_comet.fits",overwrite=True)
+
+
+
+   '''
+   # CHECK POINT to see that this looks normal. REMOVE in final version 
+   hdu=fits.PrimaryHDU(FEB_spec.swapaxes(1,0))
+   hdu.writeto("tmp3.fits",overwrite=True)    
+   hdu=fits.PrimaryHDU(data_for_ccf[:,0:4,:].swapaxes(1,0))
    hdu.writeto('tmp.fits',overwrite=True)
    hdu=fits.PrimaryHDU(spec_cor2.swapaxes(1,0))
    hdu.writeto('tmp2.fits',overwrite=True)
+   '''
 
+   
    # Do the analysis for the strongest comets selected using find_comets()
    f = open(paths.data/"results_HARPS_comet.txt", "w")
-   run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,pixels,f,binsize=binsize,v_comet=v_comet,idx_comet=FEB_idx,idx_star=star_idx,idx_pre=idx_pre,idx_post=idx_post,restframe='comet')
+   run_ccf_ord_multi_temp(wlens[0:4,:],data_for_ccf[:,0:4,:],spec[:,0:4,:],pixels,f,binsize=binsize,v_comet=v_comet,idx_comet=FEB_idx,idx_star=star_idx,idx_pre=idx_pre,idx_post=idx_post,restframe='comet')
    f.close()
    
    
@@ -671,7 +729,7 @@ if __name__ == "__main__":
    FEB_idx[:]=True
    v_comet[:]=0.
    f = open(paths.data/"results_HARPS_star.txt", "w")
-   run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,pixels,f,binsize=binsize,v_comet=v_comet,idx_comet=FEB_idx,idx_star=star_idx,idx_pre=idx_pre,idx_post=idx_post)
+   run_ccf_ord_multi_temp(wlens[0:4,:],data_for_ccf[:,0:4,:],spec[:,0:4,:],pixels,f,binsize=binsize,v_comet=v_comet,idx_comet=FEB_idx,idx_star=star_idx,idx_pre=idx_pre,idx_post=idx_post)
    f.close()
    
    
