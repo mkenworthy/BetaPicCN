@@ -77,15 +77,25 @@
   \abstract
   % context heading (optional)
   % {} leave it empty if necessary  
-   {Beta Pic has \ac{feb} which are seen as variable transient absorption features towards \bp{}.}
+   {The young (23 Myr) nearby (19.4 pc) star Beta Pictoris hosts an edge-on debris disk with two gas giant exoplanets in orbit around it, along with a large retinue of exocomets.
+   %
+   For many years, transient absorption features have been detected in the rotationally broadened stellar lines of the star's chromosphere.
+   %
+   These \ac{feb} or exocomets, are seen as variable transient absorption features towards \bp{}.
+}
   % aims heading (mandatory)
-   {To detect cyanogen (\ce{CN}) in the \ac{feb} spectrum, confirming that they are similar to comets in the Solar System.}
+   {In the Solar system, the molecule cynaogen (\ce{CN}) and its associated ionic species are one of the most detectable molecules in the coma and tails of comets.
+   %
+   We perform a search for cyanogen  in the \ac{feb} spectra of \bp{} to detect or put an upper limit on this molecule's presence in a young planetary system.}
   % methods heading (mandatory)
-   {We combine the \ac{harps} spectra from the past 20 years to make a high signal to noise ratio spectrum and look for the \ce{CN} band head. We also combine \ac{uves} data to confirm our non-detections/detections.}
+   {By splitting over twenty year's worth of \ac{harps} spectra into ones with strong \ac{feb} features, and others with little to no \ac{feb} absorption.  We shift and stack the spectra of FEBs on the deepest part of the CaII make a high signal to noise ratio spectrum and search for the \ce{CN} band head using a model temperature dependent cross-correlation template.
+   }
   % results heading (mandatory)
-   {No \ce{CN} is seen to a level of XXX ppt, indicating that there is less \ce{CN} in these \ac{feb} than Solar system comets.}
+   {We do not detect CN in our data, and place a temperature and broadening dependent 5$\sigma$ upper limit between 10$^{12}$\,cm$^{-2}$ and 10$^{13}$\,cm$^{-2}$, which is 100 times higher than seen for comets in our Solar System.%No \ce{CN} is seen to a level of XXX ppt, indicating that there is less \ce{CN} in these \ac{feb} than Solar system comets.
+   %
+   }
   % conclusions heading (optional), leave it empty if necessary 
-   {\ac{feb} are not Solar System comets in composition.}
+   %{\ac{feb} are not Solar System comets in composition.}
 
    \keywords{comets --- transits, spectroscopy}
 
@@ -97,7 +107,7 @@
 
 The formation and evolution of planets and their attendant moons is thought to occur in the first few ten million years of the stellar system \hl{REF}.
 %
-Comets deliver volatiles across menay different distances within the Solar system, from the outermost reaches of the Oort cloud in to the terrestrial planets.
+Comets deliver volatiles across many different distances within the Solar system, from the outermost reaches of the Oort cloud in to the terrestrial planets.
 %
 It is therefore important to understand the distribution, nature and chemical composition of exocomets in other planet forming systems.
 
@@ -130,7 +140,7 @@ To the contrary of what is observed in the case of \ac{feb}, most molecular and 
 
 Spectroscopic observations of Solar system comets when they are very close to the Sun are rare due to observational difficulties.
 %
-%The only comet spectroscopically observed closer than 0.2~au from the Sun is C/1965~S1 Ikeya-Seki.
+The only comet spectroscopically observed closer than 0.2~au from the Sun is C/1965~S1 Ikeya-Seki.
 %
 %For this comet, it was noticed that the main emission bands/lines detected in its optical spectrum dramatically changed while the comet approached the Sun.
 %
@@ -143,15 +153,15 @@ At distances greater than 0.4~au, \ce{CH}, \ce{CN}, \ce{C2}, and \ce{C3} emissio
 %
 However, at 0.15~au from the Sun, the only molecular emission detected was \ce{CN}, while numerous atomic lines were visible \citep[\ion{[O]}{i}, \ion{Na}{i}, \ion{K}{i}, \ion{Ca}{ii}, \ion{Cr}{i}, \ion{Mn}{i}, \ion{Fe}{i}, \ion{Ni}{i}, \ion{Cu}{i}, \ion{V}{i}; ][]{Dufay65,Thackeray1966,Preston1967,Slaughter1969}.
 %
-Additionally, a tail of \ion{Fe}{i} atoms was proposed to explain a linear feature imaged in the tail of sungrazing comet C/2016~P1 McNaught 2006P1 \citep{Fulle2007}. 
+Additionally, a tail of \ion{Fe}{i} atoms was proposed to explain a linear feature imaged in the tail of sungrazing comet C/2016~P1 McNaught 2006P1 \citep{Fulle2007} and Na and K were detected for comet C/2011 L4 \citep{Fulle13}. 
 
-On the other hand, \ion{Na}{i} D-line emission has been observed in many comets within $r \sim 1$ au of the Sun, where either the emission was much brighter than the foreground sky emission, or the comet was observed at high spectral resolution enabling separation from the telluric lines \hl{REFs}.
+On the other hand, \ion{Na}{i} D-line emission has been observed in many comets within $r \sim 1$ au of the Sun, where either the emission was much brighter than the foreground sky emission, or the comet was observed at high spectral resolution enabling separation from the telluric lines \citep{Cremonese02,Schmidt16}.
 %
 The high efficiency of the \ion{Na}{i} D transition makes it easily detectable, even for relatively low column density.
 %
 A notable discovery was a spectacular tail of \ion{Na}{i} associated with comet C/1995 O1 Hale-Bopp at $r\sim 1$ au, formed by radiation pressure on the neutral atoms before ionisation \citep{Cremonese1997}. 
 
-These characteristics imply that \ion{Ca}{ii} and \ion{Fe}{i} are predominantly locked up within cometary dust gains, and only observed when a comet is close enough to the Sun to allow their sublimation.
+The detection of these atoms only at small heliocentric distances imply that \ion{Ca}{ii} and \ion{Fe}{i} are predominantly locked up within cometary dust gains, and only observed when a comet is close enough to the Sun to allow their sublimation.
 %
 This occurs at $r\leq 0.03-0.06$ au for a dust grain with Bond albedo $\sim0.01$ and a sublimation temperature of $T\simeq 1600$K, depending on the thermal model assumed.
 %
@@ -162,7 +172,7 @@ Release from dust grains as well as molecular processes have been suggested as p
 
 For the majority of Solar system comets, their optical spectra are dominated by the reflected sunlight from dust grains in their comae, plus molecular and atomic emission lines \citep[e.g. ][]{hyland2019}.
 %
-Most of the neutral and ionic molecular emission results from resonance fluorescence with solar photons. Some species, such as \ce{H2O+} and \ce{CO+} result from ionization of parent molecules (i.e. molecules released directly by the sublimation of nuclear ices), all other molecules observed are second generation species, often created via photodissociation of parent molecules or released by organic-rich grains in the coma.
+Most of the neutral and ionic molecular emission results from resonance fluorescence with solar photons. Some species, such as \ce{H2O+} and \ce{CO+} result from ionization of parent molecules (i.e. molecules released directly by the sublimation of nuclear ices), all other molecules observed at optical wavelengths are second generation species, often created via photodissociation of parent molecules or released by organic-rich grains in the coma.
 %
 Another process also observed in optical spectrum of comets is prompt atomic emission  ([\ion{O}{i}], [\ion{C}{i}], and [\ion{N}{i}]).
 %
@@ -172,7 +182,7 @@ Of all cometary gas emission, the highest signal to noise normally occurs with t
 %
 It is usually the first emission detected in the optical spectrum of a comet as it approaches the Sun, and as been detected in the coma of comets observed at relatively large distances from the Sun \citep[e.g. ][]{Fitzsimmons1996}.
 %
-The relative abundance in the coma of most comets of \ce{CN/OH}$\simeq500$ \citep{AHearn1995}, together with its high fluorescence scattering efficiency factor of $\sim$ 2.6 photons/sec/molecule at 1~au from the Sun and $\dot{r}\simeq 0$ \citep{Schleicher2010}, gives rise to a clear signature of a cometary gas comae.
+The relative abundance in the coma of most comets of \ce{OH/CN}$\simeq500$ \citep{AHearn1995}, together with its high fluorescence scattering efficiency factor of $\sim$ 2.6 photons/sec/molecule at 1~au from the Sun and $\dot{r}\simeq 0$ \citep{Schleicher2010}, gives rise to a clear signature of a cometary gas comae.
 %
 Historically, the \ce{CN} was believed to be created from photodissociation of \ce{HCN}, which is present in abundances of the order of 1\% relative to water in cometary ices.
 %
@@ -200,15 +210,15 @@ Our search for \ce{CN} relies on a cross correlation search with a theoretical a
 
 For the study in this paper, we use all the publicly available data from the \ac{harps} and the ESO 3.6m telescope in Chile.
 %
-In addition, we complement this with observations with the \ac{uves} at the Very Large Telescope in Chile. 
+%In addition, we complement this with observations with the \ac{uves} at the Very Large Telescope in Chile. 
 
 \subsection{HARPS observations}
 
-We collated all publicly available HARPS observations of \bp{} obtained between October 2003 and \hl{March 2020}.
+We collated all publicly available HARPS observations of \bp{} obtained between October 2003 and March 2020.
 %
 Although these observations cover a large baseline, the time between visits varies between 1 day and $\sim$2.2 years.
 %
-Similarly, the number of observations per epoch spans a wide range, between \hl{1 and 356} exposures, while the exposure times vary between \hl{12 and 900} seconds. This results in a SNR range per exposure between \hl{NNNN and MMMM}, and a nightly SNR between \hl{NNNN and MMMM}.
+Similarly, the number of observations per epoch spans a wide range, between 1 and 356 exposures, while the exposure times vary between 12 and 900 seconds. This results in an average SNR across order 0 - 10 (order numbers for HARPS will follow the labeling in the fits header -- corresponding to 3780\,$\AA$ and 4075\,$\AA$) per exposure between 1 and 430, and a nightly SNR between 63 and 2000.
 %
 To avoid potential edge effects from order merging,  we used the E2DS files downloaded directly from the ESO archive for our analysis.
 
@@ -217,45 +227,48 @@ To avoid potential edge effects from order merging,  we used the E2DS files down
 
 
 
-\subsection{UVES observations}
+%\subsection{UVES observations}
 
-To supplement the HARPS observations, we use 160 epochs of \ac{uves} observations obtained between 01 April, 2017 and April 18, 2018 under programme 599.C-0751.
+%To supplement the HARPS observations, we use 160 epochs of \ac{uves} observations obtained between 01 April, 2017 and April 18, 2018 under programme 599.C-0751.
 %
-The details for these observations are given in \cite{vansluijs2019}, and summarised here.
+%The details for these observations are given in \cite{vansluijs2019}, and summarised here.
 %
-These observations were all obtained using the same instrument setup.
+%These observations were all obtained using the same instrument setup.
 %
-We used the standard 437+760 mode of \ac{uves}, which uses the \#2 dichroic to allow simultaneous observations in both the red and blue arm.
+%We used the standard 437+760 mode of \ac{uves}, which uses the \#2 dichroic to allow simultaneous observations in both the red and blue arm.
 %
-In this mode, the CD\#2 and CD\#4 cross-dispersers are used in the blue and red-arm, respectively, providing a simultaneous wavelength coverage of $\sim 3730$ \AA{} to $\sim 5000$ \AA{} in the blue arm, and $\sim 5650$ \AA{} to $\sim 9560$ \AA{} in the red arm.
+%In this mode, the CD\#2 and CD\#4 cross-dispersers are used in the blue and red-arm, respectively, providing a simultaneous wavelength coverage of $\sim 3730$ \AA{} to $\sim 5000$ \AA{} in the blue arm, and $\sim 5650$ \AA{} to $\sim 9560$ \AA{} in the red arm.
 %
-For the remainder of the paper, we will only focus on the data from the blue arm of \ac{uves}, as this covers the strong \ce{CN} (0-0) band-head seen in Solar system comets.
+%For the remainder of the paper, we will only focus on the data from the blue arm of \ac{uves}, as this covers the strong \ce{CN} (0-0) band-head seen in Solar system comets.
 %
-For the blue arm, a 0.3''-wide slit was used to obtain the highest possible resolving power ($\sim$90,000 before an intervention on the instrument in October 2017, and $\sim$100,000 after the intervention). 
+%For the blue arm, a 0.3''-wide slit was used to obtain the highest possible resolving power ($\sim$90,000 before an intervention on the instrument in October 2017, and $\sim$100,000 after the intervention). 
 
-The data were reduced using the ESO \ac{uves} pipeline version \hl{6.1.6} through ESO Reflex tool in order to provide as homogeneous a dataset as possible. The flat-field was applied on a pixel-by-pixel basis. \hl{The pipeline was set to output the intermediate products and the blaze-corrected spectra before merging were used for our analysis, as the order-merging could introduce systematics in the overlap region. Optimal extraction was performed, using an empirical profile}
+%The data were reduced using the ESO \ac{uves} pipeline version \hl{6.1.6} through ESO Reflex tool in order to provide as homogeneous a dataset as possible. The flat-field was applied on a pixel-by-pixel basis. \hl{The pipeline was set to output the intermediate products and the blaze-corrected spectra before merging were used for our analysis, as the order-merging could introduce systematics in the overlap region. Optimal extraction was performed, using an empirical profile}
 
 \subsection{Initial data processing}
-Starting from the 2d spectra, the data from both instruments was processed in similar ways.
+The analysis was started from the 2d extracted spectra (E2DS files).%, the data from both instruments was processed in similar ways.
 %
-Each order was treated separately, with the main focus on orders \hl{4 and 8} for HARPS and \hl{4, and 7} for UVES as those orders contain the main \ce{CN} bandhead as well as the \ion{Ca}{ii} H line, which are used to identify the exocomets.
+Each order was treated separately, with the main focus on orders 3 and 7 % for HARPS and \hl{4, and 7} for UVES 
+as these orders contain the main \ce{CN} bandhead as well as the \ion{Ca}{ii} H line, which is used to identify the exocomets.
 %
-All the spectra were transformed into the stellar rest-frame and onto a common wavelength grid using linear interpolation. For UVES, the \ce{Fe} \hl{NNNN angstrom} line was used to track global wavelength drifts between different exposures which were corrected for at the same time. To measure these, a Gaussian was fit to the line, and the velocity offset from the rest frame position determined. 
+All the spectra were transformed into the stellar rest-frame and onto a common wavelength grid using linear interpolation. %For UVES, the \ce{Fe} \hl{NNNN angstrom} line was used to track global wavelength drifts between different exposures which were corrected for at the same time. To measure these, a Gaussian was fit to the line, and the velocity offset from the rest frame position determined. 
 
 %
-After all the spectra were all transformed into the stellar rest frame, an average nightly spectrum was made from all spectra within a night for each of the nights of observations. This was done after correcting for variations in the effective blaze profile (e.g., due to instrumental changes, differential slit/fiber losses, atmospheric absorption etc.), as outlined below. Note that after this correction, the HARPS data still have the overall instrumental blaze-profile, while the 2d-spectra from UVES were already corrected for this.
+After all the spectra were all transformed into the stellar rest frame, an average nightly spectrum was made from all spectra within a night for each of the nights of observations. This was done after correcting for variations in the effective blaze profile (e.g., due to instrumental changes, differential slit/fiber losses, atmospheric absorption, etc.), as outlined below. Note that after this correction, the %HARPS 
+data still have the overall instrumental blaze-profile included.%, while the 2d-spectra from UVES were already corrected for this.
 
 
 \subsection{Effective Blaze function correction}\label{sect:blaze}
 
-One of the nights with a high signal to noise was chosen to act as an initial estimate for the blaze function (the night of \hl{DATE} for HARPS and \hl{DATE} for UVES). The individual spectra in this night were averaged together to further boost the signal-to-noise ratio. Subsequently, each individual spectrum was divided by this reference spectrum to highlight the changes in the effective profile. This ratio spectrum was subsequently binned using a bin-width of \hl{101} pixels using a robust algorithm to remove outliers within each bin. This binned ratio was than fit using a \hl{second} order polynomial. The original spectrum was finally divided by this polynomial to correct for the changes.
+The night of 2018-05-06, which has a high signal-to-noise ratio, was chosen to act as an initial estimate for the blaze function.%(the night of 2018-05-06 and \hl{DATE} for UVES). 
+The individual spectra from this night were averaged together to further boost the signal-to-noise ratio. Subsequently, each individual spectrum was divided by this reference spectrum to highlight the changes in the effective profile. This ratio spectrum was subsequently binned using a bin-width of 81 pixels using a robust algorithm to remove outliers within each bin. This binned ratio was then fitted using a second order polynomial. The original spectrum was finally divided by this polynomial to correct for the changes.
 
-Note that for HARPS, the change of fiber in June 2015 (JD$\sim$2,457,180) resulted in an overall change of the blaze profile, and therefore, the spectra before and after this date were separately post-processed as outlined below in the Sect.~/ref{sect:starcor}.
+Note that the change of fiber for HARPS in June 2015 (JD$\sim$2,457,180) resulted in an overall change in the blaze profile, and therefore, the spectra before and after this date were separately post-processed as outlined below in Sect.~\ref{sect:starcor}.
 
 
 
 \subsection{Combining the spectra and flattening them}\label{sect:comb}
-After the blaze-variation corrections, all the spectra within a night are combined in order to further boost the signal-to-noise and improve the detection limits. Each individual spectrum was weighted using the average signal-to-noise ratio provided in the header for orders \hl{NN and MM, and OO and PP} for HARPS and UVES respectively.
+After the blaze-variation corrections, all the spectra within a night are combined in order to further boost the signal-to-noise and improve the detection limits. Each individual spectrum was weighted using the average signal-to-noise ratio provided in the header for orders 0 and 11 (3780\,$\AA - $4075$\AA$).%\hl{, and OO and PP} for HARPS and UVES respectively.
 
 %For the spectra within a given night:
 %
@@ -271,9 +284,12 @@ After the blaze-variation corrections, all the spectra within a night are combin
 \subsection{Removing the stellar spectrum}\label{sect:starcor}
 The processing up to this stage removes most of the variations in the effective blaze function, but the overall stellar spectrum and, for HARPS, shape of the blaze profile, are still present and need to be removed. 
 
-For both HARPS and UVES we first perform a second iteration of blaze corrections using a  stellar spectrum constructed by averaging the spectra from periods with a low comet activity (see \hl{Sect.}~\ref{sect:FEBident}. For HARPS this is done separately pre- and post-fiber change. The correction is done similar to Sect.~\ref{sect:blaze}, however for both UVES and HARPS a \hl{4th order} polynomial was used.
+%For both HARPS and UVES w
+We first perform a second iteration of blaze corrections using a stellar spectrum constructed by averaging the spectra from periods with a low comet activity (see Sect.~\ref{sect:FEBid}. %For HARPS
+This is done separately pre- and post-fiber change. The correction is done similar to Sect.~\ref{sect:blaze}, however, %for both UVES and HARPS
+an 8th order polynomial was used.
 
-After this post-processing the overall (residual) blaze profile and stellar spectrum still need to be removed. Care must be taken to prevent the removal of (potential) narrow features from the circumstellar disk (as seen in e.g., the \ce{Fe} and \ion{Ca}{II} lines). This is done by combining the nightly spectra without significant cometary activity (see Sect.~\ref{sect:FEBid}) and binning this stacked spectrum in wavelength in bins of 21 pixels. Before binning, the spectrum in each bin was MAD (median absolute deviation) clipped to within $\pm$4.5 MAD of the median of the flux in the bin. The clipped average of the fluxes within each bin was used. Subsequently, the overall spectrum of the star and (residual) blaze was determined by cubic interpolation across the binned points, and divided out of the spectrum for each night. As before, for HARPS this was done separately pre- and post-fiber change.
+After this post-processing the overall (residual) blaze profile and stellar spectrum still need to be removed. Care must be taken to prevent the removal of (potential) narrow features from the circumstellar disk (as seen in e.g., the \ce{Fe} and \ion{Ca}{II} lines). This is done by combining the nightly spectra without significant cometary activity (see Sect.~\ref{sect:FEBid}) and binning this stacked spectrum in wavelength in bins of 21 pixels. Before binning, the spectrum in each bin was MAD (median absolute deviation) clipped to within $\pm$4.5 MAD of the median of the flux in the bin. The clipped average of the fluxes within each bin was used. Subsequently, the overall spectrum of the star and (residual) blaze was determined by cubic interpolation across the binned points, and divided out of the spectrum for each night. As before, this was done separately pre- and post-fiber change.
 
 
 
@@ -294,28 +310,28 @@ After the initial data analysis, we proceed to with our search for lines from \c
 %
 Although we are interested in lines from the exocomets, we first co-add the data from all the individual epochs, in the stellar rest-frame, to obtain a deep search for circumstellar \ce{CN} absorption.
 %
-\hl{These coadded spectra for }\ac{harps} and \ac{uves} are shown in \hl{Figure}.
+These coadded spectra %for \ac{harps} and \ac{uves} 
+are shown in Figure~\ref{fig:spec_CN_stellar_frame}.
 %
 No obvious feature from the \ce{CN} band jumps out, and we need to combine the signal from the lines within the \ce{CN} band to improve the detection limits.
 
-Since the exocomets have a clear radial velocity with respect to \bp{}, and since each exocomet will have its own distinct velocity, we selected the \hl{NN} epochs with the strongest exocometary features, a seen in the \ion{Ca}{ii} H line. 
+Since the exocomets have a clear radial velocity with respect to \bp{}, and since each exocomet will have its own distinct velocity, we selected the 36 epochs with the strongest exocometary features, a seen in the \ion{Ca}{ii} H line. 
 
-\hl{TODO FIGURE: Just spectrum coadded} in stellar rest frame same for comet rest frame in the \ce{CN} band wavelength range, with the \ce{CN} band overplotted.
 
 \subsection{Identifying exocomets from \ion{Ca}{ii} H line}\label{sect:FEBid}
-The comet features in the \ion{Ca}{ii} H-line ($\lambda=3968. \AA$) were identified after removing the overall stellar line-profile and avoiding the absorption from the circumstellar disk by excluding the central \hl{NN} km\,s$^{-1}$.
+The comet features in the \ion{Ca}{ii} H-line ($\lambda=3968. \AA$) were identified after removing the overall stellar line-profile and avoiding the absorption from the circumstellar disk by excluding the central 8 km\,s$^{-1}$.
 %
 The deepest absorption feature in each observing night was selected, and the location and depth stored.
 %
-For the comet sample we selected features deeper than \hl{60\% and 40\%} for HARPS and UVES, respectively, while spectra with features below 15\% for both HARPS and UVES were flagged as `low activity'.
+For the comet sample we selected features deeper than 60\% %\hl{and 40\%} for HARPS and UVES, respectively, 
+while spectra with features below 15\% %for both HARPS and UVES 
+were flagged as `low activity'.
 %
-An example of the \ion{Ca}{ii} H line for a night with a strong comet and for a night with a weak comet are shown in Figure \hl{XXXX}.
+%An example of the \ion{Ca}{ii} H line for a night with a strong comet and for a night with a weak comet are shown in Figure \hl{XXXX}.
 %
-The distribution of feature location and depth is shown in \hl{Figure}.
+The distribution of feature locations and depths is shown in Figure~\ref{fig:FEB_velocity}.
 
-plotFEbs for the above first two figures!
-
-The spectra for the strong comet sample were coadded, and the combined spectrum for the HARPS data is shown in \hl{Figure}.
+The spectra for the strong comet sample were coadded, and the combined spectrum for the HARPS data is shown in Figure~\ref{fig:spec_CN_comet_frame}.
 %
 As with the circumstellar \ce{CN}, there are no obvious lines from \ce{CN} visible, and we will need to combine multiple lines to improve the signal-to-noise ratio, and see if there is any \ce{CN} present. 
 %
@@ -326,14 +342,26 @@ As with the circumstellar \ce{CN}, there are no obvious lines from \ce{CN} visib
 %The combined exocomet aligned spectra for both the \ce{Ca} H\&K lines and \ce{CN} band are shown in Fig.~\ref{fig:coadd_exocomets}. As can be seen no signal is visibly present.
 %
 
+
 \begin{figure}
     \begin{centering}
-        \includegraphics[width=\columnwidth]{figures/CN_ACF.pdf}
-        \caption{\ce{CN} autocorrelation function for different temperatures.}
-        \label{fig:CN_ACF}
-        \script{plot_CN_ACF.py}
+        \includegraphics[width=\columnwidth]{figures/spec_stack_CN_stellar.pdf}
+        \caption{Plot of the stacked spectrum in the stellar restframe (blue) with a CN model for $T=$300K and N=10$^{14}$\,cm$^{-2}$ overplotted in orange. The large signal around 3860\,$\AA$ is due to the residual from a circumstellar \ion{Fe}{I} line.}
+        \label{fig:spec_CN_stellar_frame}
+        \script{plot_spec_mean.py}
     \end{centering}
 \end{figure}
+
+
+\begin{figure}
+    \begin{centering}
+        \includegraphics[width=\columnwidth]{figures/spec_stack_CN_comet.pdf}
+        \caption{Plot of the stacked spectrum in the stellar restframe (blue) with a CN model for $T=$300K and N=10$^{14}$\,cm$^{-2}$ overplotted in orange. The large signal around 3860\,$\AA$ is due to the residual from a circumstellar \ion{Fe}{I} line.}
+        \label{fig:spec_CN_comet_frame}
+        \script{plot_spec_mean.py}
+    \end{centering}
+\end{figure}
+
 
 \subsection{Cross-correlation with \ce{CN} models}\label{sect:CCF}
 
@@ -341,12 +369,20 @@ As with the circumstellar \ce{CN}, there are no obvious lines from \ce{CN} visib
 \begin{figure}
     \begin{centering}
         \includegraphics[width=\columnwidth]{figures/two_CN_temps.pdf}
-        \caption{Model absorption spectrum for \ce{CN} at two temperatures.}
+        \caption{Model absorption spectrum for \ce{CN} at 30\,K (blue line) and 2000\,K (orange line). The  column densities are $N=10^{12}$\,cm$^{-2}$ and $N=10^{13}$\,cm$^{-2}$, respectively. }
         \label{fig:CN_theory}
         \script{plot_two_CN_temps.py}
     \end{centering}
 \end{figure}
 
+\begin{figure}
+    \begin{centering}
+        \includegraphics[width=\columnwidth]{figures/CN_ACF.pdf}
+        \caption{\ce{CN} autocorrelation function for different temperatures. The aliasing at $\sim50$\,km\,s$^{-1}$ is clearly visible}
+        \label{fig:CN_ACF}
+        \script{plot_CN_ACF.py}
+    \end{centering}
+\end{figure}
 
 To combine the signal from the many \ce{CN} lines, we cross-correlate the data for each night with a grid of model of \ce{CN}.
 %
@@ -362,7 +398,7 @@ A value of 2.9 km\,s$^{-1}$ corresponds approximately to the instrumental resolu
 %
 The theoretical spectra of \ce{CN} for several different temperatures are shown in Figure~\ref{fig:CN_theory}.
 
-Even after cross-correlating, the stacked CCFs (see Fig.~\ref{fig:ccf} do not show any clear signals, and we therefore proceed to estimate our detection limits.
+Even after cross-correlating, the stacked CCFs (see Fig.~\ref{fig:ccf_mean} do not show any clear signals, and we therefore proceed to estimate our detection limits.
 
 \begin{figure}
     \begin{centering}
@@ -398,14 +434,6 @@ Even after cross-correlating, the stacked CCFs (see Fig.~\ref{fig:ccf} do not sh
     \end{centering}
 \end{figure}
 
-
-\begin{figure}
-    \begin{centering}
-        \includegraphics[width=\columnwidth]{figures/asdf.png}
-        \caption{Test picture}
-        \label{fig:test}
-    \end{centering}
-\end{figure}
 
 
 \begin{figure*}
@@ -452,7 +480,7 @@ The individual CCFs show some overall slopes and offsets, and we fit each indivi
 %
 The fit has five free parameters: the amplitude of the peak, the width of the peak, and the offset, slope, and intercept of the baseline.
 %
-To avoid the aliasing peaks of the \ce{CN} band (see Figure~\ref{fig:CN_theory}), we only fit the central $\pm$35 \kms{} of the CCF.
+To avoid the aliasing peaks of the \ce{CN} band (see Figure~\ref{fig:CN_ACF}), we only fit the central $\pm$35 \kms{} of the CCF.
 %
 Fitting is done using the curve\_fit function from SciPy \citep{2020SciPy-NMeth}.
 %
@@ -575,7 +603,7 @@ This is about a factor of 100 smaller than our calculated upper limits.
 \subsection{Raising the \ce{CN} production rates}
 
 %\subsubsection{We need a bigger comet}
-There are several ways we can get larger \ce{CN} rates.
+There are several ways exocomets at \bp may exhibit larger \ce{CN} production rates.
 %
 A larger comet gives more surface area for sublimation.
 %
@@ -668,10 +696,12 @@ This presents an excellent opportunity for coordinated spectroscopic campaigns w
 The authors thank the Lorentz Centre at Leiden University for organising the workshop ``Exocomets: Understanding the Composition of Planetary Building Blocks'' which led to the study in this paper. 
 %
 Part of this work was supported by the German \emph{Deut\-sche For\-schungs\-ge\-mein\-schaft, DFG\/} project number Ts~17/2--1.
+
+AF acknowledges acknowledges support from STFC award ST/T00021X/1.
 %
 We made use of the {\tt Python} programming language \citep{rossum1995} and the open-source {\tt Python} packages {\tt numpy} \citep{walt2011}, {\tt matplotlib} \citep{hunter2007}, {\tt astropy} \citep{astropy2013}.
 %      
-An online repository with materials used in this work is available at \url{https://github.com/mkenworthy/}
+An online repository with materials used in this work is available at \url{https://github.com/mkenworthy/BetaPicCN}
 
 \end{acknowledgements}
 
