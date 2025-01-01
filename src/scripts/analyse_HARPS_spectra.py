@@ -652,7 +652,7 @@ if __name__ == "__main__":
    star_spec=np.median(spec,axis=0)
 
    for ord in range(8):
-       cor[:,ord,:]=remove_resid_blaze(pixels,spec,star_spec,ord,poly_order=4)
+       cor[:,ord,:]=remove_resid_blaze(pixels,spec,star_spec,ord,poly_order=8)
 
    # we split the spectra into 'comets' and 'no comets'
    FEB_idx,star_idx,FEB_wave=find_comets(wlen,cor,ord_FEB=ord_FEB,use_all=True)
