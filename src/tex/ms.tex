@@ -88,10 +88,10 @@
    %
    We perform a search for cyanogen  in the \ac{feb} spectra of \bp{} to detect or put an upper limit on this molecule's presence in a young planetary system.}
   % methods heading (mandatory)
-   {By splitting over twenty year's worth of \ac{harps} spectra into ones with strong \ac{feb} features, and others with little to no \ac{feb} absorption.  We shift and stack the spectra of FEBs on the deepest part of the CaII make a high signal to noise ratio spectrum and search for the \ce{CN} band head using a model temperature dependent cross-correlation template.
+   {By splitting over twenty year's worth of \ac{harps} spectra into ones with strong \ac{feb} features, and others with little to no \ac{feb} absorption.  We shift and stack the spectra of FEBs on the deepest part of the Calcium feature make a high signal to noise ratio spectrum and search for the \ce{CN} band head using a model temperature dependent cross-correlation template.
    }
   % results heading (mandatory)
-   {We do not detect CN in our data, and place a temperature and broadening dependent 5$\sigma$ upper limit between 10$^{12}$\,cm$^{-2}$ and 10$^{13}$\,cm$^{-2}$, which is 100 times higher than seen for comets in our Solar System.%No \ce{CN} is seen to a level of XXX ppt, indicating that there is less \ce{CN} in these \ac{feb} than Solar system comets.
+   {We do not detect \ce{CN} in our data, and place a temperature and broadening dependent 5$\sigma$ upper limit between 10$^{12}$\,cm$^{-2}$ and 10$^{13}$\,cm$^{-2}$, which is 100 times higher than seen for comets in our Solar System.%No \ce{CN} is seen to a level of XXX ppt, indicating that there is less \ce{CN} in these \ac{feb} than Solar system comets.
    %
    }
   % conclusions heading (optional), leave it empty if necessary 
@@ -105,39 +105,41 @@
 
 \section{Introduction}
 
-The formation and evolution of planets and their attendant moons is thought to occur in the first few ten million years of the stellar system \hl{REF}.
+The formation and evolution of planets and their attendant moons is thought to occur in the first several million years of a planetary system.
 %
-Comets deliver volatiles across many different distances within the Solar system, from the outermost reaches of the Oort cloud in to the terrestrial planets.
+Within our Solar system, comets deliver volatiles from the outermost reaches of the Oort cloud \citep{Obrien2018}, past the gas giants and terrestrial planets, even as close as a few solar radii.
 %
 It is therefore important to understand the distribution, nature and chemical composition of exocomets in other planet forming systems.
 
-One of the closest young systems is Beta Pictoris, which has been studied intensively both with direct imaging and with spectroscopy.
+One of the closest young planetary systems is Beta Pictoris, which has been studied intensively both with direct imaging and with spectroscopy.
+%
+Beta Pictoris is a young \citep[$\sim 25$ Myr; see ][ for discussions]{Lee24}, nearby \citep[$19.63\pm 0.06$ pc, ][]{Lindegren21} and early type star \citep[A6V; ][]{Gray06} which hosts an edge-on debris disk and at least two exoplanets, making it one of the most intensely studied young planetary systems.
+%
+The star is a rapid rotator \citep[$124\pm 3$\,\kms{}; ][]{Koen03} seen close to equator on, resulting in rotational broadening of the chromospheric lines.
+%
+Amongst these, the Ca H and K lines show deep absorption down to 0.1 of the continuum level.
+%
+Deep within this rotationally broadened line there is a consistent and stable narrow absorption feature with a full width half maximum (FWHM) of a few km/s, attributed to the presence of the circumstellar material.
 
-Beta Pictoris is a young, early type star whose stellar chromosphreic lines show rotational broadening of 200 km/s \hl{REF}.
+Transient absorption features appearing in the rotationally broadened Ca H and K features were proposed to be due to Falling Evaporating Bodies moving towards the star \citep{Ferlet87}.
 %
-The Ca H and K lines show deep absorption to 0.1 of the continuum level.
+These features appear and disappear on the timescale of days, with some features lasting up to tens of days.
 %
-A consistent and stable narrow absorption feature with a FWHM of a few km/s is explained by the presence of the circumstellar material.
+These features appear with red-shifted velocities from hundreds of kilometers per second, all the way down to (and merging with) the circumstellar line, with a few appearing on the blue-shifted side of the circumstellar line.
 %
-There exist transient, irregular shaped absorption features in the spectra of the star.
-%
-These appear and disappear on hour long timescales, and show a different range of morphologies, predominantly seen at bluer wavelengths. \hl{[REF]}.
-%
-Intensive spectroscopic monitoring over several hours show changes of radial velocity of these components consistent with elliptical orbits.
-%
-The absorption is hypothesised to be due to the evaporation of infalling bodies that pass within a few stellar radii of the star, resulting in sublimation of material that produce a large coma containing the Calcium atoms which are then seen as an additional absorption component \hl{[REF REF]}.
+The widths of the lines range from a few up to tens of kilometers per second.
+ \hl{[REF]}.
 
-From the multiple detections of exocomets in spectroscopy towards Beta Pictoris, the broadband detection of exocomet tails transiting a star were seen initially detected towards the star KIC~3542116 \citep{Rappaport18} with the {\it Kepler} satellite \hl{REF} and subsequently detected in TESS data towards Beta Pictoris \citep{Zieba19}.
+Intensive spectroscopic monitoring over several hours show changes of radial velocity of these components consistent with Keplerian elliptical orbits \citep{Kennedy18}.
 %
-Observations of Beta Pictoris in subsequent TESS sector revealed over two dozen transits whose depth follows a power law distribution similar to those of the Solar system \citep{LecavelierdesEtangs22,Pavlenko22}.
+The absorption is hypothesised to be due to the evaporation of infalling bodies that pass within a few stellar radii of the star, resulting in sublimation of material that produce a large coma containing the Calcium atoms which are then seen as an additional absorption component.
 
-
-
-%Short Beta pic description, previous detection of species in optical (CaII, NaI, FeI).
-
+From the multiple detections of exocomets in spectroscopy towards Beta Pictoris, the broadband detection of exocomet tails transiting a star were seen initially detected towards the star KIC~3542116 \citep{Rappaport18} with the {\it Kepler} satellite \citep{Borucki10} and subsequently detected in TESS data towards Beta Pictoris \citep{Zieba19} and have been searched for in other stars with automated searches in photometry \citep{Kennedy19} and spectroscopy \citep{BendahanWest24}.
+%
+Observations of Beta Pictoris in subsequent TESS sectors revealed over two dozen transits whose depth follows a power law distribution similar to those of the Solar system \citep{LecavelierdesEtangs22,Pavlenko22}.
 
 To the contrary of what is observed in the case of \ac{feb}, most molecular and atomic signatures detected in the coma of Solar system comets are emission lines/bands instead of absorptions.
-
+%
 Spectroscopic observations of Solar system comets when they are very close to the Sun are rare due to observational difficulties.
 %
 The only comet spectroscopically observed closer than 0.2~au from the Sun is C/1965~S1 Ikeya-Seki.
@@ -153,13 +155,14 @@ At distances greater than 0.4~au, \ce{CH}, \ce{CN}, \ce{C2}, and \ce{C3} emissio
 %
 However, at 0.15~au from the Sun, the only molecular emission detected was \ce{CN}, while numerous atomic lines were visible \citep[\ion{[O]}{i}, \ion{Na}{i}, \ion{K}{i}, \ion{Ca}{ii}, \ion{Cr}{i}, \ion{Mn}{i}, \ion{Fe}{i}, \ion{Ni}{i}, \ion{Cu}{i}, \ion{V}{i}; ][]{Dufay65,Thackeray1966,Preston1967,Slaughter1969}.
 %
-Additionally, a tail of \ion{Fe}{i} atoms was proposed to explain a linear feature imaged in the tail of sungrazing comet C/2016~P1 McNaught 2006P1 \citep{Fulle2007} and Na and K were detected for comet C/2011 L4 \citep{Fulle13}. 
+Additionally, a tail of \ion{Fe}{i} atoms was proposed to explain a linear feature imaged in the tail of sungrazing comet C/2016~P1 McNaught 2006P1 \citep{Fulle2007} and Na and K were detected for comet C/2011 L4 \citep{Fulle13} at 0.46 au. 
 
 On the other hand, \ion{Na}{i} D-line emission has been observed in many comets within $r \sim 1$ au of the Sun, where either the emission was much brighter than the foreground sky emission, or the comet was observed at high spectral resolution enabling separation from the telluric lines \citep{Cremonese02,Schmidt16}.
 %
 The high efficiency of the \ion{Na}{i} D transition makes it easily detectable, even for relatively low column density.
 %
 A notable discovery was a spectacular tail of \ion{Na}{i} associated with comet C/1995 O1 Hale-Bopp at $r\sim 1$ au, formed by radiation pressure on the neutral atoms before ionisation \citep{Cremonese1997}. 
+Recently, \cite{Hui2023} also demonstarted thet the activity of near-Earth asteroid Phaeton, with a perihelion of only 0.14 au, is associated with emission of sodium. 
 
 The detection of these atoms only at small heliocentric distances imply that \ion{Ca}{ii} and \ion{Fe}{i} are predominantly locked up within cometary dust gains, and only observed when a comet is close enough to the Sun to allow their sublimation.
 %
@@ -194,9 +197,9 @@ The \ce{C2} (0-0) band at $\lambda\simeq 5160$\AA \ may be of comparable flux, b
 %
 The \ce{OH} (0-0) band at $\lambda\simeq 3080$ \AA \ generally has higher flux, but unless observed from space the high terrestrial atmospheric absorption severely diminishes the observed flux.
 %
-Strong \ce{CO+} emission bands have also been observed in a number of comets (the strongest ones are the (3-0) and (2-0) $\mathrm{A^2\Pi-X^2\Sigma}$) \hl{REFS}).
+Strong \ce{CO+} emission bands have also been observed in a number of comets (the strongest ones are the (3-0) and (2-0) $\mathrm{A^2\Pi-X^2\Sigma}$) \citep{Biver2018}).
 %
-However this is normally significantly weaker than the observed \ce{CN} emission, with only \hl{number of comets} comets.
+However this is normally significantly weaker than the observed \ce{CN} emission, with only less than 20 comets.
 
 Given the ubiquitous signature of \ce{CN} emission in Solar system comets, we have embarked on an archival search for this species in the \ac{feb} around \bp{}.
 %
@@ -246,7 +249,7 @@ To avoid potential edge effects from order merging,  we used the E2DS files down
 %The data were reduced using the ESO \ac{uves} pipeline version \hl{6.1.6} through ESO Reflex tool in order to provide as homogeneous a dataset as possible. The flat-field was applied on a pixel-by-pixel basis. \hl{The pipeline was set to output the intermediate products and the blaze-corrected spectra before merging were used for our analysis, as the order-merging could introduce systematics in the overlap region. Optimal extraction was performed, using an empirical profile}
 
 \subsection{Initial data processing}
-The analysis was started from the 2d extracted spectra (E2DS files).%, the data from both instruments was processed in similar ways.
+The analysis was started from the 2d extracted spectra (E2DS files). %, the data from both instruments was processed in similar ways.
 %
 Each order was treated separately, with the main focus on orders 3 and 7 % for HARPS and \hl{4, and 7} for UVES 
 as these orders contain the main \ce{CN} bandhead as well as the \ion{Ca}{ii} H line, which is used to identify the exocomets.
@@ -285,7 +288,7 @@ After the blaze-variation corrections, all the spectra within a night are combin
 The processing up to this stage removes most of the variations in the effective blaze function, but the overall stellar spectrum and, for HARPS, shape of the blaze profile, are still present and need to be removed. 
 
 %For both HARPS and UVES w
-We first perform a second iteration of blaze corrections using a stellar spectrum constructed by averaging the spectra from periods with a low comet activity (see Sect.~\ref{sect:FEBid}. %For HARPS
+We first perform a second iteration of blaze corrections using a stellar spectrum constructed by averaging the spectra from periods with a low comet activity (see Sect.~\ref{sect:FEBid}). %For HARPS
 This is done separately pre- and post-fiber change. The correction is done similar to Sect.~\ref{sect:blaze}, however, %for both UVES and HARPS
 an 8th order polynomial was used.
 
@@ -386,7 +389,7 @@ As with the circumstellar \ce{CN}, there are no obvious lines from \ce{CN} visib
 
 To combine the signal from the many \ce{CN} lines, we cross-correlate the data for each night with a grid of model of \ce{CN}.
 %
-Cross-sections for \ce{CN} were obtained from ExoMol \hl{REFERENCES HERE} and the cross-sections were calculated using \hl{NEED SOME DETAILS...}. 
+Cross-sections for \ce{CN} were obtained from ExoMol \hl{REFERENCES HERE} \citep{Tennyson16,Brooke14,Bernath20,Syme20} and the cross-sections were calculated using \hl{NEED SOME DETAILS...}. 
 %
 We made models for a wide range of temperatures (T$=$\{10, 20, 30, 50, 100, 200, 300, 500, 1000, 2000, 3000\} K) and column densities\footnote{Note that technically, for optically thin lines, this assumes a filling factor $f=1$.
 %
@@ -472,7 +475,7 @@ Even after cross-correlating, the stacked CCFs (see Fig.~\ref{fig:ccf_mean} do n
 
 To estimate the limits on the \ce{CN} detection, we perform injection and recovery tests.
 %
-We injected models for different temperatures, column densities and velocity broadening into the nightly stacked spectra (Sect.~\ref{sect:comb}, and then processed them in the same way as the original data (i.e., correct for residual blaze variations, removal of the stellar envelope and cross-correlation).
+We injected models for different temperatures, column densities and velocity broadening into the nightly stacked spectra (Sect.~\ref{sect:comb}), and then processed them in the same way as the original data (i.e., correct for residual blaze variations, removal of the stellar envelope and cross-correlation).
 %
 This was done for all spectra with the injected signal in the stellar rest frame as well as for the sample of spectra with strong cometary activity in the rest frame of the strongest exocometary feature per night.
 
@@ -525,7 +528,7 @@ For Solar system comets, column densities are often converted to an overall prod
 %
 For this model there are only 3 parameters; the effective destruction scale length $l_p$ of the parents of \ce{CN} (\ce{HCN}+dust), the photodissociation scale length $l_{\ce{CN}}$ of \ce{CN}, and the gas outflow velocity $v$.
 %
-The Haser model is somewhat simplistic but it represents the data well.
+The Haser model is somewhat simplistic but it represents the data well for solar system comets observed at typical distances from the SUn (1-3 au).
 
 \subsection{Example comet - 1P/Halley}
 
@@ -569,7 +572,7 @@ $$N_{\ce{CN}}\sim 8\times10^{27} \cdot  2\times10^4 \sim 2\times10^{32}\:{\rm mo
 
 %\subsubsection{\ce{CN} Cross-section}
 
-The outflow velocity of the parent of \ce{HCN} will depend on the nuclear surface temperature as $\sqrt{T}$.
+The outflow velocity of the parent \ce{HCN} will depend on the nuclear surface temperature as $\sqrt{T}$.
 %
 Modelling shows that ice sublimation acts approximately as a thermostat for the nucleus surface temperature, implying that the \ce{HCN} will only slowly increase with decreasing temperature.
 %
@@ -603,7 +606,7 @@ This is about a factor of 100 smaller than our calculated upper limits.
 \subsection{Raising the \ce{CN} production rates}
 
 %\subsubsection{We need a bigger comet}
-There are several ways exocomets at \bp may exhibit larger \ce{CN} production rates.
+There are several ways exocomets at \bp  may exhibit larger \ce{CN} production rates.
 %
 A larger comet gives more surface area for sublimation.
 %
