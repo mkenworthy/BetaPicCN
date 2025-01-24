@@ -5,8 +5,8 @@
 \bibpunct{(}{)}{;}{a}{}{,} % to follow the A&A style
 
 \newcommand{\kms}{km s$^{-1}$}
-\newcommand{\bpb}{Beta Pictoris b}
-\newcommand{\bp}{Beta Pictoris}
+\newcommand{\bpb}{$\beta$\,Pic\,b}
+\newcommand{\bp}{$\beta$\,Pic}
 
 \usepackage{color}
 \usepackage{hyperref}
@@ -42,7 +42,7 @@
 \begin{document} 
 
 
-   \title{Upper Limits on CN from Falling Evaporating Bodies\\seen towards \bp{}}
+   \title{Upper Limits on CN from Falling Evaporating Bodies\\seen towards $\beta$~Pictoris}
 
    \author{M.A. Kenworthy
           \inst{1}
@@ -77,18 +77,18 @@
   \abstract
   % context heading (optional)
   % {} leave it empty if necessary  
-   {The young (23 Myr) nearby (19.4 pc) star Beta Pictoris hosts an edge-on debris disk with two gas giant exoplanets in orbit around it, along with a large retinue of exocomets.
+   {The young (23 Myr) nearby (19.4 pc) star $\beta$~Pictoris hosts an edge-on debris disk with two gas giant exoplanets in orbit around it.
    %
-   For many years, transient absorption features have been detected in the rotationally broadened stellar lines of the star's chromosphere.
-   %
-   These \ac{feb} or exocomets, are seen as variable transient absorption features towards \bp{}.
+   Many transient absorption features have been detected in the rotationally broadened stellar lines of the star's chromosphere, and these are thought to be the coma of infalling exocomets crossing the line of sight towards Earth.
 }
   % aims heading (mandatory)
    {In the Solar system, the molecule cynaogen (\ce{CN}) and its associated ionic species are one of the most detectable molecules in the coma and tails of comets.
    %
-   We perform a search for cyanogen  in the \ac{feb} spectra of \bp{} to detect or put an upper limit on this molecule's presence in a young planetary system.}
+   We perform a search for cyanogen in the spectra of \bp{} to detect or put an upper limit on this molecule's presence in a young, highly active planetary system.}
   % methods heading (mandatory)
-   {By splitting over twenty year's worth of \ac{harps} spectra into ones with strong \ac{feb} features, and others with little to no \ac{feb} absorption.  We shift and stack the spectra of FEBs on the deepest part of the Calcium feature make a high signal to noise ratio spectrum and search for the \ce{CN} band head using a model temperature dependent cross-correlation template.
+   {We divide twenty year's worth of \ac{harps} spectra into those with strong exocomet absorption features, and those with only stellar lines.
+   %
+   The high signal to noise stellar spectrum normalises out the stellar lines in the exocomet spectra, which are then shifted and stacked on the deepest exocomet absorption features to produce a high signal to noise exocomet spectrum, and search for the \ce{CN} band head using a model temperature dependent cross-correlation template.
    }
   % results heading (mandatory)
    {We do not detect \ce{CN} in our data, and place a temperature and broadening dependent 5$\sigma$ upper limit between 10$^{12}$\,cm$^{-2}$ and 10$^{13}$\,cm$^{-2}$, which is 100 times higher than seen for comets in our Solar System.%No \ce{CN} is seen to a level of XXX ppt, indicating that there is less \ce{CN} in these \ac{feb} than Solar system comets.
@@ -111,32 +111,33 @@ Within our Solar system, comets deliver volatiles from the outermost reaches of 
 %
 It is therefore important to understand the distribution, nature and chemical composition of exocomets in other planet forming systems.
 
-One of the closest young planetary systems is Beta Pictoris, which has been studied intensively both with direct imaging and with spectroscopy.
+One of the closest young planetary systems is $\beta$~Pictoris, which has been studied intensively both with direct imaging and with spectroscopy.
 %
-Beta Pictoris is a young \citep[$\sim 25$ Myr; see ][ for discussions]{Lee24}, nearby \citep[$19.63\pm 0.06$ pc, ][]{Lindegren21} and early type star \citep[A6V; ][]{Gray06} which hosts an edge-on debris disk and at least two exoplanets, making it one of the most intensely studied young planetary systems.
+\bp{} is a young \citep[$\sim 25$ Myr; see ][ for discussions]{Lee24}, nearby \citep[$19.63\pm 0.06$ pc, ][]{Lindegren21} and early type star \citep[A6V; ][]{Gray06} which hosts an edge-on debris disk and at least two exoplanets, making it one of the most intensely studied young planetary systems.
 %
 The star is a rapid rotator \citep[$124\pm 3$\,\kms{}; ][]{Koen03} seen close to equator on, resulting in rotational broadening of the chromospheric lines.
 %
 Amongst these, the Ca H and K lines show deep absorption down to 0.1 of the continuum level.
 %
-Deep within this rotationally broadened line there is a consistent and stable narrow absorption feature with a full width half maximum (FWHM) of a few km/s, attributed to the presence of the circumstellar material.
+Deep within this rotationally broadened line there is a consistent and stable narrow absorption feature with a full width half maximum (FWHM) of a few km/s, attributed to the presence of the circumstellar material \citep{Hobbs85,VidalMadjar86}.
 
-Transient absorption features appearing in the rotationally broadened Ca H and K features were proposed to be due to Falling Evaporating Bodies moving towards the star \citep{Ferlet87}.
+Transient absorption features appearing in the rotationally broadened Ca H and K features were proposed to be due to \ac{feb} moving towards the star \citep{Ferlet87}.
 %
-These features appear and disappear on the timescale of days, with some features lasting up to tens of days.
+These features appear and disappear on the timescale of hours to days, with some features lasting up to tens of days and have red-shifted velocities from eighty kilometers per second, all the way down to (and merging with) the circumstellar line, with a few appearing on the blueward side \citep{LagrangeHenri92} with widths from a few up to tens of kilometers per second.
 %
-These features appear with red-shifted velocities from hundreds of kilometers per second, all the way down to (and merging with) the circumstellar line, with a few appearing on the blue-shifted side of the circumstellar line.
+The absorption can be described by the evaporation of infalling bodies that pass within a few stellar radii of the star, resulting in sublimation of material that produce a large coma containing Calcium ions which are then seen as an additional absorption component \citep{Beust91}.
 %
-The widths of the lines range from a few up to tens of kilometers per second.
- \hl{[REF]}.
+Intensive spectroscopic monitoring over several hours show both multiple components transiting the disk of the star \citep{Beust96} and changes of radial velocity of several components are consistent with Keplerian elliptical orbits \citep{Kennedy18} implying at least two \citep{Kiefer14,Pollard24} or more \citep{Heller24} distinct kinematic families of FEBs.
+%
+At least one event is derived with the orbit parallel to the rotational axis of the star \citep{Tobin19}.
+%
+Given the kinematic and spectroscopic evidence, these have subsequently been labelled as ``exocomets''.
 
-Intensive spectroscopic monitoring over several hours show changes of radial velocity of these components consistent with Keplerian elliptical orbits \citep{Kennedy18}.
+From the multiple detections of exocomets in spectroscopy towards \bp{}, the broadband detection of exocomet tails transiting a star were predicted \citep{LecavelierdesEtangs97} and subsequently detected towards the star KIC~3542116 \citep{Rappaport18} with the {\it Kepler} satellite \citep{Borucki10} and in TESS data towards \bp{} \citep{Zieba19}.
 %
-The absorption is hypothesised to be due to the evaporation of infalling bodies that pass within a few stellar radii of the star, resulting in sublimation of material that produce a large coma containing the Calcium atoms which are then seen as an additional absorption component.
-
-From the multiple detections of exocomets in spectroscopy towards Beta Pictoris, the broadband detection of exocomet tails transiting a star were seen initially detected towards the star KIC~3542116 \citep{Rappaport18} with the {\it Kepler} satellite \citep{Borucki10} and subsequently detected in TESS data towards Beta Pictoris \citep{Zieba19} and have been searched for in other stars with automated searches in photometry \citep{Kennedy19} and spectroscopy \citep{BendahanWest24}.
+Observations of \bp{} in subsequent TESS sectors revealed over two dozen transits whose depth follows a power law distribution similar to those of the Solar system \citep{LecavelierdesEtangs22,Pavlenko22}.
 %
-Observations of Beta Pictoris in subsequent TESS sectors revealed over two dozen transits whose depth follows a power law distribution similar to those of the Solar system \citep{LecavelierdesEtangs22,Pavlenko22}.
+Automated searches in photometry \citep{Kennedy19} and spectroscopy \citep{BendahanWest24} for additional exocomet systems have been met with limited success.
 
 To the contrary of what is observed in the case of \ac{feb}, most molecular and atomic signatures detected in the coma of Solar system comets are emission lines/bands instead of absorptions.
 %
@@ -197,7 +198,7 @@ The \ce{C2} (0-0) band at $\lambda\simeq 5160$\AA \ may be of comparable flux, b
 %
 The \ce{OH} (0-0) band at $\lambda\simeq 3080$ \AA \ generally has higher flux, but unless observed from space the high terrestrial atmospheric absorption severely diminishes the observed flux.
 %
-Strong \ce{CO+} emission bands have also been observed in a number of comets (the strongest ones are the (3-0) and (2-0) $\mathrm{A^2\Pi-X^2\Sigma}$) \citep{Biver2018}).
+Strong \ce{CO+} emission bands have also been observed in a number of comets \citep[the strongest ones are the (3-0) and (2-0) $\mathrm{A^2\Pi-X^2\Sigma}$; ][]{Biver2018}.
 %
 However this is normally significantly weaker than the observed \ce{CN} emission, with only less than 20 comets.
 
@@ -389,7 +390,7 @@ As with the circumstellar \ce{CN}, there are no obvious lines from \ce{CN} visib
 
 To combine the signal from the many \ce{CN} lines, we cross-correlate the data for each night with a grid of model of \ce{CN}.
 %
-Cross-sections for \ce{CN} were obtained from ExoMol \hl{REFERENCES HERE} \citep{Tennyson16,Brooke14,Bernath20,Syme20} and the cross-sections were calculated using \hl{NEED SOME DETAILS...}. 
+Cross-sections for \ce{CN} were obtained from ExoMol\footnote{\url{https://www.exomol.com}} \citep{Tennyson12,Tennyson16,Brooke14} with molecular energy levels assumed to be in thermal equilibrium, i.e.\ Boltzmann distributed.
 %
 We made models for a wide range of temperatures (T$=$\{10, 20, 30, 50, 100, 200, 300, 500, 1000, 2000, 3000\} K) and column densities\footnote{Note that technically, for optically thin lines, this assumes a filling factor $f=1$.
 %
@@ -606,7 +607,7 @@ This is about a factor of 100 smaller than our calculated upper limits.
 \subsection{Raising the \ce{CN} production rates}
 
 %\subsubsection{We need a bigger comet}
-There are several ways exocomets at \bp  may exhibit larger \ce{CN} production rates.
+There are several ways exocomets at \bp{} may exhibit larger \ce{CN} production rates.
 %
 A larger comet gives more surface area for sublimation.
 %
@@ -666,9 +667,9 @@ Even larger increases are possible with an outburst or comet disruption, but the
 
 \section{Conclusions}\label{sec:conclusion}
 
-We have combined over 1000 spectra of Beta Pictoris over a 20 year period, identified two groups, one with deep exocomet signals, and another to act as a stellar reference.
+We have combined over 1000 spectra of \bp{} over a 20 year period, identified two groups, one with deep exocomet signals, and another to act as a stellar reference.
 %
-We produce a normalised spectrum towards Beta Pictoris with the stellar spectral features removed, and then aligned the spectra to the exocomet rest frames and perform a search for \ce{CN} using cross correlation.
+We produce a normalised spectrum towards \bp{} with the stellar spectral features removed, and then aligned the spectra to the exocomet rest frames and perform a search for \ce{CN} using cross correlation.
 
 We do not detect \ce{CN} both in the stellar rest frame and in the exocomet rest frame.
 %
@@ -692,7 +693,7 @@ A more dedicated observing campaign over several years using dedicated spectrogr
 %
 PLATO will carry out a dedicated long stare campaign that will observe the star with sub-millimagnitude photometry over 2 to 3 years.
 %
-This presents an excellent opportunity for coordinated spectroscopic campaigns where the exocomet population of Beta Pictoris can be characterised, with \ce{CN} and ideally other molecules known from Solar sysgem comets to be identified in another stellar system.
+This presents an excellent opportunity for coordinated spectroscopic campaigns where the exocomet population of \bp{} can be characterised, with \ce{CN} and ideally other molecules known from Solar system comets to be identified in another stellar system.
 
 \begin{acknowledgements}
 
@@ -700,7 +701,7 @@ The authors thank the Lorentz Centre at Leiden University for organising the wor
 %
 Part of this work was supported by the German \emph{Deut\-sche For\-schungs\-ge\-mein\-schaft, DFG\/} project number Ts~17/2--1.
 
-AF acknowledges acknowledges support from STFC award ST/T00021X/1.
+AF acknowledges support from STFC award ST/T00021X/1. EdM acknowledges support from STFC award ST/X00094X/1.
 %
 We made use of the {\tt Python} programming language \citep{rossum1995} and the open-source {\tt Python} packages {\tt numpy} \citep{walt2011}, {\tt matplotlib} \citep{hunter2007}, {\tt astropy} \citep{astropy2013}.
 %      
