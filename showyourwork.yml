@@ -120,6 +120,14 @@ dependencies:
     - src/data/corrected_spectra_stellar.fits
     - src/data/corrected_spectra_comet.fits
     - src/data/FEB_idx.fits
+    - src/data/CN/CN_0010K.npy
+    - src/data/CN/CN_0020K.npy
+    - src/data/CN/CN_0050K.npy
+    - src/data/CN/CN_0100K.npy
+    - src/data/CN/CN_0200K.npy
+    - src/data/CN/CN_0300K.npy
+    - src/data/CN/CN_1000K.npy
+    - src/data/CN/CN_2000K.npy
   src/scripts/plot_FEB_velocity_depth.py:
     - src/data/FEB_spec.fits
     - src/data/FEB_idx.fits
