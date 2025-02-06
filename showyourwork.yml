@@ -16,6 +16,38 @@ overleaf:
     - src/tex/bib.bib
 
 datasets:
+  10.5281/zenodo.14736412:
+    contents:
+      data.tgz:
+        2d_baryvel.fits: src/data/2d_baryvel.fits
+        2d_nspec.fits: /src/data/2d_nspec.fits
+        2d_obsdate.fits: /src/data/2d_obsdate.fits
+        2d_refspec.fits: /src/data/2d_refspec.fits
+        2d_spec.fits: /src/data/2d_spec.fits
+        2d_spec_compl.fits: /src/data/2d_spec_compl.fits
+        2d_wavelength.fits: /src/data/2d_wavelength.fits
+        2d_weights.fits: /src/data/2d_weights.fits
+        FEB_depths.fits: /src/data/FEB_depths.fits
+        FEB_idx.fits: /src/data/FEB_idx.fits
+        FEB_spec.fits: /src/data/FEB_spec.fits
+        FEB_spec_orig.fits: /src/data/FEB_spec_orig.fits
+        FEB_velocities.fits: /src/data/FEB_velocities.fits
+        FEB_vgrid.fits: /src/data/FEB_vgrid.fits
+        NO_FEB_idx.fits: /src/data/NO_FEB_idx.fits
+        Nf.fits: /src/data/Nf.fits
+        T_gas.fits: /src/data/T_gas.fits
+        broadening.fits: /src/data/broadening.fits
+        corrected_spectra_comet.fits: /src/data/corrected_spectra_comet.fits
+        corrected_spectra_stellar.fits: /src/data/corrected_spectra_stellar.fits
+        phase_cube_comet.fits: /src/data/phase_cube_comet.fits
+        sim_fit_cube_comet.fits: /src/data/sim_fit_cube_comet.fits
+        sim_fit_cube_stellar.fits: /src/data/sim_fit_cube_stellar.fits
+        sim_fit_err_cube_comet.fits: /src/data/sim_fit_err_cube_comet.fits
+        sim_fit_err_cube_stellar.fits: /src/data/sim_fit_err_cube_stellar.fits
+        sim_phase_cube_comet.fits: /src/data/sim_phase_cube_comet.fits
+        v_phasefold.fits: /src/data/v_phasefold.fits
+        wave_corrected_spectra.fits: /src/data/wave_corrected_spectra.fits
+
 #   10.5072/zenodo.1144178:
 #     contents:
 #       2d_nspec.fits: src/data/2d_nspec.fits
