@@ -19,33 +19,33 @@ datasets:
   10.5281/zenodo.14736412:
     contents:
       2d_baryvel.fits: src/data/2d_baryvel.fits
-      2d_nspec.fits: /src/data/2d_nspec.fits
-      2d_obsdate.fits: /src/data/2d_obsdate.fits
-      2d_refspec.fits: /src/data/2d_refspec.fits
-      2d_spec.fits: /src/data/2d_spec.fits
-      2d_spec_compl.fits: /src/data/2d_spec_compl.fits
-      2d_wavelength.fits: /src/data/2d_wavelength.fits
-      2d_weights.fits: /src/data/2d_weights.fits
-      FEB_depths.fits: /src/data/FEB_depths.fits
-      FEB_idx.fits: /src/data/FEB_idx.fits
-      FEB_spec.fits: /src/data/FEB_spec.fits
-      FEB_spec_orig.fits: /src/data/FEB_spec_orig.fits
-      FEB_velocities.fits: /src/data/FEB_velocities.fits
-      FEB_vgrid.fits: /src/data/FEB_vgrid.fits
-      NO_FEB_idx.fits: /src/data/NO_FEB_idx.fits
-      Nf.fits: /src/data/Nf.fits
-      T_gas.fits: /src/data/T_gas.fits
-      broadening.fits: /src/data/broadening.fits
-      corrected_spectra_comet.fits: /src/data/corrected_spectra_comet.fits
-      corrected_spectra_stellar.fits: /src/data/corrected_spectra_stellar.fits
-      phase_cube_comet.fits: /src/data/phase_cube_comet.fits
-      sim_fit_cube_comet.fits: /src/data/sim_fit_cube_comet.fits
-      sim_fit_cube_stellar.fits: /src/data/sim_fit_cube_stellar.fits
-      sim_fit_err_cube_comet.fits: /src/data/sim_fit_err_cube_comet.fits
-      sim_fit_err_cube_stellar.fits: /src/data/sim_fit_err_cube_stellar.fits
-      sim_phase_cube_comet.fits: /src/data/sim_phase_cube_comet.fits
-      v_phasefold.fits: /src/data/v_phasefold.fits
-      wave_corrected_spectra.fits: /src/data/wave_corrected_spectra.fits
+      2d_nspec.fits: src/data/2d_nspec.fits
+      2d_obsdate.fits: src/data/2d_obsdate.fits
+      2d_refspec.fits: src/data/2d_refspec.fits
+      2d_spec.fits: src/data/2d_spec.fits
+      2d_spec_compl.fits: src/data/2d_spec_compl.fits
+      2d_wavelength.fits: src/data/2d_wavelength.fits
+      2d_weights.fits: src/data/2d_weights.fits
+      FEB_depths.fits: src/data/FEB_depths.fits
+      FEB_idx.fits: src/data/FEB_idx.fits
+      FEB_spec.fits: src/data/FEB_spec.fits
+      FEB_spec_orig.fits: src/data/FEB_spec_orig.fits
+      FEB_velocities.fits: src/data/FEB_velocities.fits
+      FEB_vgrid.fits: src/data/FEB_vgrid.fits
+      NO_FEB_idx.fits: src/data/NO_FEB_idx.fits
+      Nf.fits: src/data/Nf.fits
+      T_gas.fits: src/data/T_gas.fits
+      broadening.fits: src/data/broadening.fits
+      corrected_spectra_comet.fits: src/data/corrected_spectra_comet.fits
+      corrected_spectra_stellar.fits: src/data/corrected_spectra_stellar.fits
+      phase_cube_comet.fits: src/data/phase_cube_comet.fits
+      sim_fit_cube_comet.fits: src/data/sim_fit_cube_comet.fits
+      sim_fit_cube_stellar.fits: src/data/sim_fit_cube_stellar.fits
+      sim_fit_err_cube_comet.fits: src/data/sim_fit_err_cube_comet.fits
+      sim_fit_err_cube_stellar.fits: src/data/sim_fit_err_cube_stellar.fits
+      sim_phase_cube_comet.fits: src/data/sim_phase_cube_comet.fits
+      v_phasefold.fits: src/data/v_phasefold.fits
+      wave_corrected_spectra.fits: src/data/wave_corrected_spectra.fits
       CN_0010K.npy: src/data/CN/CN_0010K.npy
       CN_0020K.npy: src/data/CN/CN_0020K.npy
       CN_0030K.npy: src/data/CN/CN_0030K.npy
@@ -58,24 +58,19 @@ datasets:
       CN_3000K.npy: src/data/CN/CN_3000K.npy
       CN_wavelengths.npy: src/data/CN/CN_wavelengths.npy
 
-#   10.5072/zenodo.1144178:
-#     contents:
-#       2d_nspec.fits: src/data/2d_nspec.fits
-# #      2d_spec.fits: src/data/2d_spec.fits
-#       2d_wavelength.fits: src/data/2d_wavelength.fits
-#       2d_baryvel.fits: src/data/2d_baryvel.fits
-#       CN.zip:
-#         CN:
-#           CN_0010K.npy: src/data/CN/CN_0010K.npy
-#           CN_0020K.npy: src/data/CN/CN_0020K.npy
-#           CN_0050K.npy: src/data/CN/CN_0050K.npy
-#           CN_0100K.npy: src/data/CN/CN_0100K.npy
-#           CN_0200K.npy: src/data/CN/CN_0200K.npy
-#           CN_0300K.npy: src/data/CN/CN_0300K.npy
-#           CN_1000K.npy: src/data/CN/CN_1000K.npy
-#           CN_2000K.npy: src/data/CN/CN_2000K.npy
-#           CN_wavelengths.npy: src/data/CN/CN_wavelengths.npy
 dependencies:
+  src/scripts/plot_HARPS_CN_exocomet_frame.py:
+    - src/data/T_gas.fits
+    - src/data/Nf.fits
+    - src/data/broadening.fits
+    - src/data/sim_fit_cube_comet.fits
+    - src/data/sim_fit_err_cube_comet.fits
+  src/scripts/plot_HARPS_CN_stellar_frame.py:
+    - src/data/T_gas.fits
+    - src/data/Nf.fits
+    - src/data/broadening.fits
+    - src/data/sim_fit_cube_stellar.fits
+    - src/data/sim_fit_err_cube_stellar.fits
   src/scripts/plot_HARPS_CN_grid.py:
     - src/data/results_HARPS.txt
   src/scripts/analyse_HARPS_spectra.py:
@@ -99,7 +94,38 @@ dependencies:
   src/scripts/plot_ccf.py:
     - src/data/ccf_data1.ecsv
   src/scripts/plot_ccf_mean.py:
-    - src/data/ccf_data1_mean.ecsv
+    - src/data/Nf.fits
+    - src/data/T_gas.fits
+    - src/data/broadening.fits
+    - src/data/FEB_idx.fits
+    - src/data/v_phasefold.fits
+    - src/data/phase_cube_comet.fits
+    - src/data/sim_phase_cube_comet.fits
+  src/scripts/plot_CN_ACF.py:
+    - src/data/2d_nspec.fits
+    - src/data/2d_spec.fits
+    - src/data/2d_wavelength.fits
+    - src/data/2d_baryvel.fits
+    - src/data/2d_obsdate.fits
+    - src/data/CN/CN_0010K.npy
+    - src/data/CN/CN_0020K.npy
+    - src/data/CN/CN_0050K.npy
+    - src/data/CN/CN_0100K.npy
+    - src/data/CN/CN_0200K.npy
+    - src/data/CN/CN_0300K.npy
+    - src/data/CN/CN_1000K.npy
+    - src/data/CN/CN_2000K.npy
+  src/scripts/plot_spec_mean.py:
+    - src/data/wave_corrected_spectra.fits
+    - src/data/corrected_spectra_stellar.fits
+    - src/data/corrected_spectra_comet.fits
+    - src/data/FEB_idx.fits
+  src/scripts/plot_FEB_velocity_depth.py:
+    - src/data/FEB_spec.fits
+    - src/data/FEB_idx.fits
+    - src/data/NO_FEB_idx.fits
+    - src/data/FEB_depths.fits
+    - src/data/FEB_velocities.fits
 
 verbose:
   true
