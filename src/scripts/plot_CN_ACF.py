@@ -4,7 +4,7 @@ from astropy.io import fits
 import matplotlib as mpl
 import paths
 
-mpl.use('macosx')
+#mpl.use('macosx')
 mpl.rcParams['figure.figsize'] = 12, 8
 mpl.rc('image', interpolation='nearest', origin='lower', cmap = 'gray')
 

@@ -3,7 +3,7 @@ from astropy.io import fits
 import numpy as np
 import paths
 import matplotlib as mpl
-mpl.use('macosx')
+#mpl.use('macosx')
 
 FEB_spec=fits.getdata(paths.data/'FEB_spec.fits')
 FEB_idx=fits.getdata(paths.data/'FEB_idx.fits')

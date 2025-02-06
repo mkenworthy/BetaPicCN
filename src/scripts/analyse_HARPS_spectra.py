@@ -618,7 +618,7 @@ if __name__ == "__main__":
    '''
    
 
-   mpl.use('agg')##macosx')
+#   mpl.use('agg')##macosx')
    #mpl.use('macosx')
    mpl.rcParams['figure.figsize'] = 12, 8
    mpl.rc('image', interpolation='nearest', origin='lower', cmap = 'gray')

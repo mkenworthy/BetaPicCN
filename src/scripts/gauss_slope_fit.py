@@ -17,7 +17,7 @@ import warnings
 
 import matplotlib as mpl
 
-mpl.use('macosx')
+#mpl.use('macosx')
 
 pp1 = models.Gaussian1D(100, 0, 10)
 pp2 = models.Linear1D(slope=0.3, intercept=2.0)
