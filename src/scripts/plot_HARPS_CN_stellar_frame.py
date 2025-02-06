@@ -4,7 +4,7 @@ import paths
 from astropy.io import fits
 import matplotlib as mpl
 
-mpl.use('macosx')
+#mpl.use('macosx')
 
 T0=fits.getdata(paths.data/'T_gas.fits')
 N0=fits.getdata(paths.data/'Nf.fits')
