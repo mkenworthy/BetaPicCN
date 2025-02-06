@@ -48,12 +48,14 @@ datasets:
       wave_corrected_spectra.fits: /src/data/wave_corrected_spectra.fits
       CN_0010K.npy: src/data/CN/CN_0010K.npy
       CN_0020K.npy: src/data/CN/CN_0020K.npy
+      CN_0030K.npy: src/data/CN/CN_0030K.npy
       CN_0050K.npy: src/data/CN/CN_0050K.npy
       CN_0100K.npy: src/data/CN/CN_0100K.npy
       CN_0200K.npy: src/data/CN/CN_0200K.npy
       CN_0300K.npy: src/data/CN/CN_0300K.npy
       CN_1000K.npy: src/data/CN/CN_1000K.npy
       CN_2000K.npy: src/data/CN/CN_2000K.npy
+      CN_3000K.npy: src/data/CN/CN_3000K.npy
       CN_wavelengths.npy: src/data/CN/CN_wavelengths.npy
 
 #   10.5072/zenodo.1144178:
