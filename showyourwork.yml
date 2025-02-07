@@ -140,11 +140,11 @@ verbose:
 
 dag:
   render: true
-  engine: sfdp
+  engine: twopi
   graph_attr:
     ranksep: "1"
     nodesep: "0.65"
-  group_by_type: true
+  group_by_type: false
   node_attr:
     shape: "box"
     penwidth: "2"
