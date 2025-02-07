@@ -166,7 +166,6 @@ This occurs at $r\leq 0.03-0.06$ au for a dust grain with Bond albedo $\sim0.01$
 On the other hand, the origin of the \ion{Na}{i} tail observed in numerous comets at larger distances from the Sun is still not very well understood \citep{Cremonese02}.
 %
 Release from dust grains as well as molecular processes have been suggested as possible sources of \ion{Na}{i} in the coma and tail of comets annd explain its presence at large solar distances \citep{Cremonese1997}.
-%Na appears to be weakly bound to the dust grains and released at larger solar distances.
 
 For the majority of Solar system comets, their optical spectra are dominated by the reflected sunlight from dust grains in their comae, plus molecular and atomic emission lines \citep[e.g. ][]{hyland2019}.
 %
@@ -397,29 +396,6 @@ Even after cross-correlating, the stacked CCFs (see Fig.~\ref{fig:ccf_mean} do n
     \end{centering}
 \end{figure*}
 
-
-
-
-% \begin{figure}
-%     \begin{centering}
-%         \includegraphics[width=\columnwidth]{figures/asdf.png}
-%         \caption{Test picture}
-%         \label{fig:test}
-%     \end{centering}
-% \end{figure}
-
-
-% \begin{figure}
-%     \begin{centering}
-%         \includegraphics[width=\columnwidth]{figures/HARPS_CN_grid.pdf}
-%         \caption{Confidence intervals for the signal to noise of \ce{CN} spectra using \ac{harps} spectra of \bp{}.}
-%         \label{fig:HARPS_CN_grid}
-%         \script{plot_HARPS_CN_grid.py}
-%     \end{centering}
-% \end{figure}
-
-%\subsection{Other Species? CO$^+$, C$_2$?}
-
 \subsection{Estimating the \ce{CN} column density limits}\label{sect:CNlim}
 
 To estimate the limits on the \ce{CN} detection, we perform injection and recovery tests.
@@ -446,31 +422,39 @@ The final detection significance for the injected models is determined by the am
 
 \section{Discussion}\label{sec:discuss}
 
-%\subsection{Summary of \ce{CN} in comets}
-%\ce{CN} is one of the brightest optically active species in cometary comae.
+As discussed above in the introduction, most studies of Solar system comets observe the \ce{CN} molecules via optical fluorescence. 
 %
-%It is a minor component of the gas coma, with a production rate by number $\sim 1/500$th that of water. 
-As discussed above in the introduction, most studies of Solar system comets observe the \ce{CN} molecules via optical fluorescence. From measurements and simple physical arguments the \ce{CN} absorption/emission is optically thin everywhere.
+rom measurements and simple physical arguments the \ce{CN} absorption/emission is optically thin everywhere.
+%
 This means a flux from part of the coma can immediately be converted to a column density using a photon scattering efficiency for the molecular band.
 
 \ce{CN} in solar system comets comes from two sources.
+%
 Sublimation of nucleus near-surface ices releases \ce{HCN}, which then photo-dissociates into \ce{CN}.
+%
 This in turn eventually photo-dissociates into the component atoms.
 
 $$\ce{HCN} +\gamma \rightarrow \ce{H}+\ce{CN}$$
 $$\ce{CN} + \gamma \rightarrow \ce{C}+\ce{N}$$
 
 Since observations of Comet Halley \citep{AHearn1986}, it has also been known that dust grains ejected from the nucleus also directly release \ce{CN} into the coma.
-However, \ce{CN} production in comets is usually dominated by nuclear ice sublimation \citep{Fray2005}. The resulting \ce{CN} coma will have a true space density and apparent column density distribution centrally peaked at the comet nucleus in this case.
+%
+However, \ce{CN} production in comets is usually dominated by nuclear ice sublimation \citep{Fray2005}.
+%
+The resulting \ce{CN} coma will have a true space density and apparent column density distribution centrally peaked at the comet nucleus in this case.
 
-For Solar system comets, measured \ce{CN} column densities are often converted to an overall production rate by the comet of $Q_{\ce{CN}}$ molecules/sec via an analytical model known as the ``Haser'' model \citep{Haser2020}
-This model gives the on-sky column density as a function of projected radial distance form the nucleus using only 3 parameters; the effective destruction scale length $l_p$ of the parents of \ce{CN} (\ce{HCN}+dust), the photodissociation scale length $l_{\ce{CN}}$ of \ce{CN}, and the gas outflow velocity $v$. The Haser model is somewhat simplistic but it represents the data well for solar system comets observed at typical distances from the Sun (1--3 au).
+For Solar system comets, measured \ce{CN} column densities are often converted to an overall production rate by the comet of $Q_{\ce{CN}}$ molecules/sec via an analytical model known as the ``Haser'' model \citep{Haser2020}.
+%
+This model gives the on-sky column density as a function of projected radial distance form the nucleus using only three parameters; the effective destruction scale length $l_p$ of the parents of \ce{CN} (\ce{HCN}+dust), the photodissociation scale length $l_{\ce{CN}}$ of \ce{CN}, and the gas outflow velocity $v$.
+%
+The Haser model is somewhat simplistic but it represents the data well for solar system comets observed at typical distances from the Sun (1--3 au).
 
 \subsection{Example comet - 1P/Halley}
 
 We take the observed activity of 1P / Halley in 1985 / 1986 as a reference point for our estimates.
 %
 Although most Solar system comets are observed to be are far less active than Halley, some Long-Period comets show activity in excess of Halley.
+%
 Given that we will be dominated by the most active comets at \bp{}, this seems reasonable as something that can be later scaled to the most active comets such as Hale-Bopp \citep{Schleicher2024}.
 %
 When Halley was at $\sim 1$ au from the Sun, it was measured to have $Q_{\ce{CN}}\simeq 10^{27}$ molecules/sec using Haser models \citep{AHearn1995}.
@@ -486,18 +470,17 @@ Both are assumed to scale with heliocentric distance $r_h^2$ as photodissociatio
 
 The lifetime of \ce{HCN} for photodissociation into \ce{H}+\ce{CN} at 1~au has been calculated to be $(3.2-7.7)\times10^4$ sec, with lifetime of \ce{CN} dissociating into \ce{C}+\ce{N} being $(1.3-3.1)\times10^5$ sec \citep{Huebner92}, depending on solar activity levels.
 %
-These are consistent with the measured scale lengths above if the parents of \ce{CN} are ejected at $\sim 0.5$ km/sec, and we take into account the excess photodissociation energy giving \ce{CN} an extra kick of $\simeq1$ \kms{} \citep{Combi1980}. 
+These are consistent with the measured scale lengths above if the parents of \ce{CN} are ejected at $\sim 0.5$ \kms{}, and we take into account the excess photodissociation energy giving \ce{CN} an extra kick of $\simeq1$ \kms{} \citep{Combi1980}. 
 
 \subsection{1P/Halley at \bp{}}
-
-%\subsubsection{Total \ce{CN} Abundance}
 
 Photodissociation is  driven by the UV photon flux at the comet, which in turn is dominated by Ly-$\alpha$ line flux. From Ly-$\alpha$ measurements in \citet{Landsman93} the intrinsic Ly-$\alpha$ luminosity of A6V/A7V stars is a factor of $\sim10$ higher than for G2V stars.
 %
 Hence the photodissociation lifetime of \ce{CN}  at 1 au from \bp{} of an `exoHalley' will be approximately 10 times smaller i.e. $\sim 2\times10^4$ sec at 1 au.
 
-In steady-state sublimation, the sublimation rate is proportional to the photon flux at the comet. For \bp{} $L=8.7L_\odot$, so assuming 
-all \ce{CN} production scales with stellar luminosity, exoHalley would have a larger \ce{CN} production rate of $Q_{\ce{CN}}\sim 9\times10^{27}$ molecules/sec.
+In steady-state sublimation, the sublimation rate is proportional to the photon flux at the comet.
+%
+For \bp{} $L=8.7L_\odot$, so assuming all \ce{CN} production scales with stellar luminosity, exoHalley would have a larger \ce{CN} production rate of $Q_{\ce{CN}}\sim 9\times10^{27}$ molecules/sec.
 %
 The total number of \ce{CN} molecules in the coma at 1~au at any given time would therefore be
 
@@ -505,16 +488,23 @@ $$N_{\ce{CN}}=Q_{\ce{CN}} \tau_{\ce{CN}}$$
 $$N_{\ce{CN}}\sim 9\times10^{27} \cdot  2\times10^4 \sim 2\times10^{32}\:{\rm molecules}$$
 
 %\subsubsection{\ce{CN} Cross-section}
-The effective cross section of the coma will depend on how much is projected against the disk of \bp{}. The radius of the \ce{CN} coma will be given by
+The effective cross section of the coma will depend on how much is projected against the disk of \bp{}.
+%
+The radius of the \ce{CN} coma will be given by
 $$r\sim v_{\ce{CN}} \tau_{\ce{CN}}$$.
+
 The outflow velocity of the parent \ce{HCN} will depend on the nuclear surface temperature, which will increase as a comet moves towards its parent star.
+%
 \citet{Biver2002} found a nuclear gas outflow velocity $v\simeq1.0  r_h^{-0.4}$ \kms{} from sub-mm measurements of Comet Hale-Bopp, close to the canonical relationship of $r_h^{-0.5}$.
+%
 \citet{Harris2002} notes lower activity similar to Halley results in smaller outflow velocities.
-%Dust grains will also be travelling faster due to the larger gas pressure accelerating them.
+%
 The excess photodissociation velocity of \ce{CN} will not change.
+%
 Therefore gas outflow speeds are expected to be $\sim 1-2$ \kms{} at 1 AU, and the \ce{CN} coma radius will be
 %
 $$r\sim (1-2) \times 2\times 10^{4} \leq 4\times 10^{4}\:{\rm km}$$
+%
 This is much smaller than a stellar radius, so we can assume for an exoHalley that all of the coma is projected into the stellar disk as seen from Earth.
 
 \bp{} has $R=1.8R_\odot\equiv 1.3\times 10^{11}$ cm.
@@ -530,40 +520,38 @@ This is about a factor of 100 smaller than our measured upper limits above.
 
 \subsection{Raising the \ce{CN} production rates}
 
-%\subsubsection{We need a bigger comet}
 There are several ways exocomets at \bp{} may exhibit larger \ce{CN} production rates.
 %
 A larger comet gives more surface area for sublimation.
 %
- Comet Halley's nucleus has an effective radius of $5.5$ km \citep{Keller1987}, whereas 
-Comet Hale-Bopp was one of the most intrinsically active comets on record with an extremely large nucleus of radius $\sim 14-21$ km \citep{Weaver1997}.
+ Comet Halley's nucleus has an effective radius of $5.5$ km \citep{Keller1987}, whereas Comet Hale-Bopp was one of the most intrinsically active comets on record with an extremely large nucleus of radius $\sim 14-21$ km \citep{Weaver1997}.
 %
 However most of the apparent brightness was due to dust emission, and its only had $Q_{\ce{CN}}\simeq 3\times10^{27}$ molecules/sec \citep{Schleicher2024}.
 %
 In this case, we might anticipate the most active comets in the Solar system to have $Q_{\ce{CN}}\sim 10^{28}$ molecules/sec, implying a commensurate increase of a factor 10 in column density $n$ over an exoHalley at \bp{}.
 
-%\subsubsection{Turn on the taps}
-
 Most comets only have a fraction of their surface area undergoing mass-loss, due to the effect of a thermally insulating dust crust.
 %
 Halley itself only has $\sim20$\% of the sunlit surface active \citep{Keller1987}.
 %
-Yet some comets are known as hyperactive, as the measured gas productions rates would require $\geq 100$\% of the nucleus surface to be active \citep{Sunshine2021}. This is believed to be due to the release of ice-rich dust grains from the nucleus, which sublimate and act as a secondary source of gas.
+Yet some comets are known as hyperactive, as the measured gas productions rates would require $\geq 100$\% of the nucleus surface to be active \citep{Sunshine2021}.
+%
+This is believed to be due to the release of ice-rich dust grains from the nucleus, which sublimate and act as a secondary source of gas.
+%
 Assuming this is possible for exocomets at \bp{} would increase $N_{\ce{CN}}$ and $n$ by a factor $\sim 5$.
 
-%\subsubsection{Move it closer to \bp{}}
-
-The closer a comet to its parent star, the greater the heating and corresponding production rate. When insolation completely controls the nuclear surface energy balance we expect
+The closer a comet to its parent star, the greater the heating and corresponding production rate.
+%
+When insolation completely controls the nuclear surface energy balance we expect
 $Q_{\ce{CN}}\propto r_h^{-2}$.
 %
-Studies of Halley and Hale-Bopp showed power laws close to this {\it i.e.} \cite{Biver2002}. But the photodissociation lifetime $\tau_{\ce{CN}}\propto r_h^{2}$, so theoretically
+Studies of Halley and Hale-Bopp showed power laws close to this {\it i.e.} \cite{Biver2002}.
+%
+But the photodissociation lifetime $\tau_{\ce{CN}}\propto r_h^{2}$, so theoretically
 $$N_{\ce{CN}}=\frac{Q_{\ce{CN}}(1~\rm{au})}{r_h^2}\cdot  \tau_{\ce{CN}} (1~\rm{au}) r_h^2 =\:{\rm constant} $$
 Hence the total amount of \ce{CN} in the coma should be approximately independent of stellar distance, and the total cross-section would not change.
 
-%\subsubsection{Stay up all night to get lucky}
 Finally, comets have impulsive outbursts, where the amount of material ejected into the coma increases significantly over a few hours or less.
-%
-%This varies from comet to comet; many do not appear to outburst, some have 1 or a few outbursts per orbit.
 %
 The general causes are unclear, but there is evidence for several physical mechanisms that cause them 
 \citep{Kelley2021,Muller2024}.
@@ -572,10 +560,14 @@ The general causes are unclear, but there is evidence for several physical mecha
 As the apparent brightness is directly proportional to the amount of material (gas+dust) in the coma, this implies short term increases in $N_{\ce{CN}}$ and $n$ of factors $\sim 2-100$.
 
 Large outbursts are often due to partial or total disruption of a comet and can occur when a comet is closer to the Sun.
+%
 Hence there could be a correlation with faster moving \bp{} exocomets nearer their periastra producing greater measurable column densities of \ce{CN}.
 
-In summary, mechanisms exist by which the \ce{CN} column density of an exocomet at \bp{} could exceed $n\sim10^9-10^{10}$ cm$^{-2}$. 
-A larger and/or hyperactive nucleus could increase $n$ by a factor 10. Even larger increases are possible with an outburst or comet disruption, but the upper boundary is likely to be near $n\sim10^{12}$ cm$^{-2}$. 
+In summary, mechanisms exist by which the \ce{CN} column density of an exocomet at \bp{} could exceed $n\sim10^9-10^{10}$ cm$^{-2}$.
+%
+A larger and/or hyperactive nucleus could increase $n$ by a factor of ten.
+%
+Even larger increases are possible with an outburst or comet disruption, but the upper boundary is likely to be near $n\sim10^{12}$ cm$^{-2}$. 
 
 \section{Conclusions}\label{sec:conclusion}
 
@@ -592,10 +584,6 @@ In the exocomet rest frames, sensitivity is somewhat similar.
 Below 100K the sensitivity is $10^{12}$cm$^{-2}$ and above from 100 - 1800~K, is $10^{13}$cm$^{-2}$.
 %
 This is a factor of 10 to 100 too high to detect a single Hale-Bopp equivalent comet with a \ce{CN} coma.
-%
-%We detect no \ce{CN} absorption, but can place five sigma upper limits of 10e12 to 10e13 from 10 to 1800 K.
-%
-%Hale-Bopp in transit will be around $10^{10}$, so we are two orders of magnitude above this in our detection.
 %
 The assumptions are for steady state comets, so individual outbursts could build this number up, and multiple transiting exocomets can increase the absorption cross section.
 
