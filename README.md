@@ -3,7 +3,7 @@
 <a href="https://github.com/mkenworthy/BetaPicCN/raw/main-pdf/ms.pdf"><img src="https://img.shields.io/badge/article-pdf-blue.svg?style=flat" alt="Read the article"/></a>
 <a href="https://github.com/showyourwork/showyourwork"><img src="https://img.shields.io/badge/created%20with-showyourwork!-ff0000" alt="created with showyourwork!"></a>
 
-# Upper Limits on CN from Falling Evaporating Bodiesseen towards β Pictoris
+# Upper Limits on CN from Falling Evaporating Bodies seen towards β Pictoris
 
 *M.A. Kenworthy, E. de Mooij, A. Brandeker, C. Opitom, F. Kiefer, and A. Fitzsimmons* 
 
