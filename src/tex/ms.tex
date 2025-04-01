@@ -7,6 +7,7 @@
 \newcommand{\angstrom}{\textup{\AA}}
 
 \newcommand{\kms}{km s$^{-1}$}
+
 \newcommand{\bpb}{$\beta$\,Pic\,b}
 \newcommand{\bp}{$\beta$\,Pic}
 
@@ -14,22 +15,14 @@
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,allcolors=[rgb]{0,0,0.8}}
 
-%\newcommand\pdfmath[1]{\texorpdfstring{$#1$}{#1}}
-
 \usepackage[nolist,nohyperlinks]{acronym}
 \newacro{harps}[HARPS]{High Accuracy Radial Velocity Planet Searcher}
 \newacro{uves}[UVES]{Ultra-violet Visible Echelle Spectrograph}
-\newacro{feb}[FEBs]{Falling Evaporating Bodies}
+\newacro{feb}[FEBs]{Exocomets}
 
-%
 \usepackage{graphicx}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{txfonts}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\usepackage[options]{hyperref}
-% To add links in your PDF file, use the package "hyperref"
-% with options according to your LaTeX or PDFLaTeX drivers.
-%
+
 \usepackage{showyourwork}
 
 \usepackage[version=4]{mhchem}
@@ -40,10 +33,7 @@
 \makeatother
 
 \begin{document} 
-
-
-   \title{Upper Limits on CN from Falling Evaporating Bodies\\seen towards $\beta$~Pictoris}
-
+   \title{Upper limits on CN from exocomets transiting $\beta$~Pictoris}
    \author{M.A. Kenworthy
           \inst{1}
           \and
@@ -57,7 +47,6 @@
           \and
           A. Fitzsimmons \inst{2}
           }
-
    \institute{Leiden Observatory, Leiden University, P.O. Box 9513, 2300 RA Leiden, The Netherlands\\
               \email{kenworthy@strw.leidenuniv.nl}
         \and
@@ -71,16 +60,13 @@
 
    \date{Received 7 Feb 2025; Accepted XXXX}
 
-% \abstract{}{}{}{}{} 
-% 5 {} token are mandatory
  
   \abstract
   % context heading (optional)
   % {} leave it empty if necessary  
    {The young (23 Myr) nearby (19.4 pc) star $\beta$~Pictoris hosts an edge-on debris disk with two gas giant exoplanets in orbit around it.
    %
-   Many transient absorption features have been detected in the rotationally broadened stellar lines of the star's chromosphere, and these are thought to be the coma of infalling exocomets crossing the line of sight towards Earth.
-}
+   Many transient absorption features have been detected in the rotationally broadened stellar lines, which are thought to be the coma of infalling exocomets crossing the line of sight towards Earth.}
   % aims heading (mandatory)
    {In the Solar system, the molecule cynaogen (\ce{CN}) and its associated ionic species are one of the most detectable molecules in the coma and tails of comets.
    %
@@ -88,19 +74,13 @@
   % methods heading (mandatory)
    {We divide twenty year's worth of \ac{harps} spectra into those with strong exocomet absorption features, and those with only stellar lines.
    %
-   The high signal to noise stellar spectrum normalises out the stellar lines in the exocomet spectra, which are then shifted and stacked on the deepest exocomet absorption features to produce a high signal to noise exocomet spectrum, and search for the \ce{CN} band head using a model temperature dependent cross-correlation template.
-   }
+   The high signal to noise stellar spectrum normalises out the stellar lines in the exocomet spectra, which are then shifted and stacked on the deepest exocomet absorption features to produce a high signal to noise exocomet spectrum, and search for the \ce{CN} band head using a model temperature dependent cross-correlation template.}
   % results heading (mandatory)
-   {We do not detect \ce{CN} in our data, and place a temperature and broadening dependent 5$\sigma$ upper limit between 10$^{12}$\,cm$^{-2}$ and 10$^{13}$\,cm$^{-2}$, which is 100 times higher than seen for comets in our Solar System.
-   }
-  % conclusions heading (optional), leave it empty if necessary 
-   %{\ac{feb} are not Solar System comets in composition.}
+   {We do not detect \ce{CN} in our data, and place a temperature and broadening dependent 5$\sigma$ upper limit between 10$^{12}$\,cm$^{-2}$ and 10$^{13}$\,cm$^{-2}$, to be compared to the typical 10$^9$ - 10$^{10}$ cm$^{-2}$ expected from scaling of the values in the Solar System comets.}
 
    \keywords{comets --- transits, spectroscopy}
 
    \maketitle
-%
-%________________________________________________________________
 
 \section{Introduction}
 
@@ -114,31 +94,32 @@ One of the closest young planetary systems is $\beta$~Pictoris, which has been s
 %
 \bp{} is a young \citep[$\sim 25$ Myr; see ][ for discussions]{Lee24}, nearby \citep[$19.63\pm 0.06$ pc, ][]{Lindegren21} and early type star \citep[A6V; ][]{Gray06} which hosts an edge-on debris disk and at least two exoplanets, making it one of the most intensely studied young planetary systems.
 %
-The star is a rapid rotator \citep[$124\pm 3$\,\kms{}; ][]{Koen03} seen close to equator on, resulting in rotational broadening of the chromospheric lines.
+The star is a rapid rotator \citep[$124\pm 3$\,\kms{}; ][]{Koen03} seen close to equator on.
 %
 Amongst these, the Ca H and K lines show deep absorption down to 0.1 of the continuum level.
 %
 Deep within this rotationally broadened line there is a consistent and stable narrow absorption feature with a full width half maximum (FWHM) of a few km/s, attributed to the presence of the circumstellar material \citep{Hobbs85,VidalMadjar86}.
 
-Transient absorption features appearing in the rotationally broadened Ca H and K features were proposed to be due to \ac{feb} moving towards the star \citep{Ferlet87}.
+Transient absorption features appearing in the rotationally broadened Ca H and K features were proposed to be due to the transit of evaporating exocomets in front of the star \citep{Ferlet87}.
 %
 These features appear and disappear on the timescale of hours to days, with some features lasting up to tens of days and have red-shifted velocities from eighty kilometers per second, all the way down to (and merging with) the circumstellar line, with a few appearing on the blueward side \citep{LagrangeHenri92} with widths from a few up to tens of kilometers per second.
 %
-The absorption can be described by the evaporation of infalling bodies that pass within a few stellar radii of the star, resulting in sublimation of material that produce a large coma containing Calcium ions which are then seen as an additional absorption component \citep{Beust91}.
+The absorption can be described by the transit of evaporating bodies that pass within a few stellar radii of the star, resulting in sublimation of material that produce a large coma containing calcium ions which are then seen as an additional absorption component \citep{Beust91}.
 %
-Intensive spectroscopic monitoring over several hours show both multiple components transiting the disk of the star \citep{Beust96} and changes of radial velocity of several components are consistent with Keplerian elliptical orbits \citep{Kennedy18} implying at least two \citep{Kiefer14,Pollard24} or more \citep{Heller24} distinct kinematic families of FEBs.
+Intensive spectroscopic monitoring over several hours show both multiple components transiting the disk of the star \citep{Beust96} and changes of radial velocity of several components are consistent with Keplerian elliptical orbits \citep{Kennedy18} implying at least two \citep{Kiefer14,Pollard24} or more \citep{Heller24} distinct kinematic families of Beta Pictoris exocomets.
 %
 At least one event is derived with the orbit parallel to the rotational axis of the star \citep{Tobin19}.
-%
-Given the kinematic and spectroscopic evidence, these have subsequently been labelled as ``exocomets''.
 
-From the multiple detections of exocomets in spectroscopy towards \bp{}, the broadband detection of exocomet tails transiting a star were predicted \citep{LecavelierdesEtangs97} and subsequently detected towards the star KIC~3542116 \citep{Rappaport18} with the {\it Kepler} satellite \citep{Borucki10} and in TESS data towards \bp{} \citep{Zieba19}.
+From the multiple detections of exocomets in spectroscopy towards \bp{}, the broadband detection of exocomet tails transiting a star were predicted in \citet{1999A&A...343..916L}.
+%
+{\bf A chain of seven exocomets were proposed to explain the shape of one eclipse seen towards KIC~8462852 in \citet{Kiefer17}, and
+single exocomet transits were subsequently detected towards the star KIC~3542116 \citep{Rappaport18} with the {\it Kepler} satellite \citep{Borucki10} and in TESS data towards \bp{} \citep{Zieba19}.}
 %
 Observations of \bp{} in subsequent TESS sectors revealed over two dozen transits whose depth follows a power law distribution similar to those of the Solar system \citep{LecavelierdesEtangs22,Pavlenko22}.
 %
 Automated searches in photometry \citep{Kennedy19} and spectroscopy \citep{BendahanWest24} for additional exocomet systems have been met with limited success.
 
-To the contrary of what is observed in the case of \ac{feb}, most molecular and atomic signatures detected in the coma of Solar system comets are emission lines/bands instead of absorptions.
+To the contrary of what is observed in the case of Beta Pictoris exocomets, most molecular and atomic signatures detected in the coma of Solar system comets are emission lines/bands instead of absorptions.
 %
 Spectroscopic observations of Solar system comets when they are very close to the Sun are rare due to observational difficulties.
 %
@@ -156,7 +137,8 @@ On the other hand, \ion{Na}{i} D-line emission has been observed in many comets 
 %
 The high efficiency of the \ion{Na}{i} D transition makes it easily detectable, even for relatively low column density.
 %
-A notable discovery was a spectacular tail of \ion{Na}{i} associated with comet C/1995 O1 Hale-Bopp at $r\sim 1$ au, formed by radiation pressure on the neutral atoms before ionisation \citep{Cremonese1997}. 
+A notable discovery was a spectacular tail of \ion{Na}{i} associated with comet C/1995 O1 Hale-Bopp at $r\sim 1$ au, formed by radiation pressure on the neutral atoms before ionisation \citep{Cremonese1997}.
+%
 Recently, \cite{Hui2023} also demonstrated thet the activity of near-Earth asteroid Phaeton, with a perihelion of only 0.14 au, is associated with emission of sodium. 
 
 The detection of these atoms only at small heliocentric distances imply that \ion{Ca}{ii} and \ion{Fe}{i} are predominantly locked up within cometary dust gains, and only observed when a comet is close enough to the Sun to allow their sublimation.
@@ -169,7 +151,9 @@ Release from dust grains as well as molecular processes have been suggested as p
 
 For the majority of Solar system comets, their optical spectra are dominated by the reflected sunlight from dust grains in their comae, plus molecular and atomic emission lines \citep[e.g. ][]{hyland2019}.
 %
-Most of the neutral and ionic molecular emission results from resonance fluorescence with solar photons. Some species, such as \ce{H2O+} and \ce{CO+} result from ionization of parent molecules (i.e. molecules released directly by the sublimation of nuclear ices), all other molecules observed at optical wavelengths are second generation species, often created via photodissociation of parent molecules or released by organic-rich grains in the coma.
+Most of the neutral and ionic molecular emission results from resonance fluorescence with solar photons.
+%
+Some species, such as \ce{H2O+} and \ce{CO+} result from ionization of parent molecules (i.e. molecules released directly by the sublimation of nuclear ices), all other molecules observed at optical wavelengths are second generation species, often created via photodissociation of parent molecules or released by organic-rich grains in the coma.
 %
 Another process also observed in optical spectrum of comets is prompt atomic emission  ([\ion{O}{i}], [\ion{C}{i}], and [\ion{N}{i}]).
 %
@@ -187,21 +171,21 @@ High-spatial resolution sub-mm mapping of \ce{HCN} distributions supports a nucl
 %
 However, it is now known that in many comets a substantial fraction of \ce{CN} is released from sub-micron dust grains in the inner coma of comets \citep[e.g. ][]{Fray2005}. 
 
-The \ce{C2} (0-0) band at $\lambda\simeq 5160$\AA \ may be of comparable flux, but has a lower contrast with the underlying dust grain continuum due to its wider bandwidth.
+The \ce{C2} (0-0) band at $\lambda\simeq 5160$\AA{}\ may be of comparable flux, but has a lower contrast with the underlying dust grain continuum due to its wider bandwidth.
 %
-The \ce{OH} (0-0) band at $\lambda\simeq 3080$ \AA \ generally has higher flux, but unless observed from space the high terrestrial atmospheric absorption severely diminishes the observed flux.
+The \ce{OH} (0-0) band at $\lambda\simeq 3080$ \AA{}\ generally has higher flux, but unless observed from space the high terrestrial atmospheric absorption severely diminishes the observed flux.
 %
 Strong \ce{CO+} emission bands have also been observed in a number of comets \citep[the strongest ones are the (3-0) and (2-0) $\mathrm{A^2\Pi-X^2\Sigma}$; ][]{Biver2018}.
 %
-However this is normally significantly weaker than the observed \ce{CN} emission, with only less than 20 comets.
+However this is normally significantly weaker than the observed \ce{CN} emission, with detection in only less than 20 comets.
 %
-Given the ubiquitous signature of \ce{CN} emission in Solar system comets, we have embarked on an archival search for this species in the \ac{feb} around \bp{}.
+Given the ubiquitous signature of \ce{CN} emission in Solar system comets, we have embarked on an archival search for this species in the exocomets around \bp{}.
 %
 Detection of this species would provide a solid link between cometary bodies in our Solar system and the \bp{} system.
 
 We detail the observations in Section~\ref{sec:data}, along with the correction for the echelle blaze function and normalization of the spectra to a continuum.
 %
-Our search for \ce{CN} relies on a cross correlation search with a theoretical absorption spectrum for the molecule in Section~\ref{sect:CNsearch}, and the discussion and interpretaion is in Section~\ref{sec:discuss} with our conclusions in Section~\ref{sec:conclusion}.
+Our search for \ce{CN} relies on a cross correlation search with a theoretical absorption spectrum for the molecule in Section~\ref{sect:CNsearch}, and the discussion and interpretation is in Section~\ref{sec:discuss} with our conclusions in Section~\ref{sec:conclusion}.
 
 \section{Data description and analysis}\label{sec:data}
 
@@ -215,7 +199,7 @@ Although these observations cover a large baseline, the time between visits vari
 %
 Similarly, the number of observations per epoch spans a wide range, between 1 and 356 exposures, while the exposure times vary between 12 and 900 seconds.
 %
-This results in an average SNR across order 0 - 10 (order numbers for HARPS will follow the labelling in the fits header -- corresponding to 3780\,\AA and 4075\,\AA) per exposure between 1 and 430, and a nightly SNR between 63 and 2000.
+This results in an average SNR across order 0 - 10 (order numbers for HARPS will follow the labelling in the fits header -- corresponding to 3780\,\AA{} and 4075\,\AA) per exposure between 1 and 430, and a nightly SNR between 63 and 2000.
 %
 To avoid potential edge effects from order merging,  we used the E2DS files downloaded directly from the ESO archive for our analysis.
 
@@ -232,8 +216,15 @@ data still have the overall instrumental blaze-profile included.%, while the 2d-
 
 \subsection{Effective Blaze function correction}\label{sect:blaze}
 
-The night of 2018-05-06, which has a high signal-to-noise ratio, was chosen to act as an initial estimate for the blaze function.%(the night of 2018-05-06 and \hl{DATE} for UVES). 
-The individual spectra from this night were averaged together to further boost the signal-to-noise ratio. Subsequently, each individual spectrum was divided by this reference spectrum to highlight the changes in the effective profile. This ratio spectrum was subsequently binned using a bin-width of 81 pixels using a robust algorithm to remove outliers within each bin. This binned ratio was then fitted using a second order polynomial. The original spectrum was finally divided by this polynomial to correct for the changes.
+The night of 2018-05-06, which has a high signal-to-noise ratio, was chosen to act as an initial estimate for the blaze function.%(the night of 2018-05-06 and \hl{DATE} for UVES).
+%
+The individual spectra from this night were averaged together to further boost the signal-to-noise ratio.
+%
+Subsequently, each individual spectrum was divided by this reference spectrum to highlight the changes in the effective profile.
+%
+This ratio spectrum was subsequently binned using a bin-width of 81 pixels using a robust algorithm to remove outliers within each bin. This binned ratio was then fitted using a second order polynomial.
+%
+The original spectrum was finally divided by this polynomial to correct for the changes.
 
 Note that the change of fiber for HARPS in June 2015 (JD$\sim$2,457,180) resulted in an overall change in the blaze profile, and therefore, the spectra before and after this date were separately post-processed as outlined below in Sect.~\ref{sect:starcor}.
 
@@ -247,9 +238,10 @@ Each individual spectrum was weighted using the average signal-to-noise ratio pr
 The processing up to this stage removes most of the variations in the effective blaze function, but the overall stellar spectrum and, for HARPS, shape of the blaze profile, are still present and need to be removed. 
 
 %For both HARPS and UVES w
-We first perform a second iteration of blaze corrections using a stellar spectrum constructed by averaging the spectra from periods with a low comet activity (see Sect.~\ref{sect:FEBid}). %For HARPS
-This is done separately pre- and post-fiber change. The correction is done similar to Sect.~\ref{sect:blaze}, however, %for both UVES and HARPS
-an 8th order polynomial was used.
+We first perform a second iteration of blaze corrections using a stellar spectrum constructed by averaging the spectra from periods with a low comet activity (see Sect.~\ref{sect:FEBid}).
+%
+%For HARPS
+This is done separately pre- and post-fiber change. The correction is done similar to Sect.~\ref{sect:blaze}, however, an 8th order polynomial was used.
 
 After this post-processing the overall (residual) blaze profile and stellar spectrum still need to be removed.
 %
@@ -257,7 +249,7 @@ Care must be taken to prevent the removal of (potential) narrow features from th
 %
 This is done by combining the nightly spectra without significant cometary activity (see Sect.~\ref{sect:FEBid}) and binning this stacked spectrum in wavelength in bins of 21 pixels.
 %
-Before binning, the spectrum in each bin was MAD (median absolute deviation) clipped to within $\pm$4.5 MAD of the median of the flux in the bin.
+Before binning, the spectrum in each bin was median absolute deviation (MAD) clipped to within $\pm$4.5 MAD of the median of the flux in the bin.
 %
 The clipped average of the fluxes within each bin was used.
 %
@@ -265,7 +257,7 @@ Subsequently, the overall spectrum of the star and (residual) blaze was determin
 %
 As before, this was done separately pre- and post-fiber change.
 
-\section{Searches for \ce{CN}}\label{sect:CNsearch}
+\section{Searches for \texorpdfstring{\ce{CN}}{CN}}\label{sect:CNsearch}
 
 After the initial data analysis, we proceed to with our search for lines from \ce{CN}.
 %
@@ -278,8 +270,9 @@ No obvious feature from the \ce{CN} band jumps out, and we need to combine the s
 %
 Since the exocomets have a clear radial velocity with respect to \bp{}, and since each exocomet will have its own distinct velocity, we selected the 36 epochs with the strongest exocometary features, a seen in the \ion{Ca}{ii} H line. 
 
-\subsection{Identifying exocomets from \ion{Ca}{ii} H line}\label{sect:FEBid}
-The comet features in the \ion{Ca}{ii} H-line ($\lambda=3968$ \AA) were identified after removing the overall stellar line-profile and avoiding the absorption from the circumstellar disk by excluding the central 8 km\,s$^{-1}$.
+\subsection{Identifying exocomets from \texorpdfstring{\ion{Ca}{ii}}{CaII} H line}\label{sect:FEBid}
+
+The comet features in the \ion{Ca}{ii} H-line ($\lambda=3968$ \AA) were identified after removing the overall stellar line-profile and avoiding the absorption from the circumstellar disk by excluding the central 8 \kms{}.
 %
 The deepest absorption feature in each observing night was selected, and the location and depth stored.
 %
@@ -287,35 +280,33 @@ For the comet sample we selected features deeper than 60\% %\hl{and 40\%} for HA
 while spectra with features below 15\% %for both HARPS and UVES 
 were flagged as `low activity'.
 %
-The distribution of feature locations and depths is shown in Figure~\ref{fig:FEB_velocity}.
+The distribution of feature locations and depths is shown in Figure~\ref{fig:FEB_velocity}. The dates, velocities and depths of the selected exocomets can be found in Tab.~\ref{tab:FEB_data}
 
 The spectra for the strong comet sample were coadded, and the combined spectrum for the HARPS data is shown in Figure~\ref{fig:spec_CN_comet_frame}.
 %
 As with the circumstellar \ce{CN}, there are no obvious lines from \ce{CN} visible, and we will need to combine multiple lines to improve the signal-to-noise ratio, and see if there is any \ce{CN} present. 
 
-
 \begin{figure}
     \begin{centering}
         \includegraphics[width=\columnwidth]{figures/spec_stack_CN_stellar.pdf}
-        \caption{Plot of the stacked spectrum in the stellar restframe (blue) with a CN model for $T=$300K and N=10$^{14}$\,cm$^{-2}$ overplotted in orange. The large signal around 3860\,\AA is due to the residual from a circumstellar \ion{Fe}{I} line.}
+        \caption{Plot of the stacked spectrum in the stellar restframe (blue) with a CN model for $T=$300K and N=10$^{14}$\,cm$^{-2}$ overplotted in orange.
+        %
+        The large signal around 3860\AA{} is due to the residual from a circumstellar \ion{Fe}{I} line.}
         \label{fig:spec_CN_stellar_frame}
         \script{plot_spec_mean.py}
     \end{centering}
 \end{figure}
 
-
 \begin{figure}
     \begin{centering}
         \includegraphics[width=\columnwidth]{figures/spec_stack_CN_comet.pdf}
-        \caption{Plot of the stacked spectrum in the stellar rest frame (blue) with a CN model for $T=$300K and N=10$^{14}$\,cm$^{-2}$ overplotted in orange. The large signal around 3860\,\AA is due to the residual from a circumstellar \ion{Fe}{I} line.}
+        \caption{Plot of the stacked spectrum in the comet rest frame (blue) with a CN model for $T=$300K and N=10$^{14}$\,cm$^{-2}$ overplotted in orange. The large signal around 3860\AA{} is due to the residual from a circumstellar \ion{Fe}{I} line.}
         \label{fig:spec_CN_comet_frame}
         \script{plot_spec_mean.py}
     \end{centering}
 \end{figure}
 
-
-\subsection{Cross-correlation with \ce{CN} models}\label{sect:CCF}
-
+\subsection{Cross-correlation with \texorpdfstring{\ce{CN}}{CN} models}\label{sect:CCF}
 
 \begin{figure}
     \begin{centering}
@@ -329,7 +320,7 @@ As with the circumstellar \ce{CN}, there are no obvious lines from \ce{CN} visib
 \begin{figure}
     \begin{centering}
         \includegraphics[width=\columnwidth]{figures/CN_ACF.pdf}
-        \caption{\ce{CN} autocorrelation function for different temperatures. The aliasing at $\sim50$\,km\,s$^{-1}$ is clearly visible}
+        \caption{\ce{CN} autocorrelation function for different temperatures. The aliasing at $\sim50$\,\kms{} is clearly visible}
         \label{fig:CN_ACF}
         \script{plot_CN_ACF.py}
     \end{centering}
@@ -343,9 +334,9 @@ We made models for a wide range of temperatures (T$=$\{10, 20, 30, 50, 100, 200,
 %
 Since $f$ is unknown, we actually measure N$f$} (N=\{$10^{11} \ldots 10^{15}$\} cm$^{-2}$.
 %
-Each of the models was then convolved to include an effective velocity dispersion using a Gaussian for FWHM=\{2.9, 5, 10, 15, 20\} km\,s$^{-1}$.
+Each of the models was then convolved to include an effective velocity dispersion using a Gaussian for FWHM=\{2.9, 5, 10, 15, 20\} \kms{}.
 %
-A value of 2.9 km\,s$^{-1}$ corresponds approximately to the instrumental resolution of HARPS.
+A value of 2.9 \kms{} corresponds approximately to the instrumental resolution of HARPS.
 %
 The theoretical spectra of \ce{CN} for several different temperatures are shown in Figure~\ref{fig:CN_theory}.
 
@@ -358,14 +349,13 @@ Even after cross-correlating, the stacked CCFs (see Fig.~\ref{fig:ccf_mean} do n
         %
         The peaks are normalised such that 1 represents total absorption in the spectrum.
         %
-        Peaks closer than 10 km/s are masked out due to contamination from the circumstellar material.
+        Peaks closer than 10 \kms{} are masked out due to contamination from the circumstellar material.
         %
         Peak values above 0.6 are counted as exocomets and those below 0.15 as stellar only.}
         \label{fig:FEB_velocity}
         \script{plot_FEB_velocity_depth.py}
     \end{centering}
 \end{figure}
-
 
 \begin{figure}
     \begin{centering}
@@ -379,24 +369,22 @@ Even after cross-correlating, the stacked CCFs (see Fig.~\ref{fig:ccf_mean} do n
 \begin{figure}
     \begin{centering}
         \includegraphics[width=\columnwidth]{figures/HARPS_CN_stellar_frame.pdf}
-        \caption{\ce{CN} measurement limits in the stellar rest frame for a \ce{CN} line width of 2.7\kms{}. Contours show signal to noise upper limits.}
+        \caption{\ce{CN} measurement limits in the stellar rest frame for a \ce{CN} line width of 2.7 \kms{}. Contours show signal to noise upper limits.}
         \label{fig:CN_stellar_frame}
         \script{plot_HARPS_CN_stellar_frame.py}
     \end{centering}
 \end{figure}
 
-
-
 \begin{figure*}
     \begin{centering}
         \includegraphics[width=\linewidth]{figures/HARPS_CN_exocomet_frame.pdf}
-        \caption{\ce{CN} measurement limits in the exocomet frame for a \ce{CN} line width of 2.7, 10 and 20\kms{}. Contours show signal to noise upper limits.}
+        \caption{\ce{CN} measurement limits in the exocomet frame for a \ce{CN} line width of 2.7, 10 and 20 \kms{}. Contours show signal to noise upper limits.}
         \label{fig:CN_exocomet_frame}
         \script{plot_HARPS_CN_exocomet_frame.py}
     \end{centering}
 \end{figure*}
 
-\subsection{Estimating the \ce{CN} column density limits}\label{sect:CNlim}
+\subsection{Estimating the \texorpdfstring{\ce{CN}}{CN} column density limits}\label{sect:CNlim}
 
 To estimate the limits on the \ce{CN} detection, we perform injection and recovery tests.
 %
@@ -424,7 +412,7 @@ The final detection significance for the injected models is determined by the am
 
 As discussed above in the introduction, most studies of Solar system comets observe the \ce{CN} molecules via optical fluorescence. 
 %
-rom measurements and simple physical arguments the \ce{CN} absorption/emission is optically thin everywhere.
+From measurements and simple physical arguments the \ce{CN} absorption/emission is optically thin everywhere.
 %
 This means a flux from part of the coma can immediately be converted to a column density using a photon scattering efficiency for the molecular band.
 
@@ -470,13 +458,20 @@ Both are assumed to scale with heliocentric distance $r_h^2$ as photodissociatio
 
 The lifetime of \ce{HCN} for photodissociation into \ce{H}+\ce{CN} at 1~au has been calculated to be $(3.2-7.7)\times10^4$ sec, with lifetime of \ce{CN} dissociating into \ce{C}+\ce{N} being $(1.3-3.1)\times10^5$ sec \citep{Huebner92}, depending on solar activity levels.
 %
-These are consistent with the measured scale lengths above if the parents of \ce{CN} are ejected at $\sim 0.5$ \kms{}, and we take into account the excess photodissociation energy giving \ce{CN} an extra kick of $\simeq1$ \kms{} \citep{Combi1980}. 
+These are consistent with the measured scale lengths above if the parents of \ce{CN} are ejected at $\sim 0.5$ \kms{}, and {\bf 
+we take into account the excess photodissociation energy giving \ce{CN} an extra kick of $\simeq0.9$ \kms{} \citep{Fray2005}. 
+}
+\subsection{1P/Halley at \texorpdfstring{\bp{}}{Beta Pictoris}}
 
-\subsection{1P/Halley at \bp{}}
-
-Photodissociation is  driven by the UV photon flux at the comet, which in turn is dominated by Ly-$\alpha$ line flux. From Ly-$\alpha$ measurements in \citet{Landsman93} the intrinsic Ly-$\alpha$ luminosity of A6V/A7V stars is a factor of $\sim10$ higher than for G2V stars.
+Photodissociation is  driven by the UV photon flux at the comet, which in turn is dominated by {\bf the Ly-$\alpha$ line flux \citep{Combi80}.
 %
-Hence the photodissociation lifetime of \ce{CN}  at 1 au from \bp{} of an `exoHalley' will be approximately 10 times smaller i.e. $\sim 2\times10^4$ sec at 1 au.
+The  Ly-$\alpha$ emission from \bp{} has been measured by \citet{Wilson17} via HST+COS. Using their ISM and CSM corrected Voigt line profile parameters, we integrated over $\pm600$ \kms{} and corrected for the distance of \bp{} to derive an intrinsic Ly-$\alpha$ luminosity of $1.4\times10^{30}$ ergs sec$^{-1}$.
+
+The solar Ly-$\alpha$  flux varies by $\sim 50\% $ over the Solar cycle, with a mean value at Earth of $4.7\times10^{11}$ phot s$^{-1}$ cm$^{-2}$ \citep{Woods00}. The resulting mean solar Ly-$\alpha$ luminosity is $2.1\times10^{28}$ ergs sec$^{-1}$, a factor of $\sim 67$ lower than \bp{}.
+%From Ly-$\alpha$ measurements in \citet{Landsman93} the intrinsic Ly-$\alpha$ luminosity of A6V/A7V stars is a factor of $\sim10$ higher than for G2V stars.
+%
+Hence the photodissociation lifetime of \ce{CN}  at 1 au from \bp{} of an `exoHalley' will be approximately 67 times shorter i.e. $\sim 3000$ sec.
+}
 
 In steady-state sublimation, the sublimation rate is proportional to the photon flux at the comet.
 %
@@ -485,14 +480,14 @@ For \bp{} $L=8.7L_\odot$, so assuming all \ce{CN} production scales with stellar
 The total number of \ce{CN} molecules in the coma at 1~au at any given time would therefore be
 
 $$N_{\ce{CN}}=Q_{\ce{CN}} \tau_{\ce{CN}}$$
-$$N_{\ce{CN}}\sim 9\times10^{27} \cdot  2\times10^4 \sim 2\times10^{32}\:{\rm molecules}$$
+
+$$N_{\ce{CN}}\sim 9\times10^{27} \cdot  3000 \sim 3\times10^{31}\:{\rm molecules}$$
 
 %\subsubsection{\ce{CN} Cross-section}
 The effective cross section of the coma will depend on how much is projected against the disk of \bp{}.
 %
 The radius of the \ce{CN} coma will be given by
-$$r\sim v_{\ce{CN}} \tau_{\ce{CN}}$$.
-
+$$r\sim v_{\ce{CN}} \tau_{\ce{CN}}$$
 The outflow velocity of the parent \ce{HCN} will depend on the nuclear surface temperature, which will increase as a comet moves towards its parent star.
 %
 \citet{Biver2002} found a nuclear gas outflow velocity $v\simeq1.0  r_h^{-0.4}$ \kms{} from sub-mm measurements of Comet Hale-Bopp, close to the canonical relationship of $r_h^{-0.5}$.
@@ -503,7 +498,7 @@ The excess photodissociation velocity of \ce{CN} will not change.
 %
 Therefore gas outflow speeds are expected to be $\sim 1-2$ \kms{} at 1 AU, and the \ce{CN} coma radius will be
 %
-$$r\sim (1-2) \times 2\times 10^{4} \leq 4\times 10^{4}\:{\rm km}$$
+$$r\sim (1-2) \times 3000 \leq 6\times 10^{3}\:{\rm km}$$
 %
 This is much smaller than a stellar radius, so we can assume for an exoHalley that all of the coma is projected into the stellar disk as seen from Earth.
 
@@ -513,12 +508,14 @@ Given that the coma is optically thin, and we do not resolve the star, the effec
 
 $$n\sim\frac{N_{\ce{CN}}}{\pi R_*^2}$$
 
-$$n\sim\frac{2\times10^{32}}{\pi\cdot 1.7\times10^{22}}\sim 3\times10^{9}\:{\rm cm^{-2}}$$
-Therefore an exoHalley at 1~au from \bp{} would result in a \ce{CN} column density of $10^{9}-10^{10}$ cm$^{-2}$.
+$$n\sim\frac{3\times10^{31}}{\pi\cdot 1.7\times10^{22}}\sim 6\times10^{8}\:{\rm cm^{-2}}$$
+Therefore an exoHalley at 1~au from \bp{} would result in a \ce{CN} column density of $10^{8}-10^{9}$ cm$^{-2}$.
 %
-This is about a factor of 100 smaller than our measured upper limits above.
-
-\subsection{Raising the \ce{CN} production rates}
+This is 
+{\bf
+$\geq100$ times smaller than our measured upper limits above.
+}
+\subsection{Raising the \texorpdfstring{\ce{CN}}{CN} production rates}
 
 There are several ways exocomets at \bp{} may exhibit larger \ce{CN} production rates.
 %
@@ -563,11 +560,14 @@ Large outbursts are often due to partial or total disruption of a comet and can 
 %
 Hence there could be a correlation with faster moving \bp{} exocomets nearer their periastra producing greater measurable column densities of \ce{CN}.
 
-In summary, mechanisms exist by which the \ce{CN} column density of an exocomet at \bp{} could exceed $n\sim10^9-10^{10}$ cm$^{-2}$.
+In summary, mechanisms exist by which the \ce{CN} column density of an exocomet at \bp{} 
+{\bf
+could exceed $10^{9}$ cm$^{-2}$.
 %
 A larger and/or hyperactive nucleus could increase $n$ by a factor of ten.
 %
-Even larger increases are possible with an outburst or comet disruption, but the upper boundary is likely to be near $n\sim10^{12}$ cm$^{-2}$. 
+Even larger increases are possible with an outburst or comet disruption, but the upper boundary is likely to be near $n\sim10^{11}$ cm$^{-2}$. 
+}
 
 \section{Conclusions}\label{sec:conclusion}
 
@@ -611,5 +611,57 @@ An online repository with materials used in this work is available at \url{https
 
 \bibliographystyle{aa}
 \bibliography{bib.bib}
+
+\begin{appendix}
+    
+\section{Selected exocomets.}\label{sec:app_FEBs}
+The dates for the nights selected to have the strongest exocomet features, as well as the depths and velocities of these features can be found in Tab.~\ref{tab:FEB_data}.
+\begin{table}
+\caption{Table with the nights with the strongest exocomet features. Note that the dates given are for the average of all the observations that were combined during each of the nights.}\label{tab:FEB_data}
+\begin{tabular}{c c c}
+   BJD-2,400,000  &    v$_{comet}$  &  Depth\\
+ & [km/s] & \\
+ \hline
+\hline
+53031.2 & 19.7 & 0.63\\
+53032.2 & 18.9 & 0.74\\
+53033.1 & 22.3 & 0.76\\
+53036.1 & 15.5 & 0.67\\
+53045.1 & 18.0 & 0.72\\
+53046.1 & 18.0 & 0.91\\
+53047.1 & 20.6 & 0.84\\
+53048.0 & 20.6 & 0.83\\
+53049.1 & 20.6 & 0.94\\
+53050.1 & 18.9 & 0.90\\
+53051.1 & 18.9 & 0.87\\
+53052.1 & 18.9 & 0.92\\
+53053.1 & 18.0 & 0.93\\
+53054.1 & 17.2 & 0.83\\
+53056.1 & 16.3 & 0.86\\
+53057.1 & 15.5 & 0.93\\
+53058.1 & 14.6 & 0.92\\
+53059.1 & 14.6 & 0.87\\
+53060.1 & 13.7 & 0.82\\
+53061.1 & 13.7 & 0.72\\
+53062.1 & 12.9 & 0.69\\
+53063.1 & 12.0 & 0.67\\
+53064.1 & 12.0 & 0.61\\
+53581.4 & -8.5 & 0.65\\
+54223.0 &  8.6 & 0.62\\
+54542.1 & 29.2 & 0.91\\
+54544.1 & 28.3 & 0.92\\
+54545.0 & 23.2 & 0.79\\
+54546.0 &  8.6 & 0.80\\
+54799.2 &  8.6 & 0.75\\
+54878.1 & 14.6 & 0.76\\
+54913.0 & 12.0 & 0.81\\
+56524.4 & 31.7 & 0.76\\
+56534.3 & 12.9 & 0.76\\
+56536.3 &  8.6 & 0.61\\
+57849.0 & 10.3 & 0.73\\
+\end{tabular}
+\end{table}
+
+\end{appendix}
 
 \end{document}
