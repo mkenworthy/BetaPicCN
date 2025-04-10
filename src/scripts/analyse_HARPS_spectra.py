@@ -55,7 +55,7 @@ def get_mdl(fn='CN/CN_0300K.npy',N=1e15,FWHM_kernel=3e5/1.1e5):
     mdl=prof_i(w_mdl)
 
     ## generate a Gaussian kernel with the FWHM at the instrumental resolution & convolve model
-    print(FWHM_kernel)
+    
     x_kernel=np.arange(-90.,90.001,(3e5/res_interp))
     kernel=np.exp( - ((x_kernel)**2)/2./(FWHM_kernel/2.35)**2)
     kernel=kernel/np.sum(kernel)
@@ -99,13 +99,7 @@ def remove_resid_blaze(pixels,spec,star_spec,ord=3,poly_order=6):
     
     # fit a polynomial to the this ration (should be flat if there was no small residuals)
     # and then divide it out to make this order relatively flat
-    # TODO add sigma clipping for this
     for i in range(spec.shape[0]):
-        #       x=pixels.copy()
-        #       y=spec_cor[i,:].copy()
-        #       idx=(y>0)*np.isfinite(y)*(x>o_start[ord])*(x<o_end[ord])
-        #       l=np.polyfit(x[idx]-x[0],y[idx],poly_order)
-        #       spec_cor[i,:]=spec_cor[i,:]/np.polyval(l,x-x[0])
         x0=pixels.copy()
         bin_spec=spec_cor[i,:nbins*binsize].reshape(nbins,binsize).copy()
         bin_x=x0[:nbins*binsize].reshape(nbins,binsize).astype(float)
@@ -131,12 +125,6 @@ def remove_resid_blaze(pixels,spec,star_spec,ord=3,poly_order=6):
 def remove_stellar_envelope(spec,ord):
     spec0 = spec[:,ord,:].copy()
 
-    '''
-    #####OLD CODE, CLIPS TOO MUCH####
-    #remove outliers to get a good sigma-clipped spectrum for stationary features
-    filtered_data = sigma_clip(spec0, sigma_lower=1.0, sigma_upper=5, maxiters=3, axis=0, copy=True, masked=True,cenfunc='median',stdfunc='mad_std')
-    spec_star_only0 = np.ma.mean(filtered_data, axis=0).filled(np.nan)
-    '''
     ##Estimate the upper envelope. In this case use the [5,15] brightest pixels. Note: This is not robust against outliers...
     spec_star_only0=np.zeros(spec0.shape[1])
     for i in range(spec0.shape[1]):
@@ -172,13 +160,6 @@ def remove_stellar_envelope(spec,ord):
         spec_star_only=np.ones_like(spec_star_only0)
     spec_final_norm = spec0/spec_star_only[np.newaxis,:]
 
-    '''
-    if ord ==3:
-        plt.figure()
-        plt.plot(spec0.transpose()/spec_star_only[:,np.newaxis],'k',alpha=0.03)
-        plt.plot(np.mean(spec0.transpose()/spec_star_only[:,np.newaxis],axis=1),'r')
-        plt.show()
-    '''    
     
     return spec_final_norm
 
@@ -341,7 +322,7 @@ def generate_CCFs_orders(wlens,data_for_ccf,spec,pixels,broadening=5.,binsize=80
 
         ## Calculate CCF for data
         ## Filter out the strongest circumstellar Fe I lines, that could contaminate the signal.
-        idx=(indexing >= o_start[ord])*(indexing<o_end[ord])*(np.abs(wlens[ord,:]-3860.18)>0.07)*(np.abs(wlens[ord,:]-3856.63)>0.07)
+        idx=(indexing >= o_start[ord])*(indexing<o_end[ord])*(np.abs(wlens[ord,:]-3860.18)>0.35)*(np.abs(wlens[ord,:]-3856.63)>0.15)*(np.abs(wlens[ord,:]-3865.78)>0.1)*(np.abs(wlens[ord,:]-3878.83)>0.1)*(np.abs(wlens[ord,:]-3886.54)>0.1)
         
         #ccf,ccf0=c_correlate(wlens[ord,o_start[ord]:o_end[ord]],data_for_ccf[:,ord,o_start[ord]:o_end[ord]],imdl_conv,dv=v_ccf)
         ccf,ccf0=c_correlate(wlens[ord,idx],data_for_ccf[:,ord,idx],imdl_conv,dv=v_ccf)
@@ -351,14 +332,6 @@ def generate_CCFs_orders(wlens,data_for_ccf,spec,pixels,broadening=5.,binsize=80
         ## Inject model into data 
         sim_dat[:,ord,:]=inject_mdl(wlens[ord,:],spec[:,ord,:],imdl_conv_sim,dv=v_comet)
 
-        '''
-        if ord ==3:
-            plt.figure()
-            plt.plot(sim_dat[:,ord,:])
-            plt.show()
-            plt.close('all')
-        #gc.collect()
-        '''
         star_spec_pre=np.mean(sim_dat[idx_star*idx_pre,:,:],0)
         star_spec_post=np.mean(sim_dat[idx_star*idx_post,:,:],0)
 
@@ -524,23 +497,12 @@ def run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,pixels,f,binsize=81,v_comet=0
                v_ccf,ccf,sim_ccf=generate_CCFs_orders(wlens,data_for_ccf,spec,pixels,broadening=broadening,binsize=binsize,T_gas=T_gas,N=N,v_comet=v_comet,idx_star=idx_star,idx_pre=idx_pre,idx_post=idx_post)
        
                
-               #plt.figure()
-               #plt.plot(v_ccf,ccf[-1,3,:])
-               #plt.plot(v_ccf,sim_ccf[-1,3,:])
 
-               #plt.savefig("plots/orig_ccf_{0:04d}_{1:.2e}_{2:}.png".format(T_gas,N,restframe))
-               #plt.close('all')
-
-               #plt.figure()
-               
                
                # align everything up in the comet rest frame and estimate the significance of any (non)detection.
                v_phase,phase,sim_phase,fit,err,fit_sim,err_sim=fold_comet(v_ccf,ccf,sim_ccf,binsize,idx_comet,v_comet)
                
-               #plt.savefig("plots/fit_ccf_{0:04d}_{1:.2e}.png".format(T_gas,N))
-               #plt.close('all')
-               
-               
+            
                f.write("{0:.0f}  {1:.1e} {2:.1f}  {3:.2f}  {4:.2f}\n".format(T_gas, N, broadening, fit[-1,0]/err[-1,0],fit_sim[-1,0]/err_sim[-1,0]) )
        
                if count==1:
@@ -553,19 +515,8 @@ def run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,pixels,f,binsize=81,v_comet=0
                    phase_cube=np.zeros((T_gas0.shape[0],N0.shape[0],broadening0.shape[0],phase.shape[0],phase.shape[2]))
                    sim_phase_cube=np.zeros((T_gas0.shape[0],N0.shape[0],broadening0.shape[0],phase.shape[0],phase.shape[2]))
                time.sleep(0.5)
-               
-               #plt.figure()
-               #plt.plot(v_phase,phase[-1,3,:])
-               #plt.plot(v_phase,sim_phase[-1,3,:])
-               #plt.savefig("plots/phase_{0:04d}_{1:.2e}_{2:.1f}.png".format(T_gas,N,broadening))
-               #plt.close('all')
-               #plt.figure()
-               #plt.plot(v_ccf,ccf[-1,3,:])
-               #plt.plot(v_ccf,sim_ccf[-1,3,:])
-               #plt.savefig("plots/ccf_{0:04d}_{1:.2e}_{2:.1f}.png".format(T_gas,N,broadening))
-               #plt.close('all')
-               #gc.collect()
-               
+            
+
                
                fit_cube[i,j,k,:,:]=fit.copy()
                fit_err_cube[i,j,k,:,:]=err.copy()
@@ -733,28 +684,3 @@ if __name__ == "__main__":
    f.close()
    
    
-   
-   # DIAGNOSTIC PLOT    
-   ###Perform autocorrelation of the model to show the strength and pattern in the different orders
-   order_start=np.array([ 225,  15,  15,  15,  15,  15,  15,  15])
-   order_end  =np.array([3670,4050,4060,4060,4060,4060,4060,4060])
-   
-   dv=np.linspace(-300,300,601)
-   col=['r','g','b','c','y','m','k','orange']
-   T_gas0=np.asarray([10, 20, 50, 100, 200, 300, 1000, 2000])
-   f,ax=plt.subplots(4,3,figsize=(32,20))
-   for i,T in enumerate(T_gas0):
-       w,prof,imdl=get_mdl('CN/CN_{0:04d}K.npy'.format(T),N=1e13)
-       for j in range(1,5):
-           p2=imdl(wlen[j,order_start[j]:order_end[j]])
-           ccf,ccf0=c_correlate(wlen[j,order_start[j]:order_end[j]],np.vstack((p2,p2)),imdl,dv=dv)
-           ax[j-1,0].plot(dv,ccf[0,:],col[i],label='T={0:}K,O={1:}'.format(T,j))
-           ax[j-1,1].plot(dv,ccf[0,:]/np.max(ccf[0,:]),col[i],label='T={0:}K,O={1:}'.format(T,j))
-           ax[j-1,2].plot(wlen[j,order_start[j]:order_end[j]],p2/np.max(p2),col[i])
-   ax[0,0].legend()
-   ax[1,0].legend()
-   ax[2,0].legend()
-   ax[3,0].legend()
-   f.tight_layout()
-   f.savefig('plots/ccf_self.png')
-
