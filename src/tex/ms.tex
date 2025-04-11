@@ -3,6 +3,8 @@
 \usepackage{natbib}
 \usepackage{amsmath}
 \bibpunct{(}{)}{;}{a}{}{,} % to follow the A&A style
+\usepackage{float}
+\usepackage{placeins}
 
 \newcommand{\angstrom}{\textup{\AA}}
 
@@ -78,7 +80,7 @@
   % results heading (mandatory)
    {We do not detect \ce{CN} in our data, and place a temperature and broadening dependent 5$\sigma$ upper limit between 10$^{12}$\,cm$^{-2}$ and 10$^{13}$\,cm$^{-2}$, to be compared to the typical 10$^9$ - 10$^{10}$ cm$^{-2}$ expected from scaling of the values in the Solar System comets.}
 
-   \keywords{comets --- transits, spectroscopy}
+   \keywords{comets --- transits, spectroscopy, stars: individual: Beta Pictoris}
 
    \maketitle
 
@@ -222,7 +224,7 @@ The individual spectra from this night were averaged together to further boost t
 %
 Subsequently, each individual spectrum was divided by this reference spectrum to highlight the changes in the effective profile.
 %
-This ratio spectrum was subsequently binned using a bin-width of 81 pixels using a robust algorithm to remove outliers within each bin. This binned ratio was then fitted using a second order polynomial.
+This ratio spectrum was subsequently binned using a bin-width of 81 pixels using a robust algorithm to remove outliers within each bin, {\bf clipping points more than 2.7 Median Absolute Deviations (MAD) away from the median of each bin.} This binned ratio was then fitted using a second order polynomial.
 %
 The original spectrum was finally divided by this polynomial to correct for the changes.
 
@@ -238,7 +240,7 @@ Each individual spectrum was weighted using the average signal-to-noise ratio pr
 The processing up to this stage removes most of the variations in the effective blaze function, but the overall stellar spectrum and, for HARPS, shape of the blaze profile, are still present and need to be removed. 
 
 %For both HARPS and UVES w
-We first perform a second iteration of blaze corrections using a stellar spectrum constructed by averaging the spectra from periods with a low comet activity (see Sect.~\ref{sect:FEBid}).
+We first perform a second iteration of blaze corrections using a stellar spectrum constructed by averaging the spectra from periods with a low comet activity (see Sect.~\ref{sect:FEBid}), {\bf similar to the method before, however, now using a wider binsize of 150 pixels and clipping outliers at 4.5 MAD away from the median.}
 %
 %For HARPS
 This is done separately pre- and post-fiber change. The correction is done similar to Sect.~\ref{sect:blaze}, however, an 8th order polynomial was used.
@@ -300,7 +302,7 @@ As with the circumstellar \ce{CN}, there are no obvious lines from \ce{CN} visib
 \begin{figure}
     \begin{centering}
         \includegraphics[width=\columnwidth]{figures/spec_stack_CN_comet.pdf}
-        \caption{Plot of the stacked spectrum in the comet rest frame (blue) with a CN model for $T=$300K and N=10$^{14}$\,cm$^{-2}$ overplotted in orange. The large signal around 3860\AA{} is due to the residual from a circumstellar \ion{Fe}{I} line.}
+        \caption{{\bf Similar to Figure~\ref{fig:spec_CN_stellar_frame} but spectra are stacked in the rest frame of the cometp.} The large signal around 3860\AA{} is due to the residual from a circumstellar \ion{Fe}{I} line.}
         \label{fig:spec_CN_comet_frame}
         \script{plot_spec_mean.py}
     \end{centering}
@@ -613,6 +615,10 @@ An online repository with materials used in this work is available at \url{https
 
 \bibliographystyle{aa}
 \bibliography{bib.bib}
+
+
+\clearpage
+\FloatBarrier
 
 \begin{appendix}
     
