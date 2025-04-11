@@ -114,8 +114,8 @@ At least one event is derived with the orbit parallel to the rotational axis of 
 
 From the multiple detections of exocomets in spectroscopy towards \bp{}, the broadband detection of exocomet tails transiting a star were predicted in \citet{1999A&A...343..916L}.
 %
-{\bf A chain of seven exocomets were proposed to explain the shape of one eclipse seen towards KIC~8462852 in \citet{Kiefer17}, and
-single exocomet transits were subsequently detected towards the star KIC~3542116 \citep{Rappaport18} with the {\it Kepler} satellite \citep{Borucki10} and in TESS data towards \bp{} \citep{Zieba19}.}
+A chain of seven exocomets were proposed to explain the shape of one eclipse seen towards KIC~8462852 in \citet{Kiefer17}, and
+single exocomet transits were subsequently detected towards the star KIC~3542116 \citep{Rappaport18} with the {\it Kepler} satellite \citep{Borucki10} and in TESS data towards \bp{} \citep{Zieba19}.
 %
 Observations of \bp{} in subsequent TESS sectors revealed over two dozen transits whose depth follows a power law distribution similar to those of the Solar system \citep{LecavelierdesEtangs22,Pavlenko22}.
 %
@@ -224,7 +224,9 @@ The individual spectra from this night were averaged together to further boost t
 %
 Subsequently, each individual spectrum was divided by this reference spectrum to highlight the changes in the effective profile.
 %
-This ratio spectrum was subsequently binned using a bin-width of 81 pixels using a robust algorithm to remove outliers within each bin, {\bf clipping points more than 2.7 Median Absolute Deviations (MAD) away from the median of each bin.} This binned ratio was then fitted using a second order polynomial.
+This ratio spectrum was subsequently binned using a bin-width of 81 pixels using a robust algorithm to remove outliers within each bin, clipping points more than 2.7 Median Absolute Deviations (MAD) away from the median of each bin.
+%
+This binned ratio was then fitted using a second order polynomial.
 %
 The original spectrum was finally divided by this polynomial to correct for the changes.
 
@@ -240,7 +242,7 @@ Each individual spectrum was weighted using the average signal-to-noise ratio pr
 The processing up to this stage removes most of the variations in the effective blaze function, but the overall stellar spectrum and, for HARPS, shape of the blaze profile, are still present and need to be removed. 
 
 %For both HARPS and UVES w
-We first perform a second iteration of blaze corrections using a stellar spectrum constructed by averaging the spectra from periods with a low comet activity (see Sect.~\ref{sect:FEBid}), {\bf similar to the method before, however, now using a wider binsize of 150 pixels and clipping outliers at 4.5 MAD away from the median.}
+We first perform a second iteration of blaze corrections using a stellar spectrum constructed by averaging the spectra from periods with a low comet activity (see Sect.~\ref{sect:FEBid}), similar to the method before, however, now using a wider binsize of 150 pixels and clipping outliers at 4.5 MAD away from the median.
 %
 %For HARPS
 This is done separately pre- and post-fiber change. The correction is done similar to Sect.~\ref{sect:blaze}, however, an 8th order polynomial was used.
@@ -302,7 +304,7 @@ As with the circumstellar \ce{CN}, there are no obvious lines from \ce{CN} visib
 \begin{figure}
     \begin{centering}
         \includegraphics[width=\columnwidth]{figures/spec_stack_CN_comet.pdf}
-        \caption{{\bf Similar to Figure~\ref{fig:spec_CN_stellar_frame} but spectra are stacked in the rest frame of the cometp.} The large signal around 3860\AA{} is due to the residual from a circumstellar \ion{Fe}{I} line.}
+        \caption{Similar to Figure~\ref{fig:spec_CN_stellar_frame} but spectra are stacked in the rest frame of the comet. The large signal around 3860\AA{} is due to the residual from a circumstellar \ion{Fe}{I} line.}
         \label{fig:spec_CN_comet_frame}
         \script{plot_spec_mean.py}
     \end{centering}
@@ -342,7 +344,9 @@ A value of 2.9 \kms{} corresponds approximately to the instrumental resolution o
 %
 The theoretical spectra of \ce{CN} for several different temperatures are shown in Figure~\ref{fig:CN_theory}.
 
-{\bf When creating the CCFs, the region around the narrow, circumstellar \ion{Fe}{I} lines in this wavelength region (see Figs.~\ref{fig:spec_CN_stellar_frame}~and~\ref{fig:spec_CN_comet_frame}) masked to avoid contamination, especially for the higher temperature CN models. We masked the lines detected in \citep{Kiefer2018}, using a width of $\pm$0.35~$\AA$ for the \ion{Fe}{I} 3859.9$\AA$ line, while for the other lines a width of $\pm$0.15$\AA$ was use.}
+When creating the CCFs, the region around the narrow, circumstellar \ion{Fe}{I} lines in this wavelength region (see Figs.~\ref{fig:spec_CN_stellar_frame}~and~\ref{fig:spec_CN_comet_frame}) were masked to avoid contamination, especially for the higher temperature CN models.
+%
+We masked the lines detected in \citep{Kiefer2018}, using a width of $\pm$0.35~$\AA$ for the \ion{Fe}{I} 3859.9$\AA$ line, while for the other lines a width of $\pm$0.15$\AA$ was used.
 
 Even after cross-correlating, the stacked CCFs (see Fig.~\ref{fig:ccf_mean} do not show any clear signals, and we therefore proceed to estimate our detection limits.
 
@@ -462,20 +466,21 @@ Both are assumed to scale with heliocentric distance $r_h^2$ as photodissociatio
 
 The lifetime of \ce{HCN} for photodissociation into \ce{H}+\ce{CN} at 1~au has been calculated to be $(3.2-7.7)\times10^4$ sec, with lifetime of \ce{CN} dissociating into \ce{C}+\ce{N} being $(1.3-3.1)\times10^5$ sec \citep{Huebner92}, depending on solar activity levels.
 %
-These are consistent with the measured scale lengths above if the parents of \ce{CN} are ejected at $\sim 0.5$ \kms{}, and {\bf 
-we take into account the excess photodissociation energy giving \ce{CN} an extra kick of $\simeq0.9$ \kms{} \citep{Fray2005}. 
-}
+These are consistent with the measured scale lengths above if the parents of \ce{CN} are ejected at $\sim 0.5$ \kms{}, and we take into account the excess photodissociation energy giving \ce{CN} an extra kick of $\simeq0.9$ \kms{} \citep{Fray2005}. 
+
 \subsection{1P/Halley at \texorpdfstring{\bp{}}{Beta Pictoris}}
 
-Photodissociation is  driven by the UV photon flux at the comet, which in turn is dominated by {\bf the Ly-$\alpha$ line flux \citep{Combi80}.
+Photodissociation is  driven by the UV photon flux at the comet, which in turn is dominated by the Ly-$\alpha$ line flux \citep{Combi80}.
 %
-The  Ly-$\alpha$ emission from \bp{} has been measured by \citet{Wilson17} via HST+COS. Using their ISM and CSM corrected Voigt line profile parameters, we integrated over $\pm600$ \kms{} and corrected for the distance of \bp{} to derive an intrinsic Ly-$\alpha$ luminosity of $1.4\times10^{30}$ ergs sec$^{-1}$.
+The  Ly-$\alpha$ emission from \bp{} has been measured by \citet{Wilson17} via HST+COS.
+%
+Using their ISM and CSM corrected Voigt line profile parameters, we integrated over $\pm600$ \kms{} and corrected for the distance of \bp{} to derive an intrinsic Ly-$\alpha$ luminosity of $1.4\times10^{30}$ ergs sec$^{-1}$.
 
-The solar Ly-$\alpha$  flux varies by $\sim 50\% $ over the Solar cycle, with a mean value at Earth of $4.7\times10^{11}$ phot s$^{-1}$ cm$^{-2}$ \citep{Woods00}. The resulting mean solar Ly-$\alpha$ luminosity is $2.1\times10^{28}$ ergs sec$^{-1}$, a factor of $\sim 67$ lower than \bp{}.
-%From Ly-$\alpha$ measurements in \citet{Landsman93} the intrinsic Ly-$\alpha$ luminosity of A6V/A7V stars is a factor of $\sim10$ higher than for G2V stars.
+The solar Ly-$\alpha$ flux varies by $\sim 50\% $ over the Solar cycle, with a mean value at Earth of $4.7\times10^{11}$ phot s$^{-1}$ cm$^{-2}$ \citep{Woods00}.
 %
-Hence the photodissociation lifetime of \ce{CN}  at 1 au from \bp{} of an `exoHalley' will be approximately 67 times shorter i.e. $\sim 3000$ sec.
-}
+The resulting mean solar Ly-$\alpha$ luminosity is $2.1\times10^{28}$ ergs sec$^{-1}$, a factor of $\sim 67$ lower than \bp{}.
+%
+Hence the photodissociation lifetime of \ce{CN} at 1 au from \bp{} of an `exoHalley' will be approximately 67 times shorter i.e. $\sim 3000$ sec.
 
 In steady-state sublimation, the sublimation rate is proportional to the photon flux at the comet.
 %
@@ -515,10 +520,8 @@ $$n\sim\frac{N_{\ce{CN}}}{\pi R_*^2}$$
 $$n\sim\frac{3\times10^{31}}{\pi\cdot 1.7\times10^{22}}\sim 6\times10^{8}\:{\rm cm^{-2}}$$
 Therefore an exoHalley at 1~au from \bp{} would result in a \ce{CN} column density of $10^{8}-10^{9}$ cm$^{-2}$.
 %
-This is 
-{\bf
-$\geq100$ times smaller than our measured upper limits above.
-}
+This is $\geq100$ times smaller than our measured upper limits above.
+
 \subsection{Raising the \texorpdfstring{\ce{CN}}{CN} production rates}
 
 There are several ways exocomets at \bp{} may exhibit larger \ce{CN} production rates.
@@ -564,14 +567,11 @@ Large outbursts are often due to partial or total disruption of a comet and can 
 %
 Hence there could be a correlation with faster moving \bp{} exocomets nearer their periastra producing greater measurable column densities of \ce{CN}.
 
-In summary, mechanisms exist by which the \ce{CN} column density of an exocomet at \bp{} 
-{\bf
-could exceed $10^{9}$ cm$^{-2}$.
+In summary, mechanisms exist by which the \ce{CN} column density of an exocomet at \bp{} could exceed $10^{9}$ cm$^{-2}$.
 %
 A larger and/or hyperactive nucleus could increase $n$ by a factor of ten.
 %
-Even larger increases are possible with an outburst or comet disruption, but the upper boundary is likely to be near $n\sim10^{11}$ cm$^{-2}$. 
-}
+Even larger increases are possible with an outburst or comet disruption, but the upper boundary is likely to be near $n\sim10^{11}$ cm$^{-2}$.
 
 \section{Conclusions}\label{sec:conclusion}
 
