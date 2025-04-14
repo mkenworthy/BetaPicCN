@@ -52,15 +52,15 @@
    \institute{Leiden Observatory, Leiden University, P.O. Box 9513, 2300 RA Leiden, The Netherlands\\
               \email{kenworthy@strw.leidenuniv.nl}
         \and
-        Astrophysics Research Centre, School of Mathematics and Physics, Queen’s University Belfast, BT7 1NN Belfast, UK
+        Astrophysics Research Centre, School of Mathematics and Physics, Queen's University Belfast, BT7 1NN Belfast, UK
         \and
         Institutionen f\"{o}r astronomi, Stockholms universitet, AlbaNova universitetscentrum, 106 91, Stockholm, Sweden
         \and
         Institute for Astronomy, University of Edinburgh, Royal Observatory, Edinburgh EH9 3HJ, UK
         \and
-        LESIA, Observatoire de Paris, Université PSL, CNRS, 5 Place Jules Janssen, 92190 Meudon, France}
+        LESIA, Observatoire de Paris, Universit\'{e} PSL, CNRS, 5 Place Jules Janssen, 92190 Meudon, France}
 
-   \date{Received 7 Feb 2025; Accepted XXXX}
+   \date{Received 7 Feb 2025; Accepted 13 Apr 2025}
 
  
   \abstract
@@ -210,15 +210,13 @@ The analysis was started from the 2d extracted spectra (E2DS files).
 %
 Each order was treated separately, with the main focus on orders 3 and 7 as these orders contain the main \ce{CN} bandhead as well as the \ion{Ca}{ii} H line, which is used to identify the exocomets.
 %
-All the spectra were transformed into the stellar rest-frame and onto a common wavelength grid using linear interpolation. %For UVES, the \ce{Fe} \hl{NNNN angstrom} line was used to track global wavelength drifts between different exposures which were corrected for at the same time. To measure these, a Gaussian was fit to the line, and the velocity offset from the rest frame position determined. 
+All the spectra were transformed into the stellar rest-frame and onto a common wavelength grid using linear interpolation.
 
-%
-After all the spectra were all transformed into the stellar rest frame, an average nightly spectrum was made from all spectra within a night for each of the nights of observations. This was done after correcting for variations in the effective blaze profile (e.g., due to instrumental changes, differential slit/fiber losses, atmospheric absorption, etc.), as outlined below. Note that after this correction, the %HARPS 
-data still have the overall instrumental blaze-profile included.%, while the 2d-spectra from UVES were already corrected for this.
+After all the spectra were all transformed into the stellar rest frame, an average nightly spectrum was made from all spectra within a night for each of the nights of observations. This was done after correcting for variations in the effective blaze profile (e.g., due to instrumental changes, differential slit/fiber losses, atmospheric absorption, etc.), as outlined below. Note that after this correction, the data still have the overall instrumental blaze-profile included.
 
 \subsection{Effective Blaze function correction}\label{sect:blaze}
 
-The night of 2018-05-06, which has a high signal-to-noise ratio, was chosen to act as an initial estimate for the blaze function.%(the night of 2018-05-06 and \hl{DATE} for UVES).
+The night of 2018-05-06, which has a high signal-to-noise ratio, was chosen to act as an initial estimate for the blaze function.
 %
 The individual spectra from this night were averaged together to further boost the signal-to-noise ratio.
 %
@@ -236,15 +234,13 @@ Note that the change of fiber for HARPS in June 2015 (JD$\sim$2,457,180) resulte
 
 After the blaze-variation corrections, all the spectra within a night are combined in order to further boost the signal-to-noise and improve the detection limits.
 %
-Each individual spectrum was weighted using the average signal-to-noise ratio provided in the header for orders 0 and 11 (3780\,\AA{} - 4075\AA).%\hl{, and OO and PP} for HARPS and UVES respectively.
+Each individual spectrum was weighted using the average signal-to-noise ratio provided in the header for orders 0 and 11 (3780\,\AA{} - 4075\AA).
 
 \subsection{Removing the stellar spectrum}\label{sect:starcor}
 The processing up to this stage removes most of the variations in the effective blaze function, but the overall stellar spectrum and, for HARPS, shape of the blaze profile, are still present and need to be removed. 
 
-%For both HARPS and UVES w
 We first perform a second iteration of blaze corrections using a stellar spectrum constructed by averaging the spectra from periods with a low comet activity (see Sect.~\ref{sect:FEBid}), similar to the method before, however, now using a wider binsize of 150 pixels and clipping outliers at 4.5 MAD away from the median.
 %
-%For HARPS
 This is done separately pre- and post-fiber change. The correction is done similar to Sect.~\ref{sect:blaze}, however, an 8th order polynomial was used.
 
 After this post-processing the overall (residual) blaze profile and stellar spectrum still need to be removed.
@@ -267,8 +263,7 @@ After the initial data analysis, we proceed to with our search for lines from \c
 %
 Although we are interested in lines from the exocomets, we first co-add the data from all the individual epochs, in the stellar rest-frame, to obtain a deep search for circumstellar \ce{CN} absorption.
 %
-These coadded spectra %for \ac{harps} and \ac{uves} 
-are shown in Figure~\ref{fig:spec_CN_stellar_frame}.
+These coadded spectra are shown in Figure~\ref{fig:spec_CN_stellar_frame}.
 %
 No obvious feature from the \ce{CN} band jumps out, and we need to combine the signal from the lines within the \ce{CN} band to improve the detection limits.
 %
@@ -280,9 +275,7 @@ The comet features in the \ion{Ca}{ii} H-line ($\lambda=3968$ \AA) were identifi
 %
 The deepest absorption feature in each observing night was selected, and the location and depth stored.
 %
-For the comet sample we selected features deeper than 60\% %\hl{and 40\%} for HARPS and UVES, respectively, 
-while spectra with features below 15\% %for both HARPS and UVES 
-were flagged as `low activity'.
+For the comet sample we selected features deeper than 60\% while spectra with features below 15\% were flagged as `low activity'.
 %
 The distribution of feature locations and depths is shown in Figure~\ref{fig:FEB_velocity}. The dates, velocities and depths of the selected exocomets can be found in Tab.~\ref{tab:FEB_data}
 
@@ -346,9 +339,9 @@ The theoretical spectra of \ce{CN} for several different temperatures are shown 
 
 When creating the CCFs, the region around the narrow, circumstellar \ion{Fe}{I} lines in this wavelength region (see Figs.~\ref{fig:spec_CN_stellar_frame}~and~\ref{fig:spec_CN_comet_frame}) were masked to avoid contamination, especially for the higher temperature CN models.
 %
-We masked the lines detected in \citep{Kiefer2018}, using a width of $\pm$0.35~$\AA$ for the \ion{Fe}{I} 3859.9$\AA$ line, while for the other lines a width of $\pm$0.15$\AA$ was used.
+We masked the lines detected in \citep{Kiefer2018}, using a width of $\pm0.35$\AA{} for the \ion{Fe}{I} 3859.9\AA{} line, while for the other lines a width of $\pm0.15$\AA{} was used.
 
-Even after cross-correlating, the stacked CCFs (see Fig.~\ref{fig:ccf_mean} do not show any clear signals, and we therefore proceed to estimate our detection limits.
+Even after cross-correlating, the stacked CCFs (see Fig.~\ref{fig:ccf_mean}) do not show any clear signals, and we therefore proceed to estimate our detection limits.
 
 \begin{figure}
     \begin{centering}
@@ -604,7 +597,7 @@ This presents an excellent opportunity for coordinated spectroscopic campaigns w
 The authors thank the Lorentz Centre at Leiden University for organising the workshop ``Exocomets: Understanding the Composition of Planetary Building Blocks'' which led to the study in this paper. 
 %
 Part of this work was supported by the German \emph{Deut\-sche For\-schungs\-ge\-mein\-schaft, DFG\/} project number Ts~17/2--1.
-
+%
 AF acknowledges support from STFC award ST/T00021X/1. EdM acknowledges support from STFC award ST/X00094X/1.
 %
 We made use of the {\tt Python} programming language \citep{rossum1995} and the open-source {\tt Python} packages {\tt numpy} \citep{walt2011}, {\tt matplotlib} \citep{hunter2007}, {\tt astropy} \citep{astropy2013}.
@@ -615,7 +608,6 @@ An online repository with materials used in this work is available at \url{https
 
 \bibliographystyle{aa}
 \bibliography{bib.bib}
-
 
 \clearpage
 \FloatBarrier
