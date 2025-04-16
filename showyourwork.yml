@@ -16,7 +16,7 @@ overleaf:
     - src/tex/bib.bib
 
 datasets:
-  10.5281/zenodo.14736412:
+  10.5281/zenodo.15226870:
     contents:
       2d_baryvel.fits: src/data/2d_baryvel.fits
       2d_nspec.fits: src/data/2d_nspec.fits
