@@ -98,7 +98,7 @@ One of the closest young planetary systems is $\beta$~Pictoris, which has been s
 %
 The star is a rapid rotator \citep[$124\pm 3$\,\kms{}; ][]{Koen03} seen close to equator on.
 %
-Amongst these, the Ca H and K lines show deep absorption down to 0.1 of the continuum level.
+Amongst these, the \ce{Ca} H and K lines show deep absorption down to 0.1 of the continuum level.
 %
 Deep within this rotationally broadened line there is a consistent and stable narrow absorption feature with a full width half maximum (FWHM) of a few km/s, attributed to the presence of the circumstellar material \citep{Hobbs85,VidalMadjar86}.
 
@@ -237,6 +237,7 @@ After the blaze-variation corrections, all the spectra within a night are combin
 Each individual spectrum was weighted using the average signal-to-noise ratio provided in the header for orders 0 and 11 (3780\,\AA{} - 4075\AA).
 
 \subsection{Removing the stellar spectrum}\label{sect:starcor}
+
 The processing up to this stage removes most of the variations in the effective blaze function, but the overall stellar spectrum and, for HARPS, shape of the blaze profile, are still present and need to be removed. 
 
 We first perform a second iteration of blaze corrections using a stellar spectrum constructed by averaging the spectra from periods with a low comet activity (see Sect.~\ref{sect:FEBid}), similar to the method before, however, now using a wider binsize of 150 pixels and clipping outliers at 4.5 MAD away from the median.
@@ -485,7 +486,6 @@ $$N_{\ce{CN}}=Q_{\ce{CN}} \tau_{\ce{CN}}$$
 
 $$N_{\ce{CN}}\sim 9\times10^{27} \cdot  3000 \sim 3\times10^{31}\:{\rm molecules}$$
 
-%\subsubsection{\ce{CN} Cross-section}
 The effective cross section of the coma will depend on how much is projected against the disk of \bp{}.
 %
 The radius of the \ce{CN} coma will be given by
@@ -550,8 +550,8 @@ Hence the total amount of \ce{CN} in the coma should be approximately independen
 
 Finally, comets have impulsive outbursts, where the amount of material ejected into the coma increases significantly over a few hours or less.
 %
-The general causes are unclear, but there is evidence for several physical mechanisms that cause them 
-\citep{Kelley2021,Muller2024}.
+The general causes are unclear, but there is evidence for several physical mechanisms that cause them \citep{Kelley2021,Muller2024}.
+%
 ``Normal'' outbursts generally result in a brightness increases of 1--5 magnitudes, with smaller outbursts being more common.
 %
 As the apparent brightness is directly proportional to the amount of material (gas+dust) in the coma, this implies short term increases in $N_{\ce{CN}}$ and $n$ of factors $\sim 2-100$.
@@ -598,7 +598,9 @@ The authors thank the Lorentz Centre at Leiden University for organising the wor
 %
 Part of this work was supported by the German \emph{Deut\-sche For\-schungs\-ge\-mein\-schaft, DFG\/} project number Ts~17/2--1.
 %
-AF acknowledges support from STFC award ST/T00021X/1. EdM acknowledges support from STFC award ST/X00094X/1.
+AF acknowledges support from STFC award ST/T00021X/1.
+%
+EdM acknowledges support from STFC award ST/X00094X/1.
 %
 We made use of the {\tt Python} programming language \citep{rossum1995} and the open-source {\tt Python} packages {\tt numpy} \citep{walt2011}, {\tt matplotlib} \citep{hunter2007}, {\tt astropy} \citep{astropy2013}.
 %      
@@ -614,12 +616,13 @@ An online repository with materials used in this work is available at \url{https
 
 \begin{appendix}
     
-\section{Selected exocomets.}\label{sec:app_FEBs}
-The dates for the nights selected to have the strongest exocomet features, as well as the depths and velocities of these features can be found in Tab.~\ref{tab:FEB_data}.
-\begin{table}
-\caption{Table with the nights with the strongest exocomet features. Note that the dates given are for the average of all the observations that were combined during each of the nights.}\label{tab:FEB_data}
+\section{Selected exocomets}\label{sec:app_FEBs}
+The dates for the nights selected to have the strongest exocomet features, as well as the depths and velocities of these features can be found in Table~\ref{tab:FEB_data}.
+\begin{table}[h]
+\caption{Nights with the strongest exocomet features.}
+\label{tab:FEB_data}
 \begin{tabular}{c c c}
-   BJD-2,400,000  &    v$_{comet}$  &  Depth\\
+   BJD-2,400,000\tablefootmark{a}  &    v$_{comet}$  &  Depth\\
  & [km/s] & \\
  \hline
 \hline
@@ -659,7 +662,9 @@ The dates for the nights selected to have the strongest exocomet features, as we
 56534.3 & 12.9 & 0.76\\
 56536.3 &  8.6 & 0.61\\
 57849.0 & 10.3 & 0.73\\
+\hline
 \end{tabular}
+\tablefoot{\tablefoottext{a}{Dates given are for the average of all the observations that were combined during each of the nights.}}
 \end{table}
 
 \end{appendix}

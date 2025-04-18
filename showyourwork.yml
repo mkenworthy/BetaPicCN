@@ -47,14 +47,24 @@ datasets:
       v_phasefold.fits: src/data/v_phasefold.fits
       wave_corrected_spectra.fits: src/data/wave_corrected_spectra.fits
       CN_0010K.npy: src/data/CN/CN_0010K.npy
+      CN_0015K.npy: src/data/CN/CN_0015K.npy
       CN_0020K.npy: src/data/CN/CN_0020K.npy
       CN_0030K.npy: src/data/CN/CN_0030K.npy
+      CN_0040K.npy: src/data/CN/CN_0040K.npy
       CN_0050K.npy: src/data/CN/CN_0050K.npy
+      CN_0075K.npy: src/data/CN/CN_0075K.npy
       CN_0100K.npy: src/data/CN/CN_0100K.npy
+      CN_0150K.npy: src/data/CN/CN_0150K.npy
       CN_0200K.npy: src/data/CN/CN_0200K.npy
+      CN_0250K.npy: src/data/CN/CN_0250K.npy
       CN_0300K.npy: src/data/CN/CN_0300K.npy
+      CN_0400K.npy: src/data/CN/CN_0400K.npy
+      CN_0500K.npy: src/data/CN/CN_0500K.npy
+      CN_0750K.npy: src/data/CN/CN_0750K.npy
       CN_1000K.npy: src/data/CN/CN_1000K.npy
+      CN_1500K.npy: src/data/CN/CN_1500K.npy
       CN_2000K.npy: src/data/CN/CN_2000K.npy
+      CN_2500K.npy: src/data/CN/CN_2500K.npy
       CN_3000K.npy: src/data/CN/CN_3000K.npy
       CN_wavelengths.npy: src/data/CN/CN_wavelengths.npy
 
@@ -75,13 +85,25 @@ dependencies:
     - src/data/results_HARPS.txt
   src/scripts/analyse_HARPS_spectra.py:
     - src/data/CN/CN_0010K.npy
+    - src/data/CN/CN_0015K.npy
     - src/data/CN/CN_0020K.npy
+    - src/data/CN/CN_0030K.npy
+    - src/data/CN/CN_0040K.npy
     - src/data/CN/CN_0050K.npy
+    - src/data/CN/CN_0075K.npy
     - src/data/CN/CN_0100K.npy
+    - src/data/CN/CN_0150K.npy
     - src/data/CN/CN_0200K.npy
+    - src/data/CN/CN_0250K.npy
     - src/data/CN/CN_0300K.npy
+    - src/data/CN/CN_0400K.npy
+    - src/data/CN/CN_0500K.npy
+    - src/data/CN/CN_0750K.npy
     - src/data/CN/CN_1000K.npy
+    - src/data/CN/CN_1500K.npy
     - src/data/CN/CN_2000K.npy
+    - src/data/CN/CN_2500K.npy
+    - src/data/CN/CN_3000K.npy
     - src/data/CN/CN_wavelengths.npy
     - src/data/2d_nspec.fits
     - src/data/2d_spec.fits

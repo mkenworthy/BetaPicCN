@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+-*- coding: utf-8 -*-
 """
 Created on Tue Jul 26 15:54:53 2022
 
@@ -324,7 +324,7 @@ def generate_CCFs_orders(wlens,data_for_ccf,spec,pixels,broadening=5.,binsize=80
         ## Filter out the strongest circumstellar Fe I lines, that could contaminate the signal.
         idx=(indexing >= o_start[ord])*(indexing<o_end[ord])*(np.abs(wlens[ord,:]-3860.18)>0.35)*(np.abs(wlens[ord,:]-3856.63)>0.15)*(np.abs(wlens[ord,:]-3865.78)>0.1)*(np.abs(wlens[ord,:]-3878.83)>0.1)*(np.abs(wlens[ord,:]-3886.54)>0.1)
         
-        #ccf,ccf0=c_correlate(wlens[ord,o_start[ord]:o_end[ord]],data_for_ccf[:,ord,o_start[ord]:o_end[ord]],imdl_conv,dv=v_ccf)
+
         ccf,ccf0=c_correlate(wlens[ord,idx],data_for_ccf[:,ord,idx],imdl_conv,dv=v_ccf)
         m_ccf[:,ord,:]=ccf.copy()
 
@@ -344,17 +344,6 @@ def generate_CCFs_orders(wlens,data_for_ccf,spec,pixels,broadening=5.,binsize=80
         sim_ccf,sim_ccf0=c_correlate(wlens[ord,idx],sim_dat[:,ord,idx],imdl_conv,dv=v_ccf)
         m_sim_ccf[:,ord,:]=sim_ccf.copy()
 
-    '''
-    hdu=fits.PrimaryHDU( align_spectra(wlens,sim_dat,v_comet).swapaxes(1,0))
-    hdu.writeto('sim_tmp_{0:04d}_{1:.2e}.fits'.format(T_gas,N),overwrite=True)
-    
-    idx=(np.abs( 3e5*(wlens[7,:]-3933.663)/3933.663) < 10)+(np.abs( 3e5*(wlens[7,:]-3968.469)/3968.469) < 10)
-    for i in range(sim_dat.shape[0]):
-        sim_dat[i,7,idx]=np.nan
-    hdu=fits.PrimaryHDU( sim_dat.swapaxes(1,0))
-    hdu.writeto('sim_tmp0_{0:04d}_{1:.2e}.fits'.format(T_gas,N),overwrite=True)
-    '''
-    
     return v_ccf,m_ccf,m_sim_ccf
 
 
@@ -428,12 +417,7 @@ def estimate_significance(v_ccf,ccf,v_c=0.,dv=15.,sim=False):
         perr=np.sqrt(np.diag(pcov))              
         fit[-1,:]=np.array(popt)
         err[-1,:]=np.array(perr)
-        '''
-        plt.figure()
-        plt.errorbar(v_ccf[idx],m_ccf[idx],s_ccf[idx],fmt='k')
-        plt.plot(v_ccf[idx],func(v_ccf[idx],popt[0],popt[1],popt[2],popt[3],popt[4]),'g')
-        plt.show()
-        '''
+
         print(popt[0]/perr[0],popt[1]/perr[1])
     except:
         print("comb, no convergence")
@@ -475,8 +459,7 @@ def run_ccf_ord_multi_temp(wlens,data_for_ccf,spec,pixels,f,binsize=81,v_comet=0
     N0=np.hstack([np.arange(1,10)*1e11,np.arange(1,10)*1e12,np.arange(1,10)*1e13,np.arange(1,10)*1e14,np.arange(1,10)*1e15])
     N0=10.**(np.linspace(11.+np.log10(2),15.+np.log10(2),50))
     print(N0)
-    T_gas0=np.asarray([10, 15, 20, 15, 30,40, 50, 75, 100, 150, 200, 250, 300, 400, 500, 750, 1000, 1500, 2000, 2500, 3000])#[10, 20, 30, 50, 100, 200, 300, 500, 1000, 2000, 3000])
-    # short run version for quick examination
+    T_gas0=np.asarray([10, 15, 20, 30,40, 50, 75, 100, 150, 200, 250, 300, 400, 500, 750, 1000, 1500, 2000, 2500, 3000])
 
     # tried different line broadenings for the CN model (FWHM in km/s) [from instrumental resolution up to 20km/s
     broadening0=np.array([3e5/1.1e5,5.,10.,15.,20.])
