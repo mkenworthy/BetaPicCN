@@ -157,6 +157,8 @@ dependencies:
     - src/data/FEB_depths.fits
     - src/data/FEB_velocities.fits
 
+stamp:
+  enabled: false
 verbose:
   true
 
