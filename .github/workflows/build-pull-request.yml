@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Build the article PDF
     concurrency: showyourwork-${{ github.ref }}
-    article-cache-number: null
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -20,6 +19,7 @@ jobs:
         with:
           showyourwork-spec: git+https://github.com/showyourwork/showyourwork
         uses: showyourwork/showyourwork-action@main
+        article-cache-number: null
         env:
           SANDBOX_TOKEN: ${{ secrets.SANDBOX_TOKEN }}
           OVERLEAF_EMAIL: ${{ secrets.OVERLEAF_EMAIL }}
