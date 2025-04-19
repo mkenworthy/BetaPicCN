@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Build the article PDF
     concurrency: showyourwork-${{ github.ref }}
+    article-cache-number: null
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        article-cache-number: null
         with:
           fetch-depth: 0
 
