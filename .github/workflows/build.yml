@@ -19,8 +19,7 @@ jobs:
         with:
             showyourwork-spec: git+https://github.com/showyourwork/showyourwork
             conda-cache-number: null
-        uses: HealthyPear/showyourwork-action@update-setup-node
-#        uses: showyourwork/showyourwork-action@main
+        uses: showyourwork/showyourwork-action@main
         env:
           SANDBOX_TOKEN: ${{ secrets.SANDBOX_TOKEN }}
           OVERLEAF_EMAIL: ${{ secrets.OVERLEAF_EMAIL }}
